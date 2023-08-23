@@ -2,7 +2,7 @@
 
 namespace CustomItemAPI.API
 {
-    public static class CustomItemTracker
+    public static class CustomItemManager
     {
         // Track the custom items, other plugins should be able to access this.
 
