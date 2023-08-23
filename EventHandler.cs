@@ -49,5 +49,41 @@ namespace CustomItemAPI
                     equippableOld.Unequip(_event.Player, _event.OldItem);
             }
         }
+
+        [PluginEvent(ServerEventType.PlayerShotWeapon)]
+        public void PlayerShotWeapon(PlayerShotWeaponEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm firearm))
+                return;
+
+            firearm.Shoot(_event.Player, _event.Firearm);
+        }
+
+        [PluginEvent(ServerEventType.PlayerReloadWeapon)]
+        public void PlayerReloadWeapon(PlayerReloadWeaponEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm firearm))
+                return;
+
+            firearm.Reload(_event.Player, _event.Firearm);
+        }
+
+        [PluginEvent(ServerEventType.PlayerUnloadWeapon)]
+        public void PlayerUnloadWeapon(PlayerUnloadWeaponEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm firearm))
+                return;
+
+            firearm.Unload(_event.Player, _event.Firearm);
+        }
+
+        [PluginEvent(ServerEventType.PlayerAimWeapon)]
+        public void PlayerAimWeapon(PlayerAimWeaponEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm firearm))
+                return;
+
+            firearm.Aim(_event.Player, _event.Firearm, _event.IsAiming);
+        }
     }
 }

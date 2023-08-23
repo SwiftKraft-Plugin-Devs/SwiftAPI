@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="API\CustomItemBase.cs" />
     <Compile Include="API\CustomItemEquippable.cs" />
+    <Compile Include="API\CustomItemFirearm.cs" />
     <Compile Include="API\CustomItemManager.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Plugin.cs" />
