@@ -56,9 +56,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\CustomItem.cs" />
+    <Compile Include="API\CustomItemBase.cs" />
     <Compile Include="API\CustomItemEquippable.cs" />
     <Compile Include="API\CustomItemManager.cs" />
+    <Compile Include="EventHandler.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
