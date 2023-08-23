@@ -1,4 +1,5 @@
-﻿using PluginAPI.Core;
+﻿using Hints;
+using PluginAPI.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace CustomItemAPI.API
         /// <param name="_itemSerial"></param>
         public virtual void Equip(Player _player, ushort _itemSerial)
         {
-            _player.ReceiveHint("Equipped: " + DisplayName);
+            _player.ReceiveHint("Equipped: " + DisplayName, new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
         }
 
         /// <summary>

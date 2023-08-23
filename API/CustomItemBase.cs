@@ -1,4 +1,5 @@
-﻿using InventorySystem.Items;
+﻿using Hints;
+using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using PluginAPI.Core;
 using System;
@@ -23,6 +24,8 @@ namespace CustomItemAPI.API
         public string CustomItemID;
         public string DisplayName;
 
+        public ItemType BaseItem;
+
         /// <summary>
         /// Called when picking up item.
         /// </summary>
@@ -30,7 +33,7 @@ namespace CustomItemAPI.API
         /// <param name="_itemSerial"></param>
         public virtual void Pickup(Player _player, ItemPickupBase _itemSerial)
         {
-            _player.ReceiveHint("Picking Up: " + DisplayName);
+            _player.ReceiveHint("Picking Up: " + DisplayName, new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
         }
 
         /// <summary>
@@ -40,11 +43,11 @@ namespace CustomItemAPI.API
         /// <param name="_itemSerial"></param>
         public virtual void Drop(Player _player, ItemBase _itemSerial)
         {
-            _player.ReceiveHint("Dropped: " + DisplayName);
+            _player.ReceiveHint("Dropped: " + DisplayName, new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
         }
 
         /// <summary>
-        /// Called when added as a custom item.
+        /// Called when the custom item is created.
         /// This will be called before the dictionary is updated.
         /// </summary>
         /// <param name="_itemSerial"></param>

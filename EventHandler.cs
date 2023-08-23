@@ -1,17 +1,29 @@
 ﻿using CustomItemAPI.API;
+using CustomPlayerEffects;
+using Hints;
+using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.BasicMessages;
+using PlayerRoles;
+using PlayerStatsSystem;
+using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using PluginAPI.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CustomItemAPI
 {
     public class EventHandler
     {
+        [PluginEvent(ServerEventType.PlayerInteractScp330)]
+        public void DebugActions(PlayerInteractScp330Event _event)
+        {
+            if (!Plugin.DebugMode)
+                return;
+
+            _event.Player.GiveCustomItem("debug_item");
+            _event.Player.GiveCustomItem("debug_gun");
+        }
+
         [PluginEvent(ServerEventType.PlayerSearchPickup)]
         public void PlayerSearchPickup(PlayerSearchPickupEvent _event)
         {
@@ -60,21 +72,21 @@ namespace CustomItemAPI
         }
 
         [PluginEvent(ServerEventType.PlayerReloadWeapon)]
-        public void PlayerReloadWeapon(PlayerReloadWeaponEvent _event)
+        public bool PlayerReloadWeapon(PlayerReloadWeaponEvent _event)
         {
             if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm firearm))
-                return;
+                return true;
 
-            firearm.Reload(_event.Player, _event.Firearm);
+            return firearm.Reload(_event.Player, _event.Firearm);
         }
 
         [PluginEvent(ServerEventType.PlayerUnloadWeapon)]
-        public void PlayerUnloadWeapon(PlayerUnloadWeaponEvent _event)
+        public bool PlayerUnloadWeapon(PlayerUnloadWeaponEvent _event)
         {
             if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm firearm))
-                return;
+                return true;
 
-            firearm.Unload(_event.Player, _event.Firearm);
+            return firearm.Unload(_event.Player, _event.Firearm);
         }
 
         [PluginEvent(ServerEventType.PlayerAimWeapon)]
@@ -84,6 +96,24 @@ namespace CustomItemAPI
                 return;
 
             firearm.Aim(_event.Player, _event.Firearm, _event.IsAiming);
+        }
+
+        [PluginEvent(ServerEventType.PlayerDamage)]
+        public bool PlayerDamage(PlayerDamageEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Player.CurrentItem.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Player.CurrentItem.ItemSerial) is CustomItemFirearm firearm))
+                return true;
+
+            return firearm.Damage(_event.Player, _event.Target, _event.DamageHandler);
+        }
+
+        [PluginEvent(ServerEventType.PlayerShotWeapon)]
+        public void OnShotWeapon(PlayerShotWeaponEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm gun))
+                return;
+
+            gun.Shoot(_event.Player, _event.Firearm);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using InventorySystem.Items;
+using PluginAPI.Core;
+using System.Collections.Generic;
 
 namespace CustomItemAPI.API
 {
@@ -83,6 +85,7 @@ namespace CustomItemAPI.API
             if (!RegisteredItems.ContainsKey(_id))
             {
                 RegisteredItems.Add(_id, _item);
+                _item.CustomItemID = _id;
                 return true;
             }
 
@@ -173,6 +176,17 @@ namespace CustomItemAPI.API
         public static bool IsRegistered(string _id)
         {
             return RegisteredItems.ContainsKey(_id);
+        }
+
+        public static void GiveCustomItem(this Player _player, CustomItemBase _item)
+        {
+            ItemBase _it = _player.AddItem(_item.BaseItem);
+            AddCustomItem(_it.ItemSerial, _item);
+        }
+
+        public static void GiveCustomItem(this Player _player, string _itemId)
+        {
+            _player.GiveCustomItem(GetCustomItemWithID(_itemId));
         }
     }
 }
