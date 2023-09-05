@@ -104,7 +104,7 @@ namespace CustomItemAPI
             Player player = _event.Target;
             Player target = _event.Player;
 
-            if (player.CurrentItem == null || !CustomItemManager.IsCustomItem(player.CurrentItem.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(player.CurrentItem.ItemSerial) is CustomItemFirearm firearm))
+            if (player == null || target == null || player.CurrentItem == null || !CustomItemManager.IsCustomItem(player.CurrentItem.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(player.CurrentItem.ItemSerial) is CustomItemFirearm firearm))
                 return true;
 
             return firearm.Damage(player, target, _event.DamageHandler);

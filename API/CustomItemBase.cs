@@ -2,11 +2,7 @@
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using PluginAPI.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CustomItemAPI.API
 {
@@ -27,23 +23,23 @@ namespace CustomItemAPI.API
         public ItemType BaseItem;
 
         /// <summary>
-        /// Called when picking up item.
+        /// Called when picking up the item.
         /// </summary>
         /// <param name="_player"></param>
         /// <param name="_itemSerial"></param>
         public virtual void Pickup(Player _player, ItemPickupBase _itemSerial)
         {
-            _player.ReceiveHint("Picking Up: " + DisplayName, new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+            _player.ReceiveHint($"Picking Up: <b><color=#00FFFF>{DisplayName}</color></b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
         }
 
         /// <summary>
-        /// Called when dropped item.
+        /// Called when dropped the item.
         /// </summary>
         /// <param name="_player"></param>
         /// <param name="_itemSerial"></param>
         public virtual void Drop(Player _player, ItemBase _itemSerial)
         {
-            _player.ReceiveHint("Dropped: " + DisplayName, new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+            _player.ReceiveHint($"Dropped: <b><color=#00FFFF>{DisplayName}</color></b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
         }
 
         /// <summary>
