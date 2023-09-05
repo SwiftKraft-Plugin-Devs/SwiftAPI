@@ -47,6 +47,19 @@ namespace CustomItemAPI
                         MagazineSize = 99
                     }
                 });
+                CustomItemManager.RegisterItem("debug_gun2", new CustomItemFirearm()
+                {
+                    BaseItem = ItemType.GunCOM15,
+                    DisplayName = "Debug Gun 2",
+                    Data = new CustomFirearmData()
+                    {
+                        HeadDamage = 100f,
+                        BodyDamage = 25f,
+                        LimbDamage = 20f,
+                        SCPDamage = 25f,
+                        MagazineSize = 99
+                    }
+                });
             }
         }
     }

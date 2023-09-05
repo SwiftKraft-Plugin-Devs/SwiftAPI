@@ -18,7 +18,7 @@ namespace CustomItemAPI.API
         /// Dictionary for registering items.
         /// Keeps track of available custom item types.
         /// </summary>
-        public static readonly Dictionary<string, CustomItemBase> RegisteredItems = new Dictionary<string, CustomItemBase>();
+        public static readonly SortedDictionary<string, CustomItemBase> RegisteredItems = new SortedDictionary<string, CustomItemBase>();
 
         /// <summary>
         /// Adds a custom item to the tracker dictionary.

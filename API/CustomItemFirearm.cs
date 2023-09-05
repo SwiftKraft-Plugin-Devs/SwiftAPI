@@ -45,20 +45,15 @@ namespace CustomItemAPI.API
             if (delay)
                 return;
 
-            CustomItemFirearm gun = (CustomItemFirearm)CustomItemManager.GetCustomItemWithSerial(_gun.ItemSerial);
+            ResetFirearm(_gun, this);
 
-            if (gun == null)
-                return;
-
-            ResetFirearm(_gun, gun);
-
-            if (gun.Data.ExtraBulletCount > 0)
+            if (Data.ExtraBulletCount > 0)
             {
                 delay = true;
 
-                for (int i = 0; i < gun.Data.ExtraBulletCount; i++)
+                for (int i = 0; i < Data.ExtraBulletCount; i++)
                 {
-                    ResetFirearm(_gun, gun);
+                    ResetFirearm(_gun, this);
 
                     _gun.HitregModule.ClientCalculateHit(out ShotMessage msg);
                     _gun.HitregModule.ServerProcessShot(msg);
@@ -88,26 +83,24 @@ namespace CustomItemAPI.API
                 float damage = 0f;
                 float hitmarker = 1f;
 
-                CustomItemFirearm gun = (CustomItemFirearm)CustomItemManager.GetCustomItemWithSerial(_player.CurrentItem.ItemSerial);
-
                 switch (standard.Hitbox)
                 {
                     case HitboxType.Headshot:
                         hitmarker = 2.5f;
-                        damage = gun.Data.HeadDamage;
+                        damage = Data.HeadDamage;
                         break;
                     case HitboxType.Body:
                         hitmarker = 1f;
-                        damage = gun.Data.BodyDamage;
+                        damage = Data.BodyDamage;
                         break;
                     case HitboxType.Limb:
                         hitmarker = 0.5f;
-                        damage = gun.Data.LimbDamage;
+                        damage = Data.LimbDamage;
                         break;
                 }
 
                 if (_target.IsSCP)
-                    damage = gun.Data.SCPDamage;
+                    damage = Data.SCPDamage;
 
                 if ((_player.Role.GetFaction() != _target.Role.GetFaction()) || (Server.FriendlyFire && _player.Role.GetFaction() == _target.Role.GetFaction()))
                 {
@@ -118,14 +111,14 @@ namespace CustomItemAPI.API
 
                     standard.Damage = damage;
                 }
-                else if (gun.Data.FriendlyAction != FirearmFriendlyAction.None && _target.Role.GetFaction() == _player.Role.GetFaction())
+                else if (Data.FriendlyAction != FirearmFriendlyAction.None && _target.Role.GetFaction() == _player.Role.GetFaction())
                 {
                     _player.ReceiveHitMarker();
 
-                    switch (gun.Data.FriendlyAction) // Needs refactoring to custom friendly action classes
+                    switch (Data.FriendlyAction) // Needs refactoring to custom friendly action classes
                     {
                         case FirearmFriendlyAction.Heal:
-                            damage = gun.Data.FriendlyValue;
+                            damage = Data.FriendlyValue;
 
                             if (_target.Health < _target.MaxHealth)
                                 _target.Heal(damage);
@@ -134,7 +127,7 @@ namespace CustomItemAPI.API
                             _target.ReceiveHint("Healing From " + _player.DisplayNickname + ": <color=#00FF00>+" + (int)damage + " HP</color>", new HintEffect[] { HintEffectPresets.FadeOut() }, 1f);
                             break;
                         case FirearmFriendlyAction.Speed:
-                            damage = gun.Data.FriendlyValue;
+                            damage = Data.FriendlyValue;
                             MovementBoost m = _target.EffectsManager.EnableEffect<MovementBoost>(3f, false);
                             m.Intensity = (byte)damage;
                             m = _player.EffectsManager.EnableEffect<MovementBoost>(3f, false);
@@ -145,8 +138,8 @@ namespace CustomItemAPI.API
                     }
                 }
 
-                if (gun.Data.LifeSteal != 0 && (_target.Role != _player.Role) && (_target.Role.GetFaction() != _player.Role.GetFaction() || Server.FriendlyFire || _player.Health >= _player.MaxHealth))
-                    _player.Heal(damage * gun.Data.LifeSteal);
+                if (Data.LifeSteal != 0 && (_target.Role != _player.Role) && (_target.Role.GetFaction() != _player.Role.GetFaction() || Server.FriendlyFire || _player.Health >= _player.MaxHealth))
+                    _player.Heal(damage * Data.LifeSteal);
             }
 
             return true;
@@ -159,9 +152,9 @@ namespace CustomItemAPI.API
         /// <param name="_gun"></param>
         public virtual bool Reload(Player _player, Firearm _gun)
         {
-            CustomItemFirearm gun = (CustomItemFirearm)CustomItemManager.GetCustomItemWithSerial(_gun.ItemSerial);
+            ResetFirearm(_gun, this);
 
-            if (_gun.Status.Ammo >= gun.Data.MagazineSize)
+            if (Data.CannotReload)
                 return false;
 
             return true;
@@ -174,6 +167,8 @@ namespace CustomItemAPI.API
         /// <param name="_gun"></param>
         public virtual bool Unload(Player _player, Firearm _gun)
         {
+            ResetFirearm(_gun, this);
+
             return true;
         }
 
@@ -183,7 +178,10 @@ namespace CustomItemAPI.API
         /// <param name="_player"></param>
         /// <param name="_gun"></param>
         /// <param name="_isAiming"></param>
-        public virtual void Aim(Player _player, Firearm _gun, bool _isAiming) { }
+        public virtual void Aim(Player _player, Firearm _gun, bool _isAiming)
+        {
+            ResetFirearm(_gun, this);
+        }
 
         /// <summary>
         /// Applies the custom stats to a firearm.
@@ -257,7 +255,7 @@ namespace CustomItemAPI.API
 
         public override void ActionHint(Player _player, string _action)
         {
-            _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>\nAmmo: <b><color=#00FF00>{((Firearm)_player.CurrentItem).Status.Ammo}</color></b>/{Data.MagazineSize}", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+            _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>\nAmmo: <b><color=#FFFF00>{((Firearm)_player.CurrentItem).Status.Ammo}</color>/{Data.MagazineSize}</b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
         }
     }
 
@@ -286,6 +284,8 @@ namespace CustomItemAPI.API
         public byte ChamberSize;
 
         public int ExtraBulletCount;
+
+        public bool CannotReload;
 
         public FirearmFriendlyAction FriendlyAction;
     }
