@@ -20,26 +20,42 @@ namespace CustomItemAPI.API
         public string CustomItemID;
         public string DisplayName;
 
+        public bool Undroppable;
+
         public ItemType BaseItem;
 
         /// <summary>
         /// Called when picking up the item.
         /// </summary>
         /// <param name="_player"></param>
-        /// <param name="_itemSerial"></param>
-        public virtual void Pickup(Player _player, ItemPickupBase _itemSerial)
+        /// <param name="_itemPickupBase"></param>
+        public virtual bool StartPickup(Player _player, ItemPickupBase _itemPickupBase)
         {
-            _player.ReceiveHint($"Picking Up: <b><color=#00FFFF>{DisplayName}</color></b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+            ActionHint(_player, "Picking Up");
+            return true;
+        }
+
+        /// <summary>
+        /// Called when picked up the item.
+        /// </summary>
+        /// <param name="_player"></param>
+        /// <param name="_itemPickupBase"></param>
+        public virtual bool EndPickup(Player _player, ItemPickupBase _itemPickupBase)
+        {
+            ActionHint(_player, "Picked Up");
+            return true;
         }
 
         /// <summary>
         /// Called when dropped the item.
         /// </summary>
         /// <param name="_player"></param>
-        /// <param name="_itemSerial"></param>
-        public virtual void Drop(Player _player, ItemBase _itemSerial)
+        /// <param name="_item"></param>
+        public virtual bool Drop(Player _player, ItemBase _item)
         {
-            _player.ReceiveHint($"Dropped: <b><color=#00FFFF>{DisplayName}</color></b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+            ActionHint(_player, Undroppable ? "Unable To Drop" : "Dropped");
+
+            return !Undroppable;
         }
 
         /// <summary>
@@ -123,6 +139,11 @@ namespace CustomItemAPI.API
             _status = null;
 
             return false;
+        }
+
+        public virtual void ActionHint(Player _player, string _action)
+        {
+            _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
         }
     }
 

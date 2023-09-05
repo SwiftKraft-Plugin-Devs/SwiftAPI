@@ -2,9 +2,6 @@
 using CustomPlayerEffects;
 using Hints;
 using InventorySystem.Items.Firearms;
-using InventorySystem.Items.Firearms.BasicMessages;
-using PlayerRoles;
-using PlayerStatsSystem;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
@@ -25,23 +22,69 @@ namespace CustomItemAPI
         }
 
         [PluginEvent(ServerEventType.PlayerSearchPickup)]
-        public void PlayerSearchPickup(PlayerSearchPickupEvent _event)
+        public bool PlayerSearchPickup(PlayerSearchPickupEvent _event)
         {
             if (!CustomItemManager.IsCustomItem(_event.Item.Info.Serial))
-                return;
+                return true;
 
             CustomItemBase item = CustomItemManager.GetCustomItemWithSerial(_event.Item.Info.Serial);
-            item.Pickup(_event.Player, _event.Item);
+            return item.StartPickup(_event.Player, _event.Item);
         }
 
-        [PluginEvent(ServerEventType.PlayerDropItem)]
-        public void PlayerDropItem(PlayerDropItemEvent _event)
+        [PluginEvent(ServerEventType.PlayerSearchedPickup)]
+        public bool PlayerSearchedPickup(PlayerSearchedPickupEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Item.Info.Serial))
+                return true;
+
+            CustomItemBase item = CustomItemManager.GetCustomItemWithSerial(_event.Item.Info.Serial);
+            return item.EndPickup(_event.Player, _event.Item);
+        }
+
+        [PluginEvent(ServerEventType.PlayerUsedItem)]
+        public void PlayerUsedItem(PlayerUsedItemEvent _event)
         {
             if (!CustomItemManager.IsCustomItem(_event.Item.ItemSerial))
                 return;
 
             CustomItemBase item = CustomItemManager.GetCustomItemWithSerial(_event.Item.ItemSerial);
-            item.Drop(_event.Player, _event.Item);
+
+            if (item is CustomItemConsumable consumable)
+                consumable.EndConsume(_event.Player, _event.Item);
+        }
+
+        [PluginEvent(ServerEventType.PlayerCancelUsingItem)]
+        public void PlayerCancelUsingItem(PlayerCancelUsingItemEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Item.ItemSerial))
+                return;
+
+            CustomItemBase item = CustomItemManager.GetCustomItemWithSerial(_event.Item.ItemSerial);
+
+            if (item is CustomItemConsumable consumable)
+                consumable.CancelConsume(_event.Player, _event.Item);
+        }
+
+        [PluginEvent(ServerEventType.PlayerUseItem)]
+        public void PlayerUseItem(PlayerUseItemEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Item.ItemSerial))
+                return;
+
+            CustomItemBase item = CustomItemManager.GetCustomItemWithSerial(_event.Item.ItemSerial);
+
+            if (item is CustomItemConsumable consumable)
+                consumable.StartConsume(_event.Player, _event.Item);
+        }
+
+        [PluginEvent(ServerEventType.PlayerDropItem)]
+        public bool PlayerDropItem(PlayerDropItemEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Item.ItemSerial))
+                return true;
+
+            CustomItemBase item = CustomItemManager.GetCustomItemWithSerial(_event.Item.ItemSerial);
+            return item.Drop(_event.Player, _event.Item);
         }
 
         [PluginEvent(ServerEventType.PlayerChangeItem)]

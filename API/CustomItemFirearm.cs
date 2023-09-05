@@ -1,16 +1,12 @@
 ﻿using CustomPlayerEffects;
 using Hints;
+using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.BasicMessages;
+using InventorySystem.Items.Firearms.Modules;
 using PlayerRoles;
 using PlayerStatsSystem;
 using PluginAPI.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace CustomItemAPI.API
 {
@@ -22,6 +18,22 @@ namespace CustomItemAPI.API
         public CustomFirearmData Data;
 
         bool delay;
+
+        public override void Equip(Player _player, ushort _itemSerial)
+        {
+            if (_player.CurrentItem is Firearm f)
+                ResetFirearm(f, this);
+
+            base.Equip(_player, _itemSerial);
+        }
+
+        public override bool Drop(Player _player, ItemBase _item)
+        {
+            if (_item is Firearm f)
+                ResetFirearm(f, this);
+
+            return base.Drop(_player, _item);
+        }
 
         /// <summary>
         /// Called when the custom weapon is shot.
@@ -56,6 +68,13 @@ namespace CustomItemAPI.API
             }
         }
 
+        /// <summary>
+        /// Called when the custom firearm damages a player.
+        /// </summary>
+        /// <param name="_player"></param>
+        /// <param name="_target"></param>
+        /// <param name="_damage"></param>
+        /// <returns></returns>
         public virtual bool Damage(Player _player, Player _target, DamageHandlerBase _damage)
         {
             if (_player == null || _target == null)
@@ -103,7 +122,7 @@ namespace CustomItemAPI.API
                 {
                     _player.ReceiveHitMarker();
 
-                    switch (gun.Data.FriendlyAction)
+                    switch (gun.Data.FriendlyAction) // Needs refactoring to custom friendly action classes
                     {
                         case FirearmFriendlyAction.Heal:
                             damage = gun.Data.FriendlyValue;
@@ -142,20 +161,8 @@ namespace CustomItemAPI.API
         {
             CustomItemFirearm gun = (CustomItemFirearm)CustomItemManager.GetCustomItemWithSerial(_gun.ItemSerial);
 
-            if (_gun.Status.Ammo == gun.Data.MagazineSize)
+            if (_gun.Status.Ammo >= gun.Data.MagazineSize)
                 return false;
-
-            _gun.Status = new FirearmStatus((byte)Mathf.Min(_gun.Status.Ammo, gun.Data.MagazineSize), _gun.Status.Flags, _gun.Status.Attachments);
-
-            void Status(FirearmStatus a, FirearmStatus b)
-            {
-                if (b.Ammo > gun.Data.MagazineSize)
-                {
-                    _gun.Status = new FirearmStatus((byte)gun.Data.MagazineSize, _gun.Status.Flags, _gun.Status.Attachments);
-                }
-            }
-
-            _gun.OnStatusChanged += Status;
 
             return true;
         }
@@ -178,6 +185,11 @@ namespace CustomItemAPI.API
         /// <param name="_isAiming"></param>
         public virtual void Aim(Player _player, Firearm _gun, bool _isAiming) { }
 
+        /// <summary>
+        /// Applies the custom stats to a firearm.
+        /// </summary>
+        /// <param name="firearm"></param>
+        /// <param name="gun"></param>
         public static void ResetFirearm(Firearm firearm, CustomItemFirearm gun)
         {
             firearm.GlobalSettingsPreset.AbsoluteJumpInaccuracy = gun.Data.AirSpread;
@@ -185,6 +197,9 @@ namespace CustomItemAPI.API
 
             if (firearm is AutomaticFirearm auto)
             {
+                auto._baseMaxAmmo = gun.Data.MagazineSize;
+                auto.AmmoManagerModule = new AutomaticAmmoManager(auto, gun.Data.MagazineSize, 1, gun.Data.ChamberSize);
+
                 var stats = auto._stats;
 
                 stats.HipInaccuracy = gun.Data.HipSpread;
@@ -194,9 +209,12 @@ namespace CustomItemAPI.API
                 stats.FullDamageDistance = gun.Data.FullDamageDistance;
 
                 auto._stats = stats;
+
             }
             else if (firearm is Revolver rev)
             {
+                rev.AmmoManagerModule = new ClipLoadedInternalMagAmmoManager(rev, gun.Data.MagazineSize);
+
                 var stats = rev._stats;
 
                 stats.HipInaccuracy = gun.Data.HipSpread;
@@ -209,6 +227,8 @@ namespace CustomItemAPI.API
             }
             else if (firearm is Shotgun shot)
             {
+                shot.AmmoManagerModule = new TubularMagazineAmmoManager(shot, shot.ItemSerial, gun.Data.MagazineSize, gun.Data.ChamberSize, 0.5f, 3, "ShellsToLoad", ActionName.Zoom, ActionName.Shoot, ActionName.InspectItem);
+
                 var stats = shot._stats;
 
                 stats.HipInaccuracy = gun.Data.HipSpread;
@@ -230,7 +250,14 @@ namespace CustomItemAPI.API
                 stats.FullDamageDistance = gun.Data.FullDamageDistance;
 
                 par._stats = stats;
+
+                par.Status = new FirearmStatus(gun.Data.MagazineSize, par.Status.Flags, par.Status.Attachments);
             }
+        }
+
+        public override void ActionHint(Player _player, string _action)
+        {
+            _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>\nAmmo: <b><color=#00FF00>{((Firearm)_player.CurrentItem).Status.Ammo}</color></b>/{Data.MagazineSize}", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
         }
     }
 
@@ -255,10 +282,9 @@ namespace CustomItemAPI.API
 
         public float FriendlyValue;
 
-        /// <summary>
-        /// This value is limited by the in-game ammo limit. 
-        /// </summary>
-        public int MagazineSize;
+        public byte MagazineSize;
+        public byte ChamberSize;
+
         public int ExtraBulletCount;
 
         public FirearmFriendlyAction FriendlyAction;

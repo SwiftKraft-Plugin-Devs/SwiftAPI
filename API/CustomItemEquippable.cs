@@ -20,7 +20,7 @@ namespace CustomItemAPI.API
         /// <param name="_itemSerial"></param>
         public virtual void Equip(Player _player, ushort _itemSerial)
         {
-            _player.ReceiveHint("Equipped: " + DisplayName, new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+            ActionHint(_player, "Equipped");
         }
 
         /// <summary>

@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\CustomItemBase.cs" />
+    <Compile Include="API\CustomItemConsumable.cs" />
     <Compile Include="API\CustomItemEquippable.cs" />
     <Compile Include="API\CustomItemFirearm.cs" />
     <Compile Include="API\CustomItemManager.cs" />
