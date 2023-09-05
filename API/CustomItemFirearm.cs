@@ -255,7 +255,7 @@ namespace CustomItemAPI.API
 
         public override void ActionHint(Player _player, string _action)
         {
-            _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>\nAmmo: <b><color=#FFFF00>{((Firearm)_player.CurrentItem).Status.Ammo}</color>/{Data.MagazineSize}</b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+            _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>\nAmmo: <b><color=#FFFF00>{((Firearm)_player.CurrentItem).Status.Ammo}</color>/{((Firearm)_player.CurrentItem).AmmoManagerModule.MaxAmmo}</b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
         }
     }
 

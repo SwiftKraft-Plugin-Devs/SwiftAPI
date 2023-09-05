@@ -44,12 +44,13 @@ namespace CustomItemAPI
                         BodyDamage = 25f,
                         LimbDamage = 20f,
                         SCPDamage = 25f,
-                        MagazineSize = 99
+                        MagazineSize = 99,
+                        ChamberSize = 1
                     }
                 });
                 CustomItemManager.RegisterItem("debug_gun2", new CustomItemFirearm()
                 {
-                    BaseItem = ItemType.GunCOM15,
+                    BaseItem = ItemType.GunShotgun,
                     DisplayName = "Debug Gun 2",
                     Data = new CustomFirearmData()
                     {
@@ -57,7 +58,21 @@ namespace CustomItemAPI
                         BodyDamage = 25f,
                         LimbDamage = 20f,
                         SCPDamage = 25f,
-                        MagazineSize = 99
+                        MagazineSize = 2,
+                        ChamberSize = 2
+                    }
+                });
+                CustomItemManager.RegisterItem("debug_gun3", new CustomItemFirearm()
+                {
+                    BaseItem = ItemType.GunRevolver,
+                    DisplayName = "Debug Gun 3",
+                    Data = new CustomFirearmData()
+                    {
+                        HeadDamage = 200f,
+                        BodyDamage = 25f,
+                        LimbDamage = 20f,
+                        SCPDamage = 25f,
+                        MagazineSize = 10
                     }
                 });
             }
