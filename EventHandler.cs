@@ -101,10 +101,13 @@ namespace CustomItemAPI
         [PluginEvent(ServerEventType.PlayerDamage)]
         public bool PlayerDamage(PlayerDamageEvent _event)
         {
-            if (!CustomItemManager.IsCustomItem(_event.Player.CurrentItem.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Player.CurrentItem.ItemSerial) is CustomItemFirearm firearm))
+            Player player = _event.Target;
+            Player target = _event.Player;
+
+            if (player.CurrentItem == null || !CustomItemManager.IsCustomItem(player.CurrentItem.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(player.CurrentItem.ItemSerial) is CustomItemFirearm firearm))
                 return true;
 
-            return firearm.Damage(_event.Player, _event.Target, _event.DamageHandler);
+            return firearm.Damage(player, target, _event.DamageHandler);
         }
 
         [PluginEvent(ServerEventType.PlayerShotWeapon)]
