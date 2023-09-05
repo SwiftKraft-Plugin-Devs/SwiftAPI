@@ -69,7 +69,7 @@ namespace CustomItemAPI
                         BodyDamage = 25f,
                         LimbDamage = 20f,
                         SCPDamage = 25f,
-                        MagazineSize = 10
+                        MagazineSize = 99
                     }
                 });
                 CustomItemManager.RegisterItem("debug_gun4", new CustomItemFirearm()

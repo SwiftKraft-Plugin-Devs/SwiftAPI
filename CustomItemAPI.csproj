@@ -41,6 +41,7 @@
     <Reference Include="CommandSystem.Core">
       <HintPath>$(SCPSLREFERENCES)\CommandSystem.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="PluginAPI, Version=13.1.1.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>packages\Northwood.PluginAPI.13.1.1\lib\net48\PluginAPI.dll</HintPath>
     </Reference>
@@ -62,9 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\CustomItemBase.cs" />
+    <Compile Include="API\CustomItemCoin.cs" />
     <Compile Include="API\CustomItemConsumable.cs" />
     <Compile Include="API\CustomItemEquippable.cs" />
     <Compile Include="API\CustomItemFirearm.cs" />
+    <Compile Include="API\CustomItemTimeGrenade.cs" />
+    <Compile Include="API\CustomItemThrowableProjectile.cs" />
     <Compile Include="API\CustomItemManager.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Plugin.cs" />

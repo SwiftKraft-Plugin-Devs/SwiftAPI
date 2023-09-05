@@ -156,13 +156,31 @@ namespace CustomItemAPI
             return firearm.Damage(player, target, _event.DamageHandler);
         }
 
-        [PluginEvent(ServerEventType.PlayerShotWeapon)]
-        public void OnShotWeapon(PlayerShotWeaponEvent _event)
+        [PluginEvent(ServerEventType.PlayerThrowProjectile)]
+        public void PlayerThrowProjectile(PlayerThrowProjectileEvent _event)
         {
-            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm gun))
+            if (!CustomItemManager.IsCustomItem(_event.Item.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Item.ItemSerial) is CustomItemThrowableProjectile projectile))
                 return;
 
-            gun.Shoot(_event.Player, _event.Firearm);
+            projectile.Throw(_event.Thrower, _event.Item, _event.ProjectileSettings);
+        }
+
+        [PluginEvent(ServerEventType.GrenadeExploded)]
+        public void GrenadeExploded(GrenadeExplodedEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Grenade.Info.Serial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Grenade.Info.Serial) is CustomItemTimeGrenade grenade))
+                return;
+
+            grenade.Detonate(_event.Grenade, _event.Position);
+        }
+
+        [PluginEvent(ServerEventType.PlayerCoinFlip)]
+        public void PlayerCoinFlip(PlayerCoinFlipEvent _event)
+        {
+            if (!CustomItemManager.IsCustomItem(_event.Player.CurrentItem.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Player.CurrentItem.ItemSerial) is CustomItemCoin coin))
+                return;
+
+            coin.Flip(_event.Player, _event.Player.CurrentItem, _event.IsTails);
         }
     }
 }
