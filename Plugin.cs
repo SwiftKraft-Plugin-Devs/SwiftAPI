@@ -44,8 +44,7 @@ namespace CustomItemAPI
                         BodyDamage = 25f,
                         LimbDamage = 20f,
                         SCPDamage = 25f,
-                        MagazineSize = 99,
-                        ChamberSize = 1
+                        MagazineSize = 99
                     }
                 });
                 CustomItemManager.RegisterItem("debug_gun2", new CustomItemFirearm()
@@ -57,9 +56,7 @@ namespace CustomItemAPI
                         HeadDamage = 100f,
                         BodyDamage = 25f,
                         LimbDamage = 20f,
-                        SCPDamage = 25f,
-                        MagazineSize = 2,
-                        ChamberSize = 2
+                        SCPDamage = 25f
                     }
                 });
                 CustomItemManager.RegisterItem("debug_gun3", new CustomItemFirearm()
@@ -73,6 +70,19 @@ namespace CustomItemAPI
                         LimbDamage = 20f,
                         SCPDamage = 25f,
                         MagazineSize = 10
+                    }
+                });
+                CustomItemManager.RegisterItem("debug_gun4", new CustomItemFirearm()
+                {
+                    BaseItem = ItemType.ParticleDisruptor,
+                    DisplayName = "Debug Gun 4",
+                    Data = new CustomFirearmData()
+                    {
+                        HeadDamage = 200f,
+                        BodyDamage = 25f,
+                        LimbDamage = 20f,
+                        SCPDamage = 25f,
+                        MagazineSize = 99
                     }
                 });
             }

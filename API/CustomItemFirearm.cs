@@ -196,7 +196,7 @@ namespace CustomItemAPI.API
             if (firearm is AutomaticFirearm auto)
             {
                 auto._baseMaxAmmo = gun.Data.MagazineSize;
-                auto.AmmoManagerModule = new AutomaticAmmoManager(auto, gun.Data.MagazineSize, 1, gun.Data.ChamberSize);
+                auto.AmmoManagerModule = new AutomaticAmmoManager(auto, gun.Data.MagazineSize, 1, 0);
 
                 var stats = auto._stats;
 
@@ -225,7 +225,7 @@ namespace CustomItemAPI.API
             }
             else if (firearm is Shotgun shot)
             {
-                shot.AmmoManagerModule = new TubularMagazineAmmoManager(shot, shot.ItemSerial, gun.Data.MagazineSize, gun.Data.ChamberSize, 0.5f, 3, "ShellsToLoad", ActionName.Zoom, ActionName.Shoot, ActionName.InspectItem);
+                // shot.AmmoManagerModule = new TubularMagazineAmmoManager(shot, shot.ItemSerial, gun.Data.MagazineSize, shot._numberOfChambers, 0.5f, 3, "ShellsToLoad", ActionName.Zoom, ActionName.Shoot);
 
                 var stats = shot._stats;
 
@@ -248,14 +248,12 @@ namespace CustomItemAPI.API
                 stats.FullDamageDistance = gun.Data.FullDamageDistance;
 
                 par._stats = stats;
-
-                par.Status = new FirearmStatus(gun.Data.MagazineSize, par.Status.Flags, par.Status.Attachments);
             }
         }
 
         public override void ActionHint(Player _player, string _action)
         {
-            _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>\nAmmo: <b><color=#FFFF00>{((Firearm)_player.CurrentItem).Status.Ammo}</color>/{((Firearm)_player.CurrentItem).AmmoManagerModule.MaxAmmo}</b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+            _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>\nAmmo: <b><color=#FFFF00>{((Firearm)_player.CurrentItem).Status.Ammo}</color>/{(((Firearm)_player.CurrentItem) is ParticleDisruptor ? Data.MagazineSize : ((Firearm)_player.CurrentItem).AmmoManagerModule.MaxAmmo)}</b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
         }
     }
 
@@ -280,8 +278,10 @@ namespace CustomItemAPI.API
 
         public float FriendlyValue;
 
+        /// <summary>
+        /// Doesn't work with shotgun currently.
+        /// </summary>
         public byte MagazineSize;
-        public byte ChamberSize;
 
         public int ExtraBulletCount;
 

@@ -19,6 +19,9 @@ namespace CustomItemAPI
 
             _event.Player.GiveCustomItem("debug_item");
             _event.Player.GiveCustomItem("debug_gun");
+            _event.Player.GiveCustomItem("debug_gun2");
+            _event.Player.GiveCustomItem("debug_gun3");
+            _event.Player.GiveCustomItem("debug_gun4");
         }
 
         [PluginEvent(ServerEventType.PlayerSearchPickup)]

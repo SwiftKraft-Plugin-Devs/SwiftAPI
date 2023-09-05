@@ -1,4 +1,5 @@
 ﻿using InventorySystem.Items;
+using InventorySystem.Items.Firearms;
 using PluginAPI.Core;
 using System.Collections.Generic;
 
@@ -86,6 +87,7 @@ namespace CustomItemAPI.API
             {
                 RegisteredItems.Add(_id, _item);
                 _item.CustomItemID = _id;
+                Log.Info($"Registered Custom Item: {_item.DisplayName}, With ID: {_id}");
                 return true;
             }
 
@@ -181,6 +183,19 @@ namespace CustomItemAPI.API
         public static void GiveCustomItem(this Player _player, CustomItemBase _item)
         {
             ItemBase _it = _player.AddItem(_item.BaseItem);
+
+            if (_it is Firearm f) 
+            {
+                byte mag;
+
+                if (_item is CustomItemFirearm cf)
+                    mag = cf.Data.MagazineSize;
+                else
+                    mag = f.AmmoManagerModule.MaxAmmo;
+
+                f.Status = new FirearmStatus(mag, FirearmStatusFlags.MagazineInserted, f.Status.Attachments);
+            }
+
             AddCustomItem(_it.ItemSerial, _item);
         }
 
