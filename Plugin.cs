@@ -1,4 +1,5 @@
 ﻿using CustomItemAPI.API;
+using CustomItemAPI.API.FriendlyActions;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
@@ -36,47 +37,87 @@ namespace CustomItemAPI
                 CustomItemManager.RegisterItem("debug_item", new CustomItemEquippable() { BaseItem = ItemType.KeycardJanitor, DisplayName = "Debug Item" });
                 CustomItemManager.RegisterItem("debug_gun", new CustomItemFirearm() 
                 { 
-                    BaseItem = ItemType.GunCOM15,
+                    BaseItem = ItemType.GunCOM18,
                     DisplayName = "Debug Gun",
-                    Data = new CustomFirearmData() 
+                    HipData = new CustomFirearmData() 
                     {
                         HeadDamage = 100f,
                         BodyDamage = 25f,
                         LimbDamage = 20f,
                         SCPDamage = 25f,
-                        MagazineSize = 99
+                        MagazineSize = 99,
+                        FriendlyAction = new FriendlyActionHeal()
+                        {
+                            Amount = 30f
+                        }
+                    },
+                    AimData = new CustomFirearmData()
+                    {
+                        HeadDamage = 100f,
+                        BodyDamage = 25f,
+                        LimbDamage = 20f,
+                        SCPDamage = 25f,
+                        MagazineSize = 255,
+                        FriendlyAction = new FriendlyActionSpeed()
+                        {
+                            Intensity = 30,
+                            Duration = 3f
+                        }
                     }
                 });
                 CustomItemManager.RegisterItem("debug_gun2", new CustomItemFirearm()
                 {
                     BaseItem = ItemType.GunShotgun,
                     DisplayName = "Debug Gun 2",
-                    Data = new CustomFirearmData()
+                    HipData = new CustomFirearmData()
                     {
                         HeadDamage = 100f,
                         BodyDamage = 25f,
                         LimbDamage = 20f,
                         SCPDamage = 25f
-                    }
+                    },
+                    AimData = new CustomFirearmData()
+                    {
+                        HeadDamage = 100f,
+                        BodyDamage = 25f,
+                        LimbDamage = 20f,
+                        SCPDamage = 25f
+                    },
                 });
                 CustomItemManager.RegisterItem("debug_gun3", new CustomItemFirearm()
                 {
                     BaseItem = ItemType.GunRevolver,
                     DisplayName = "Debug Gun 3",
-                    Data = new CustomFirearmData()
+                    HipData = new CustomFirearmData()
                     {
                         HeadDamage = 200f,
                         BodyDamage = 25f,
                         LimbDamage = 20f,
                         SCPDamage = 25f,
                         MagazineSize = 99
-                    }
+                    },
+                    AimData = new CustomFirearmData()
+                    {
+                        HeadDamage = 200f,
+                        BodyDamage = 25f,
+                        LimbDamage = 20f,
+                        SCPDamage = 25f,
+                        MagazineSize = 99
+                    },
                 });
                 CustomItemManager.RegisterItem("debug_gun4", new CustomItemFirearm()
                 {
                     BaseItem = ItemType.ParticleDisruptor,
                     DisplayName = "Debug Gun 4",
-                    Data = new CustomFirearmData()
+                    HipData = new CustomFirearmData()
+                    {
+                        HeadDamage = 200f,
+                        BodyDamage = 25f,
+                        LimbDamage = 20f,
+                        SCPDamage = 25f,
+                        MagazineSize = 99
+                    },
+                    AimData = new CustomFirearmData()
                     {
                         HeadDamage = 200f,
                         BodyDamage = 25f,

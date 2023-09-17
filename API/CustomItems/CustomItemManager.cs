@@ -182,6 +182,9 @@ namespace CustomItemAPI.API
 
         public static void GiveCustomItem(this Player _player, CustomItemBase _item)
         {
+            if (_player.IsInventoryFull)
+                return;
+
             ItemBase _it = _player.AddItem(_item.BaseItem);
 
             if (_it is Firearm f) 
@@ -189,7 +192,7 @@ namespace CustomItemAPI.API
                 byte mag;
 
                 if (_item is CustomItemFirearm cf)
-                    mag = cf.Data.MagazineSize;
+                    mag = cf.HipData.MagazineSize;
                 else
                     mag = f.AmmoManagerModule.MaxAmmo;
 

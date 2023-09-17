@@ -1,7 +1,4 @@
 ﻿using CustomItemAPI.API;
-using CustomPlayerEffects;
-using Hints;
-using InventorySystem.Items.Firearms;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
@@ -11,19 +8,6 @@ namespace CustomItemAPI
 {
     public class EventHandler
     {
-        [PluginEvent(ServerEventType.PlayerInteractScp330)]
-        public void DebugActions(PlayerInteractScp330Event _event)
-        {
-            if (!Plugin.DebugMode)
-                return;
-
-            _event.Player.GiveCustomItem("debug_item");
-            _event.Player.GiveCustomItem("debug_gun");
-            _event.Player.GiveCustomItem("debug_gun2");
-            _event.Player.GiveCustomItem("debug_gun3");
-            _event.Player.GiveCustomItem("debug_gun4");
-        }
-
         [PluginEvent(ServerEventType.PlayerSearchPickup)]
         public bool PlayerSearchPickup(PlayerSearchPickupEvent _event)
         {

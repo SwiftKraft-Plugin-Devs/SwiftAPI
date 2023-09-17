@@ -7,6 +7,7 @@ using InventorySystem.Items.Firearms.Modules;
 using PlayerRoles;
 using PlayerStatsSystem;
 using PluginAPI.Core;
+using UnityEngine;
 
 namespace CustomItemAPI.API
 {
@@ -15,7 +16,8 @@ namespace CustomItemAPI.API
     /// </summary>
     public class CustomItemFirearm : CustomItemEquippable
     {
-        public CustomFirearmData Data;
+        public CustomFirearmData HipData;
+        public CustomFirearmData AimData;
 
         bool delay;
 
@@ -47,11 +49,13 @@ namespace CustomItemAPI.API
 
             ResetFirearm(_gun, this);
 
-            if (Data.ExtraBulletCount > 0)
+            CustomFirearmData data = _gun.AdsModule.ServerAds ? AimData : HipData;
+
+            if (data.ExtraBulletCount > 0)
             {
                 delay = true;
 
-                for (int i = 0; i < Data.ExtraBulletCount; i++)
+                for (int i = 0; i < data.ExtraBulletCount; i++)
                 {
                     ResetFirearm(_gun, this);
 
@@ -77,69 +81,39 @@ namespace CustomItemAPI.API
 
             if (_damage is FirearmDamageHandler standard)
             {
+                CustomFirearmData data = ((Firearm)_player.CurrentItem).AdsModule.ServerAds ? AimData : HipData;
+
                 if (_player == _target)
                     return false;
 
                 float damage = 0f;
-                float hitmarker = 1f;
 
                 switch (standard.Hitbox)
                 {
-                    case HitboxType.Headshot:
-                        hitmarker = 2.5f;
-                        damage = Data.HeadDamage;
-                        break;
-                    case HitboxType.Body:
-                        hitmarker = 1f;
-                        damage = Data.BodyDamage;
-                        break;
-                    case HitboxType.Limb:
-                        hitmarker = 0.5f;
-                        damage = Data.LimbDamage;
-                        break;
+                    case HitboxType.Headshot: damage = data.HeadDamage; break;
+                    case HitboxType.Body: damage = data.BodyDamage; break;
+                    case HitboxType.Limb : damage = data.LimbDamage; break;
                 }
 
                 if (_target.IsSCP)
-                    damage = Data.SCPDamage;
+                    damage = data.SCPDamage;
 
                 if ((_player.Role.GetFaction() != _target.Role.GetFaction()) || (Server.FriendlyFire && _player.Role.GetFaction() == _target.Role.GetFaction()))
                 {
-                    _player.ReceiveHitMarker(hitmarker);
-
                     if (FirearmDamageHandler.HitboxDamageMultipliers.TryGetValue(standard.Hitbox, out float m))
                         damage /= m;
 
                     standard.Damage = damage;
                 }
-                else if (Data.FriendlyAction != FirearmFriendlyAction.None && _target.Role.GetFaction() == _player.Role.GetFaction())
+                else if (data.FriendlyAction != null && _target.Role.GetFaction() == _player.Role.GetFaction())
                 {
                     _player.ReceiveHitMarker();
 
-                    switch (Data.FriendlyAction) // Needs refactoring to custom friendly action classes
-                    {
-                        case FirearmFriendlyAction.Heal:
-                            damage = Data.FriendlyValue;
-
-                            if (_target.Health < _target.MaxHealth)
-                                _target.Heal(damage);
-
-                            _player.ReceiveHint("Healed " + _target.DisplayNickname + ": <color=#00FF00>+" + (int)damage + " HP</color>\nTheir Health: <color=#00FF00>" + (int)_target.Health + "/" + (int)_target.MaxHealth + "</color>", new HintEffect[] { HintEffectPresets.FadeOut() }, 1f);
-                            _target.ReceiveHint("Healing From " + _player.DisplayNickname + ": <color=#00FF00>+" + (int)damage + " HP</color>", new HintEffect[] { HintEffectPresets.FadeOut() }, 1f);
-                            break;
-                        case FirearmFriendlyAction.Speed:
-                            damage = Data.FriendlyValue;
-                            MovementBoost m = _target.EffectsManager.EnableEffect<MovementBoost>(3f, false);
-                            m.Intensity = (byte)damage;
-                            m = _player.EffectsManager.EnableEffect<MovementBoost>(3f, false);
-                            m.Intensity = (byte)damage;
-                            _player.ReceiveHint("Speed Boosted " + _target.DisplayNickname, new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
-                            _target.ReceiveHint("Speed Boost From " + _player.DisplayNickname, new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
-                            break;
-                    }
+                    data.FriendlyAction.Hit(_player, _target);
                 }
 
-                if (Data.LifeSteal != 0 && (_target.Role != _player.Role) && (_target.Role.GetFaction() != _player.Role.GetFaction() || Server.FriendlyFire || _player.Health >= _player.MaxHealth))
-                    _player.Heal(damage * Data.LifeSteal);
+                if (data.LifeSteal != 0 && (_target.Role != _player.Role) && (_target.Role.GetFaction() != _player.Role.GetFaction() || Server.FriendlyFire || _player.Health >= _player.MaxHealth))
+                    _player.Heal(damage * data.LifeSteal);
             }
 
             return true;
@@ -154,7 +128,9 @@ namespace CustomItemAPI.API
         {
             ResetFirearm(_gun, this);
 
-            if (Data.CannotReload)
+            ActionHint(_player, "Weapon");
+
+            if (HipData.CannotReload)
                 return false;
 
             return true;
@@ -190,36 +166,45 @@ namespace CustomItemAPI.API
         /// <param name="gun"></param>
         public static void ResetFirearm(Firearm firearm, CustomItemFirearm gun)
         {
-            firearm.GlobalSettingsPreset.AbsoluteJumpInaccuracy = gun.Data.AirSpread;
-            firearm.GlobalSettingsPreset.OverallRunningInaccuracyMultiplier = gun.Data.RunSpread;
+            if (gun.HipData == null)
+                Log.Error("ERROR: Custom Firearm \"" + gun.DisplayName + "\" with ID \"" + gun.CustomItemID + "\" requires CustomItemFirearm.HipData to be assigned!");
+
+            if (gun.AimData == null)
+                gun.AimData = gun.HipData;
+
+            CustomFirearmData data = firearm.AdsModule.ServerAds ? gun.AimData : gun.HipData;
+
+            firearm.GlobalSettingsPreset.AbsoluteJumpInaccuracy = data.AirSpread;
+            firearm.GlobalSettingsPreset.OverallRunningInaccuracyMultiplier = data.RunSpread;
 
             if (firearm is AutomaticFirearm auto)
             {
-                auto._baseMaxAmmo = gun.Data.MagazineSize;
-                auto.AmmoManagerModule = new AutomaticAmmoManager(auto, gun.Data.MagazineSize, 1, 0);
+                auto._baseMaxAmmo = gun.HipData.MagazineSize;
+                auto.ActionModule = new AutomaticAction(auto, auto._semiAutomatic, auto._boltTravelTime, 1f / auto._fireRate, auto._dryfireClipId, auto._triggerClipId, auto._gunshotPitchRandomization, auto._recoil, auto._recoilPattern, auto._hasBoltLock, Mathf.Max(1, gun.HipData.ChamberSize));
+                auto.AmmoManagerModule = new AutomaticAmmoManager(auto, gun.HipData.MagazineSize, data.ChamberSize, 0);
 
                 var stats = auto._stats;
 
-                stats.HipInaccuracy = gun.Data.HipSpread;
+                stats.HipInaccuracy = gun.HipData.Spread;
                 stats.BulletInaccuracy = 0f;
-                stats.AdsInaccuracy = gun.Data.AimSpread;
-                stats.DamageFalloff = gun.Data.DamageFalloff;
-                stats.FullDamageDistance = gun.Data.FullDamageDistance;
+                stats.AdsInaccuracy = gun.AimData.Spread;
+                stats.DamageFalloff = data.DamageFalloff;
+                stats.FullDamageDistance = data.FullDamageDistance;
 
                 auto._stats = stats;
 
             }
             else if (firearm is Revolver rev)
             {
-                rev.AmmoManagerModule = new ClipLoadedInternalMagAmmoManager(rev, gun.Data.MagazineSize);
+                rev.AmmoManagerModule = new ClipLoadedInternalMagAmmoManager(rev, gun.HipData.MagazineSize);
 
                 var stats = rev._stats;
 
-                stats.HipInaccuracy = gun.Data.HipSpread;
+                stats.HipInaccuracy = gun.HipData.Spread;
                 stats.BulletInaccuracy = 0f;
-                stats.AdsInaccuracy = gun.Data.AimSpread;
-                stats.DamageFalloff = gun.Data.DamageFalloff;
-                stats.FullDamageDistance = gun.Data.FullDamageDistance;
+                stats.AdsInaccuracy = gun.AimData.Spread;
+                stats.DamageFalloff = data.DamageFalloff;
+                stats.FullDamageDistance = data.FullDamageDistance;
 
                 rev._stats = stats;
             }
@@ -229,11 +214,11 @@ namespace CustomItemAPI.API
 
                 var stats = shot._stats;
 
-                stats.HipInaccuracy = gun.Data.HipSpread;
+                stats.HipInaccuracy = gun.HipData.Spread;
                 stats.BulletInaccuracy = 0f;
-                stats.AdsInaccuracy = gun.Data.AimSpread;
-                stats.DamageFalloff = gun.Data.DamageFalloff;
-                stats.FullDamageDistance = gun.Data.FullDamageDistance;
+                stats.AdsInaccuracy = gun.AimData.Spread;
+                stats.DamageFalloff = data.DamageFalloff;
+                stats.FullDamageDistance = data.FullDamageDistance;
 
                 shot._stats = stats;
             }
@@ -241,11 +226,11 @@ namespace CustomItemAPI.API
             {
                 var stats = par._stats;
 
-                stats.HipInaccuracy = gun.Data.HipSpread;
+                stats.HipInaccuracy = gun.HipData.Spread;
                 stats.BulletInaccuracy = 0f;
-                stats.AdsInaccuracy = gun.Data.AimSpread;
-                stats.DamageFalloff = gun.Data.DamageFalloff;
-                stats.FullDamageDistance = gun.Data.FullDamageDistance;
+                stats.AdsInaccuracy = gun.AimData.Spread;
+                stats.DamageFalloff = data.DamageFalloff;
+                stats.FullDamageDistance = data.FullDamageDistance;
 
                 par._stats = stats;
             }
@@ -253,14 +238,17 @@ namespace CustomItemAPI.API
 
         public override void ActionHint(Player _player, string _action)
         {
-            _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>\nAmmo: <b><color=#FFFF00>{((Firearm)_player.CurrentItem).Status.Ammo}</color>/{(((Firearm)_player.CurrentItem) is ParticleDisruptor ? Data.MagazineSize : ((Firearm)_player.CurrentItem).AmmoManagerModule.MaxAmmo)}</b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+            if (_player.CurrentItem != null && _player.CurrentItem is Firearm f)
+                _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>\nAmmo: <b><color=#FFFF00>{f.Status.Ammo}</color>/{(f is ParticleDisruptor ? HipData.MagazineSize : f.AmmoManagerModule.MaxAmmo)}</b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+            else
+                base.ActionHint(_player, _action);
         }
     }
 
     /// <summary>
     /// This struct is used as a holder for firearm stats.
     /// </summary>
-    public struct CustomFirearmData
+    public class CustomFirearmData
     {
         public float HeadDamage;
         public float BodyDamage;
@@ -268,15 +256,12 @@ namespace CustomItemAPI.API
         public float SCPDamage;
         public float LifeSteal;
 
-        public float HipSpread;
-        public float AimSpread;
+        public float Spread;
         public float RunSpread;
         public float AirSpread;
 
         public float FullDamageDistance;
         public float DamageFalloff;
-
-        public float FriendlyValue;
 
         /// <summary>
         /// Doesn't work with shotgun currently.
@@ -284,16 +269,10 @@ namespace CustomItemAPI.API
         public byte MagazineSize;
 
         public int ExtraBulletCount;
+        public int ChamberSize;
 
         public bool CannotReload;
 
-        public FirearmFriendlyAction FriendlyAction;
-    }
-
-    public enum FirearmFriendlyAction
-    {
-        None,
-        Heal,
-        Speed
+        public FriendlyAction FriendlyAction;
     }
 }

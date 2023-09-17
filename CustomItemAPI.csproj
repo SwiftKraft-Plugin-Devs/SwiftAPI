@@ -62,17 +62,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\CustomItemBase.cs" />
-    <Compile Include="API\CustomItemCoin.cs" />
-    <Compile Include="API\CustomItemConsumable.cs" />
-    <Compile Include="API\CustomItemEquippable.cs" />
-    <Compile Include="API\CustomItemFirearm.cs" />
-    <Compile Include="API\CustomItemTimeGrenade.cs" />
-    <Compile Include="API\CustomItemThrowableProjectile.cs" />
-    <Compile Include="API\CustomItemManager.cs" />
+    <Compile Include="API\CustomItems\CustomItemBase.cs" />
+    <Compile Include="API\CustomItems\CustomItemCoin.cs" />
+    <Compile Include="API\CustomItems\CustomItemConsumable.cs" />
+    <Compile Include="API\CustomItems\CustomItemEquippable.cs" />
+    <Compile Include="API\CustomItems\CustomItemFirearm.cs" />
+    <Compile Include="API\CustomItems\CustomItemTimeGrenade.cs" />
+    <Compile Include="API\CustomItems\CustomItemThrowableProjectile.cs" />
+    <Compile Include="API\CustomItems\CustomItemManager.cs" />
+    <Compile Include="API\FriendlyActions\FriendlyAction.cs" />
+    <Compile Include="API\FriendlyActions\FriendlyActionHeal.cs" />
+    <Compile Include="API\FriendlyActions\FriendlyActionSpeed.cs" />
+    <Compile Include="Commands\GiveItem.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Targeter.cs" />
+    <Compile Include="Utility\Targeters.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

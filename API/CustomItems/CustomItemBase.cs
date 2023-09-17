@@ -19,6 +19,7 @@ namespace CustomItemAPI.API
 
         public string CustomItemID;
         public string DisplayName;
+        public string Description;
 
         public bool Undroppable;
 
