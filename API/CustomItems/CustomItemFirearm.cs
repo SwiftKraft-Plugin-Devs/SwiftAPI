@@ -16,10 +16,26 @@ namespace CustomItemAPI.API
     /// </summary>
     public class CustomItemFirearm : CustomItemEquippable
     {
-        public CustomFirearmData HipData;
-        public CustomFirearmData AimData;
+        public CustomFirearmData HipData
+        {
+            get => hipData;
+            set => hipData = value;
+        }
+        public CustomFirearmData AimData
+        {
+            get
+            {
+                if (aimData == null)
+                    return HipData;
+                return aimData;
+            }
+            set => aimData = value;
+        }
 
-        bool delay;
+        private CustomFirearmData aimData;
+        private CustomFirearmData hipData;
+
+        private bool delay;
 
         public override void Equip(Player _player, ushort _itemSerial)
         {

@@ -18,7 +18,7 @@ namespace CustomItemAPI
         private const string Version = "0.0.1";
 
         /// <summary>
-        /// Set this to true when you want to spam logs and stuff. 
+        /// Set this to true when you want to spam logs and stuff.
         /// Make sure to add a check for this to the spammy logs.
         /// For development only.
         /// </summary>
@@ -96,28 +96,12 @@ namespace CustomItemAPI
                         SCPDamage = 25f,
                         MagazineSize = 99
                     },
-                    AimData = new CustomFirearmData()
-                    {
-                        HeadDamage = 200f,
-                        BodyDamage = 25f,
-                        LimbDamage = 20f,
-                        SCPDamage = 25f,
-                        MagazineSize = 99
-                    },
                 });
                 CustomItemManager.RegisterItem("debug_gun4", new CustomItemFirearm()
                 {
                     BaseItem = ItemType.ParticleDisruptor,
                     DisplayName = "Debug Gun 4",
                     HipData = new CustomFirearmData()
-                    {
-                        HeadDamage = 200f,
-                        BodyDamage = 25f,
-                        LimbDamage = 20f,
-                        SCPDamage = 25f,
-                        MagazineSize = 99
-                    },
-                    AimData = new CustomFirearmData()
                     {
                         HeadDamage = 200f,
                         BodyDamage = 25f,
