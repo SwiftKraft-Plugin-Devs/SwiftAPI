@@ -31,8 +31,6 @@ namespace CustomItemAPI.Commands
 
         public override bool PlayerBasedFunction(Player player, string[] args, out string result)
         {
-            Log.Info("Showing info command!");
-
             if (player.CurrentItem == null)
             {
                 result = "Please hold the item you are trying to look up info of! ";
@@ -42,7 +40,7 @@ namespace CustomItemAPI.Commands
 
             if (CustomItemManager.TryGetCustomItemWithSerial(player.CurrentItem.ItemSerial, out CustomItemBase cust))
             {
-                result = $"\nItem \"{cust.DisplayName}\": \nInternal ID: \"{cust.CustomItemID}\"\nDescription: \n{cust.Description}";
+                result = $"\n\n<color=#FFFFFF><b>Item Name:</b></color> {cust.DisplayName}\n<color=#FFFFFF><b>Internal ID:</b></color> {cust.CustomItemID}\n\n<color=#FFFFFF><b>Description:</b></color> {cust.Description}";
 
                 return true;
             }
