@@ -6,56 +6,50 @@ using System;
 namespace CustomItemAPI.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    public class GiveItem : ICommand
+    public class GiveItem : CommandBase
     {
-        public string Command { get; } = "givecust";
-
-        public string[] Aliases { get; } = { "gcust", "givec", "getcust", "getc" };
-
-        public string Description { get; } = "Custom Item API command, gives you or a target a registered custom item. Usage: \"givecust <Custom Item ID> [Player ID]\"";
-
-        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
+        public override string[] GetAliases()
         {
-            if (!sender.CheckPermission(PlayerPermissions.GivingItems))
-            {
-                response = $"No permission! Required: GivingItems";
-
-                return false;
-            }
-
-            string itemID;
-            string playerOrTargeter = Player.Get(sender).PlayerId.ToString();
-
-            if (arguments.Array.Length < 2)
-            {
-                response = "Please provide an item ID!";
-
-                return false;
-            }
-
-            if (arguments.Array.Length > 2)
-                playerOrTargeter = arguments.Array[2];
-
-            itemID = arguments.Array[1];
-
-            if (!CustomItemManager.TryGetCustomItemWithID(itemID, out CustomItemBase cu))
-            {
-                response = "Item does not exist!";
-
-                return false;
-            }
-
-            if ((!int.TryParse(playerOrTargeter, out int id) || !Player.TryGet(id, out Player p)) && !Player.TryGetByName(playerOrTargeter, out p))
-            {
-                response = $"Player \"{playerOrTargeter}\" does not exist!";
-
-                return false;
-            }
-
-            return Action(p, cu, out response);
+            return new string[] { "cust" };
         }
 
-        public bool Action(Player p, CustomItemBase cu, out string response)
+        public override string GetCommandName()
+        {
+            return "customitem";
+        }
+
+        public override string GetDescription()
+        {
+            return "Gives the executor a custom item. ";
+        }
+
+        public override PlayerPermissions[] GetPerms()
+        {
+            return new PlayerPermissions[] { PlayerPermissions.GivingItems };
+        }
+
+        public override bool GetRequirePlayer()
+        {
+            return true;
+        }
+
+        public override bool PlayerBasedFunction(Player player, string[] args, out string result)
+        {
+            if (TryGetArgument(args, 1, out string _arg) && CustomItemManager.TryGetCustomItemWithID(_arg, out CustomItemBase _item))
+                return Action(player, out result, _item);
+
+            result = "Inputted custom item does not exist! ";
+            return false;
+        }
+
+        /// <summary>
+        /// Gives the custom item to the player.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="response"></param>
+        /// <param name="cu"></param>
+        /// <returns></returns>
+        public static bool Action(Player p, out string response, CustomItemBase cu)
         {
             if (p.IsInventoryFull)
             {

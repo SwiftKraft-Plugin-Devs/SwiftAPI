@@ -73,6 +73,7 @@
     <Compile Include="API\FriendlyActions\FriendlyAction.cs" />
     <Compile Include="API\FriendlyActions\FriendlyActionHeal.cs" />
     <Compile Include="API\FriendlyActions\FriendlyActionSpeed.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\GiveItem.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Plugin.cs" />

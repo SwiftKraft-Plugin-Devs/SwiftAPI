@@ -76,7 +76,7 @@ namespace CustomItemAPI.API
         }
 
         /// <summary>
-        /// Registers a custom item to allow it to be tracked.
+        /// Registers a custom item to allow it to be tracked and given to players.
         /// </summary>
         /// <param name="_id"></param>
         /// <param name="_item"></param>
