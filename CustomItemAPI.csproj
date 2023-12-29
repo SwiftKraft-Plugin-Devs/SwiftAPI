@@ -75,6 +75,7 @@
     <Compile Include="API\FriendlyActions\FriendlyActionSpeed.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\GiveItem.cs" />
+    <Compile Include="Commands\Info.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

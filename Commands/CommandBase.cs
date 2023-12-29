@@ -44,7 +44,7 @@ namespace CustomItemAPI.Commands
         }
 
         /// <summary>
-        /// Execution that uses a Player, automatically handles cases where the player is unable to be fetched.
+        /// Execution that uses a Player, automatically handles cases where the player is unable to be fetched. Will not execute when GetRequirePlayer() returns false.
         /// </summary>
         /// <param name="player"></param>
         public virtual bool PlayerBasedFunction(Player player, string[] args, out string result) { result = ""; return true; }
@@ -67,7 +67,7 @@ namespace CustomItemAPI.Commands
         }
 
         /// <summary>
-        /// Standard execution method, ran after the PlayerBasedFunction() method.
+        /// Standard execution method, will not execute when GetRequirePlayer() returns true.
         /// </summary>
         /// <param name="args"></param>
         /// <param name="sender"></param>

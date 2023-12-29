@@ -20,7 +20,7 @@ namespace CustomItemAPI.Commands
 
         public override string GetDescription()
         {
-            return "Gives the executor a custom item. ";
+            return "Gives the executor a custom item. Item IDs are CASE SENSITIVE!";
         }
 
         public override PlayerPermissions[] GetPerms()

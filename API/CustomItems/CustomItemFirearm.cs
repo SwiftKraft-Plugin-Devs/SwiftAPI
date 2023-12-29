@@ -182,7 +182,12 @@ namespace CustomItemAPI.API
         /// <param name="_isAiming"></param>
         public virtual void Aim(Player _player, Firearm _gun, bool _isAiming)
         {
-            ResetFirearm(_gun, this);
+            ResetFirearm(_gun, this, _isAiming);
+        }
+
+        public static void ResetFirearm(Firearm firearm, CustomItemFirearm gun)
+        {
+            ResetFirearm(firearm, gun, firearm.AdsModule.ServerAds);
         }
 
         /// <summary>
@@ -190,15 +195,12 @@ namespace CustomItemAPI.API
         /// </summary>
         /// <param name="firearm"></param>
         /// <param name="gun"></param>
-        public static void ResetFirearm(Firearm firearm, CustomItemFirearm gun)
+        public static void ResetFirearm(Firearm firearm, CustomItemFirearm gun, bool isAiming)
         {
             if (gun.HipData == null)
                 Log.Error("ERROR: Custom Firearm \"" + gun.DisplayName + "\" with ID \"" + gun.CustomItemID + "\" requires CustomItemFirearm.HipData to be assigned!");
 
-            if (gun.AimData == null)
-                gun.AimData = gun.HipData;
-
-            CustomFirearmData data = firearm.AdsModule.ServerAds ? gun.AimData : gun.HipData;
+            CustomFirearmData data = isAiming ? gun.AimData : gun.HipData;
 
             firearm.GlobalSettingsPreset.AbsoluteJumpInaccuracy = data.AirSpread;
             firearm.GlobalSettingsPreset.OverallRunningInaccuracyMultiplier = data.RunSpread;
@@ -206,7 +208,7 @@ namespace CustomItemAPI.API
             if (firearm is AutomaticFirearm auto)
             {
                 auto._baseMaxAmmo = gun.HipData.MagazineSize;
-                auto.ActionModule = new AutomaticAction(auto, auto._semiAutomatic, auto._boltTravelTime, 1f / auto._fireRate, auto._dryfireClipId, auto._triggerClipId, auto._gunshotPitchRandomization, auto._recoil, auto._recoilPattern, auto._hasBoltLock, Mathf.Max(1, gun.HipData.ChamberSize));
+                auto.ActionModule = new AutomaticAction(auto, auto._semiAutomatic, auto._boltTravelTime, 1f / auto._fireRate, auto._dryfireClipId, auto._triggerClipId, auto._gunshotPitchRandomization, auto._recoil, auto._recoilPattern, auto._hasBoltLock, Mathf.Max(1, data.ChamberSize));
                 auto.AmmoManagerModule = new AutomaticAmmoManager(auto, gun.HipData.MagazineSize, data.ChamberSize, 0);
 
                 var stats = auto._stats;
