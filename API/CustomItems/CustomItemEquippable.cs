@@ -14,7 +14,7 @@ namespace CustomItemAPI.API
     public class CustomItemEquippable : CustomItemBase
     {
         /// <summary>
-        /// Called when equipping item. 
+        /// Called when equipping the item. 
         /// </summary>
         /// <param name="_player"></param>
         /// <param name="_itemSerial"></param>
