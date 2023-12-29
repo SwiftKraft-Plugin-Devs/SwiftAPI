@@ -35,11 +35,29 @@ namespace CustomItemAPI
             if (DebugMode)
             {
                 CustomItemManager.RegisterItem("debug_item", new CustomItemEquippable() { BaseItem = ItemType.KeycardJanitor, DisplayName = "Debug Item" });
-                CustomItemManager.RegisterItem("debug_gun", new CustomItemFirearm() 
-                { 
+                CustomItemManager.RegisterItem("debug_grenade", new CustomItemTimeGrenade()
+                {
+                    BaseItem = ItemType.GrenadeHE,
+                    DisplayName = "Debug Grenade",
+                    Data = new CustomGrenadeData()
+                    {
+                        FuseTime = 0.1f
+                    }
+                });
+                CustomItemManager.RegisterItem("debug_flashbang", new CustomItemTimeGrenade()
+                {
+                    BaseItem = ItemType.GrenadeFlash,
+                    DisplayName = "Debug Flash",
+                    Data = new CustomGrenadeData()
+                    {
+                        FuseTime = 0.1f
+                    }
+                });
+                CustomItemManager.RegisterItem("debug_gun", new CustomItemFirearm()
+                {
                     BaseItem = ItemType.GunCOM18,
                     DisplayName = "Debug Gun",
-                    HipData = new CustomFirearmData() 
+                    HipData = new CustomFirearmData()
                     {
                         HeadDamage = 100f,
                         BodyDamage = 25f,
