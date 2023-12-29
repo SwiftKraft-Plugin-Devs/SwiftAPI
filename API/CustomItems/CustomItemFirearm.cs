@@ -149,7 +149,17 @@ namespace CustomItemAPI.API
             if (HipData.CannotReload)
                 return false;
 
+            _gun.OnStatusChanged -= OnFirearmStatusChanged;
+            _gun.OnStatusChanged += OnFirearmStatusChanged;
+
             return true;
+
+            void OnFirearmStatusChanged(FirearmStatus arg1, FirearmStatus arg2)
+            {
+                ResetFirearm(_gun, this);
+
+                ActionHint(_player, "Weapon");
+            }
         }
 
         /// <summary>
