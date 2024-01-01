@@ -31,6 +31,9 @@ namespace CustomItemAPI.API
         {
             if (_item != null && RegisteredItems.ContainsValue(_item))
             {
+                if (Items.ContainsKey(_itemSerial))
+                    Items.Remove(_itemSerial);
+
                 _item.Init(_itemSerial);
                 Items.Add(_itemSerial, _item);
                 return true;
