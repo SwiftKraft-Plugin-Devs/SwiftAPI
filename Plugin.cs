@@ -22,7 +22,7 @@ namespace CustomItemAPI
         /// Make sure to add a check for this to the spammy logs.
         /// For development only.
         /// </summary>
-        public static bool DebugMode = true;
+        public static bool DebugMode = false;
 
         [PluginPriority(LoadPriority.Lowest)]
         [PluginEntryPoint(Name, Version, Description, Author)]
