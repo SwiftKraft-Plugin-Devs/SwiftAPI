@@ -15,14 +15,14 @@ namespace CustomItemAPI
 
         private const string Description = "Allows for other plugins to create custom items. ";
 
-        private const string Version = "0.0.1";
+        private const string Version = "v0.0.1";
 
         /// <summary>
         /// Set this to true when you want to spam logs and stuff.
         /// Make sure to add a check for this to the spammy logs.
         /// For development only.
         /// </summary>
-        public static bool DebugMode = true;
+        public static bool DebugMode = false;
 
         [PluginPriority(LoadPriority.Lowest)]
         [PluginEntryPoint(Name, Version, Description, Author)]

@@ -21,6 +21,8 @@ namespace CustomItemAPI.API
         public string DisplayName;
         public string Description;
 
+        public string[] Tags;
+
         public bool Undroppable;
 
         public ItemType BaseItem;
