@@ -22,7 +22,7 @@ namespace CustomItemAPI
         /// Make sure to add a check for this to the spammy logs.
         /// For development only.
         /// </summary>
-        public static bool DebugMode = false;
+        public static bool DebugMode = true;
 
         [PluginPriority(LoadPriority.Lowest)]
         [PluginEntryPoint(Name, Version, Description, Author)]
@@ -112,7 +112,15 @@ namespace CustomItemAPI
                         BodyDamage = 25f,
                         LimbDamage = 20f,
                         SCPDamage = 25f,
-                        MagazineSize = 99
+                        MagazineSize = 99,
+                        FriendlyAction = new FriendlyActionShield()
+                        {
+                            Amount = 5,
+                            Limit = 10,
+                            Sustain = 3,
+                            Efficacy = 100,
+                            Decay = 5
+                        }
                     },
                 });
                 CustomItemManager.RegisterItem("debug_gun4", new CustomItemFirearm()

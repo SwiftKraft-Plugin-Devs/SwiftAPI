@@ -72,6 +72,7 @@
     <Compile Include="API\CustomItems\CustomItemManager.cs" />
     <Compile Include="API\FriendlyActions\FriendlyAction.cs" />
     <Compile Include="API\FriendlyActions\FriendlyActionHeal.cs" />
+    <Compile Include="API\FriendlyActions\FriendlyActionShield.cs" />
     <Compile Include="API\FriendlyActions\FriendlyActionSpeed.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\GiveItem.cs" />
