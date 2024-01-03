@@ -1,4 +1,4 @@
-# LICENSING
+# LICENSE
 
 MIT License
 
