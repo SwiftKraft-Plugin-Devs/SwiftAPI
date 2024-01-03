@@ -9,7 +9,7 @@ It contains a multitude of utility features, including:
 
 # How To Install
 
-If a plugin requires this library plugin, simply download the dll file from releases and place the file in the `PluginAPI/plugins/[port number]/` folder.
+If a plugin requires this library plugin, simply download the `SwiftAPI.dll` file from releases and place the file in the `PluginAPI/plugins/[port number]/` folder.
 
 # Licensing
 
