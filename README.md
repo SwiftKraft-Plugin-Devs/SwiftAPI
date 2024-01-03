@@ -7,7 +7,7 @@ It contains a multitude of utility features, including:
 - Easier Command Creation
 - Targeters
 
-# How To Use
+# How To Install
 
 If a plugin requires this library plugin, simply download the dll file from releases and place the file in the `PluginAPI/plugins/[port number]/` folder.
 
