@@ -9,6 +9,8 @@ It contains a multitude of utility features, including:
 
 # How To Use
 
-If a plugin requires this library plugin, simply download the dll file from releases and place the file in the `PluginAPI/plugins/[port number]/` folder
+If a plugin requires this library plugin, simply download the dll file from releases and place the file in the `PluginAPI/plugins/[port number]/` folder.
+
+# Licensing
 
 This repository is licensed under the [MIT License](https://mit-license.org), see [LICENSE.md](LICENSE.md) for more details.
