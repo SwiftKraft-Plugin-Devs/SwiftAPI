@@ -1,7 +1,7 @@
 ﻿using PluginAPI.Core;
 using System.Collections.Generic;
 
-namespace SwiftAPI.Utility
+namespace SwiftAPI.Utility.Targeters
 {
     public abstract class PlayerAttributeTargeter : AllTargeter
     {

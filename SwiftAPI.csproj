@@ -7,8 +7,8 @@
     <ProjectGuid>{1EEFBA97-F652-4A96-AE38-BF06C6FB7778}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CustomItemAPI</RootNamespace>
-    <AssemblyName>CustomItemAPI</AssemblyName>
+    <RootNamespace>SwiftAPI</RootNamespace>
+    <AssemblyName>SwiftAPI</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -45,7 +45,7 @@
       <HintPath>$(SCPSLREFERENCES)\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="PluginAPI">
-      <HintPath>..\..\..\..\..\..\SCP_REFS\PluginAPI.dll</HintPath>
+      <HintPath>$(SCPSLREFERENCES)\PluginAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -80,20 +80,21 @@
     <Compile Include="EventHandler.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\AllTargeter.cs" />
-    <Compile Include="Utility\ArmedTargeter.cs" />
-    <Compile Include="Utility\CITargeter.cs" />
-    <Compile Include="Utility\DClassTargeter.cs" />
-    <Compile Include="Utility\FlamingoTargeter.cs" />
-    <Compile Include="Utility\FullInventoryTargeter.cs" />
-    <Compile Include="Utility\HumanTargeter.cs" />
-    <Compile Include="Utility\MTFTargeter.cs" />
-    <Compile Include="Utility\PlayerAttributeTargeter.cs" />
-    <Compile Include="Utility\ScientistTargeter.cs" />
-    <Compile Include="Utility\SCPTargeter.cs" />
-    <Compile Include="Utility\Targeter.cs" />
-    <Compile Include="Utility\TargeterManager.cs" />
-    <Compile Include="Utility\UnarmedTargeter.cs" />
+    <Compile Include="Utility\Targeters\AliveTargeter.cs" />
+    <Compile Include="Utility\Targeters\AllTargeter.cs" />
+    <Compile Include="Utility\Targeters\ArmedTargeter.cs" />
+    <Compile Include="Utility\Targeters\CITargeter.cs" />
+    <Compile Include="Utility\Targeters\DClassTargeter.cs" />
+    <Compile Include="Utility\Targeters\FlamingoTargeter.cs" />
+    <Compile Include="Utility\Targeters\FullInventoryTargeter.cs" />
+    <Compile Include="Utility\Targeters\HumanTargeter.cs" />
+    <Compile Include="Utility\Targeters\MTFTargeter.cs" />
+    <Compile Include="Utility\Targeters\PlayerAttributeTargeter.cs" />
+    <Compile Include="Utility\Targeters\ScientistTargeter.cs" />
+    <Compile Include="Utility\Targeters\SCPTargeter.cs" />
+    <Compile Include="Utility\Targeters\Targeter.cs" />
+    <Compile Include="Utility\Targeters\TargeterManager.cs" />
+    <Compile Include="Utility\Targeters\UnarmedTargeter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

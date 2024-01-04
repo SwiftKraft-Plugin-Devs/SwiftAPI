@@ -1,6 +1,6 @@
 ﻿using PluginAPI.Core;
 
-namespace SwiftAPI.Utility
+namespace SwiftAPI.Utility.Targeters
 {
     public class HumanTargeter : PlayerAttributeTargeter
     {

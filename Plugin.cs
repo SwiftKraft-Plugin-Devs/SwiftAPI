@@ -1,6 +1,6 @@
 ﻿using SwiftAPI.API;
 using SwiftAPI.API.FriendlyActions;
-using SwiftAPI.Utility;
+using SwiftAPI.Utility.Targeters;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
