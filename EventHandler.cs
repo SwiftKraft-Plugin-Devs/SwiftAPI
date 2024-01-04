@@ -1,10 +1,10 @@
-﻿using CustomItemAPI.API;
+﻿using SwiftAPI.API;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using PluginAPI.Events;
 
-namespace CustomItemAPI
+namespace SwiftAPI
 {
     public class EventHandler
     {

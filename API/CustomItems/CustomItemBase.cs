@@ -4,7 +4,7 @@ using InventorySystem.Items.Pickups;
 using PluginAPI.Core;
 using System.Collections.Generic;
 
-namespace CustomItemAPI.API
+namespace SwiftAPI.API
 {
     /// <summary>
     /// Base class for custom items.

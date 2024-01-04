@@ -3,7 +3,7 @@ using InventorySystem.Items.ThrowableProjectiles;
 using PluginAPI.Core;
 using UnityEngine;
 
-namespace CustomItemAPI.API
+namespace SwiftAPI.API
 {
     /// <summary>
     /// This class is for custom time grenades.

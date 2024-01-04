@@ -1,7 +1,7 @@
 ﻿using InventorySystem.Items;
 using PluginAPI.Core;
 
-namespace CustomItemAPI.Utility
+namespace SwiftAPI.Utility
 {
     public class ArmedTargeter : PlayerAttributeTargeter
     {

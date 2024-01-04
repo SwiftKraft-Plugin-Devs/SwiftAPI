@@ -2,7 +2,7 @@
 using PluginAPI.Core;
 using System;
 
-namespace CustomItemAPI.Commands
+namespace SwiftAPI.Commands
 {
     public abstract class CommandBase : ICommand
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomItemAPI.API
+namespace SwiftAPI.API
 {
     /// <summary>
     /// Equippable custom items base class. 

@@ -1,6 +1,6 @@
 ﻿using PluginAPI.Core;
 
-namespace CustomItemAPI.Utility
+namespace SwiftAPI.Utility
 {
     public class DClassTargeter : PlayerAttributeTargeter
     {

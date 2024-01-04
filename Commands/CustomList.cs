@@ -1,7 +1,7 @@
 ﻿using CommandSystem;
-using CustomItemAPI.API;
+using SwiftAPI.API;
 
-namespace CustomItemAPI.Commands
+namespace SwiftAPI.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class CustomList : CommandBase

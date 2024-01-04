@@ -1,20 +1,20 @@
-﻿using CustomItemAPI.API;
-using CustomItemAPI.API.FriendlyActions;
-using CustomItemAPI.Utility;
+﻿using SwiftAPI.API;
+using SwiftAPI.API.FriendlyActions;
+using SwiftAPI.Utility;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using PluginAPI.Events;
 
-namespace CustomItemAPI
+namespace SwiftAPI
 {
     public class Plugin
     {
-        private const string Author = "KPG Dev Team";
+        private const string Author = "SwiftKraft";
 
-        private const string Name = "Custom Items API";
+        private const string Name = "SwiftAPI";
 
-        private const string Description = "Allows for other plugins to create custom items. ";
+        private const string Description = "A library plugin for easier development of SCP: SL NWAPI plugins.";
 
         private const string Version = "v0.0.1";
 
@@ -29,7 +29,7 @@ namespace CustomItemAPI
         [PluginEntryPoint(Name, Version, Description, Author)]
         public void Init()
         {
-            Log.Info("Custom Items API Loaded! ");
+            Log.Info("SwiftAPI Loaded! Version: " + Version);
 
             EventManager.RegisterEvents<EventHandler>(this);
 

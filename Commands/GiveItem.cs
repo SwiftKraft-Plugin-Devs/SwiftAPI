@@ -1,10 +1,10 @@
 ﻿using CommandSystem;
-using CustomItemAPI.API;
-using CustomItemAPI.Utility;
+using SwiftAPI.API;
+using SwiftAPI.Utility;
 using PluginAPI.Core;
 using System.Collections.Generic;
 
-namespace CustomItemAPI.Commands
+namespace SwiftAPI.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class GiveItem : CommandBase

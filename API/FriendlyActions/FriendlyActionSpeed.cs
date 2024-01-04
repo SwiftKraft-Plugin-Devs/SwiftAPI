@@ -3,7 +3,7 @@ using Hints;
 using PluginAPI.Core;
 using UnityEngine;
 
-namespace CustomItemAPI.API.FriendlyActions
+namespace SwiftAPI.API.FriendlyActions
 {
     public class FriendlyActionSpeed : FriendlyAction
     {

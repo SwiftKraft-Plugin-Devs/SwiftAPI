@@ -1,7 +1,7 @@
 ﻿using Hints;
 using PluginAPI.Core;
 
-namespace CustomItemAPI.API.FriendlyActions
+namespace SwiftAPI.API.FriendlyActions
 {
     public class FriendlyActionHeal : FriendlyAction
     {

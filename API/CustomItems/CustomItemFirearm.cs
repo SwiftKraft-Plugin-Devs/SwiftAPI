@@ -9,7 +9,7 @@ using PlayerStatsSystem;
 using PluginAPI.Core;
 using UnityEngine;
 
-namespace CustomItemAPI.API
+namespace SwiftAPI.API
 {
     /// <summary>
     /// This class is a base for custom firearms/weapons.

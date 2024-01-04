@@ -1,8 +1,8 @@
 ﻿using CommandSystem;
-using CustomItemAPI.API;
+using SwiftAPI.API;
 using PluginAPI.Core;
 
-namespace CustomItemAPI.Commands
+namespace SwiftAPI.Commands
 {
     [CommandHandler(typeof(ClientCommandHandler))]
     public class Info : CommandBase
