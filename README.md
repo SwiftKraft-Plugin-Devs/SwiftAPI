@@ -5,7 +5,7 @@ It contains a multitude of utility features, including:
 
 - Custom Items
 - Easier Command Creation
-- Targeters
+- [Targeters](https://github.com/SwiftKraft/SwiftAPI/wiki/For-Server-Admins#targeters)
 
 # How To Install
 
