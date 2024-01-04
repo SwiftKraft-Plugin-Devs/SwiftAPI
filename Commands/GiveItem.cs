@@ -1,7 +1,8 @@
 ﻿using CommandSystem;
 using CustomItemAPI.API;
+using CustomItemAPI.Utility;
 using PluginAPI.Core;
-using System;
+using System.Collections.Generic;
 
 namespace CustomItemAPI.Commands
 {
@@ -35,8 +36,22 @@ namespace CustomItemAPI.Commands
 
         public override bool PlayerBasedFunction(Player player, string[] args, out string result)
         {
-            if (TryGetArgument(args, 1, out string _arg) && CustomItemManager.TryGetCustomItemWithID(_arg, out CustomItemBase _item))
-                return Action(player, out result, _item);
+            if (TryGetArgument(args, 1, out string _arg1) && CustomItemManager.TryGetCustomItemWithID(_arg1, out CustomItemBase _item))
+            {
+                if (TryGetArgument(args, 2, out string _arg2) && TargeterManager.TryGetTargeterPlayers(_arg2, out List<Player> players))
+                {
+                    int accu = 0;
+                    for (int i = 0; i < players.Count; i++)
+                        if (Action(players[i], out _, _item))
+                            accu++;
+
+                    result = $"Item \"{_item.DisplayName}\" given to {accu} players.";
+
+                    return true;
+                }
+                else
+                    return Action(player, out result, _item);
+            }
 
             result = "Inputted custom item does not exist! ";
             return false;

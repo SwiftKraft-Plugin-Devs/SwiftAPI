@@ -75,13 +75,26 @@
     <Compile Include="API\FriendlyActions\FriendlyActionShield.cs" />
     <Compile Include="API\FriendlyActions\FriendlyActionSpeed.cs" />
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\CustomList.cs" />
     <Compile Include="Commands\GiveItem.cs" />
     <Compile Include="Commands\Info.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\AllTargeter.cs" />
+    <Compile Include="Utility\ArmedTargeter.cs" />
+    <Compile Include="Utility\CITargeter.cs" />
+    <Compile Include="Utility\DClassTargeter.cs" />
+    <Compile Include="Utility\FlamingoTargeter.cs" />
+    <Compile Include="Utility\FullInventoryTargeter.cs" />
+    <Compile Include="Utility\HumanTargeter.cs" />
+    <Compile Include="Utility\MTFTargeter.cs" />
+    <Compile Include="Utility\PlayerAttributeTargeter.cs" />
+    <Compile Include="Utility\ScientistTargeter.cs" />
+    <Compile Include="Utility\SCPTargeter.cs" />
     <Compile Include="Utility\Targeter.cs" />
-    <Compile Include="Utility\Targeters.cs" />
+    <Compile Include="Utility\TargeterManager.cs" />
+    <Compile Include="Utility\UnarmedTargeter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

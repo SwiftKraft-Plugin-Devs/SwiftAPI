@@ -5,13 +5,13 @@ namespace CustomItemAPI.Utility
 {
     public abstract class Targeter
     {
-        public string TargeterName;
-
-        public Targeter(string name)
+        public Targeter()
         {
-            TargeterName = name;
-            Targeters.RegisteredTargeters.Add(this);
+            if (!TargeterManager.RegisteredTargeters.ContainsKey(GetTargeterName().ToUpper()))
+                TargeterManager.RegisteredTargeters.Add(GetTargeterName().ToUpper(), this);
         }
+
+        public abstract string GetTargeterName();
 
         public abstract List<Player> GetPlayers();
     }

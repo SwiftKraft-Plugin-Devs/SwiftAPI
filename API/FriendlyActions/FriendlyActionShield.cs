@@ -1,4 +1,5 @@
-﻿using PlayerStatsSystem;
+﻿using Hints;
+using PlayerStatsSystem;
 using PluginAPI.Core;
 using UnityEngine;
 
@@ -29,6 +30,9 @@ namespace CustomItemAPI.API.FriendlyActions
                     AhpStat.AhpProcess prev = ahp._activeProcesses[processIndex];
                     ahp._activeProcesses[processIndex] = new AhpStat.AhpProcess(Mathf.Clamp(prev.CurrentAmount + Amount, 0f, Limit), Limit, Decay, Efficacy, Sustain, Persistent);
                 }
+
+                _player.ReceiveHint("Shielded " + _target.DisplayNickname + ": <color=#00FF00>+" + (int)Amount + " AHP</color>\nTheir AHP: <color=#00FF00>" + (int)_target.ArtificialHealth + "</color>", new HintEffect[] { HintEffectPresets.FadeOut() }, 1f);
+                _target.ReceiveHint("Shield From " + _player.DisplayNickname + ": <color=#00FF00>+" + (int)Amount + " AHP</color>", new HintEffect[] { HintEffectPresets.FadeOut() }, 1f);
             }
         }
     }

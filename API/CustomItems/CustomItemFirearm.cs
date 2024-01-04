@@ -108,7 +108,7 @@ namespace CustomItemAPI.API
                 {
                     case HitboxType.Headshot: damage = data.HeadDamage; break;
                     case HitboxType.Body: damage = data.BodyDamage; break;
-                    case HitboxType.Limb : damage = data.LimbDamage; break;
+                    case HitboxType.Limb: damage = data.LimbDamage; break;
                 }
 
                 if (_target.IsSCP)
@@ -130,6 +130,13 @@ namespace CustomItemAPI.API
 
                 if (data.LifeSteal != 0 && (_target.Role != _player.Role) && (_target.Role.GetFaction() != _player.Role.GetFaction() || Server.FriendlyFire || _player.Health >= _player.MaxHealth))
                     _player.Heal(damage * data.LifeSteal);
+
+                if (data.FirearmEffects != null && data.FirearmEffects.Length > 0)
+                    foreach (FirearmEffect eff in data.FirearmEffects)
+                        eff.ApplyEffect(_target);
+
+                if (data.HitMessage != null && data.HitMessage.Length > 0)
+                    _target.ReceiveHint(data.HitMessage.RandomItem());
             }
 
             return true;
@@ -302,5 +309,22 @@ namespace CustomItemAPI.API
         public bool CannotReload;
 
         public FriendlyAction FriendlyAction;
+
+        public FirearmEffect[] FirearmEffects;
+
+        public string[] HitMessage;
+    }
+
+    public abstract class FirearmEffect
+    {
+        public float Duration;
+        public bool AddDuration;
+
+        public abstract void ApplyEffect(Player p);
+    }
+
+    public class FirearmEffect<T> : FirearmEffect where T : StatusEffectBase
+    {
+        public override void ApplyEffect(Player p) => p.EffectsManager.EnableEffect<T>(Duration, AddDuration);
     }
 }

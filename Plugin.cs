@@ -1,5 +1,6 @@
 ﻿using CustomItemAPI.API;
 using CustomItemAPI.API.FriendlyActions;
+using CustomItemAPI.Utility;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
@@ -31,6 +32,17 @@ namespace CustomItemAPI
             Log.Info("Custom Items API Loaded! ");
 
             EventManager.RegisterEvents<EventHandler>(this);
+
+            new AllTargeter();
+            new CITargeter();
+            new DClassTargeter();
+            new FlamingoTargeter();
+            new FullInventoryTargeter();
+            new HumanTargeter();
+            new MTFTargeter();
+            new ScientistTargeter();
+            new SCPTargeter();
+            new UnarmedTargeter();
 
             if (DebugMode)
             {
