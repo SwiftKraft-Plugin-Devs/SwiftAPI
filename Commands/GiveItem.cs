@@ -1,6 +1,6 @@
 ﻿using CommandSystem;
 using SwiftAPI.API;
-using SwiftAPI.Utility;
+using SwiftAPI.Utility.Targeters;
 using PluginAPI.Core;
 using System.Collections.Generic;
 
