@@ -1,7 +1,7 @@
 ﻿using InventorySystem.Items.ThrowableProjectiles;
 using PluginAPI.Core;
 
-namespace SwiftAPI.API
+namespace SwiftAPI.API.CustomItems
 {
     /// <summary>
     /// This class is for custom throwables.

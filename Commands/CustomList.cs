@@ -1,30 +1,18 @@
 ﻿using CommandSystem;
-using SwiftAPI.API;
+using SwiftAPI.API.CustomItems;
 
 namespace SwiftAPI.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class CustomList : CommandBase
     {
-        public override string[] GetAliases()
-        {
-            return new string[] { "clist" };
-        }
+        public override string[] GetAliases() => new string[] { "clist" };
 
-        public override string GetCommandName()
-        {
-            return "customitemlist";
-        }
+        public override string GetCommandName() => "customitemlist";
 
-        public override string GetDescription()
-        {
-            return "Lists all registered custom items.";
-        }
+        public override string GetDescription() => "Lists all registered custom items.";
 
-        public override PlayerPermissions[] GetPerms()
-        {
-            return new PlayerPermissions[] { };
-        }
+        public override PlayerPermissions[] GetPerms() => new PlayerPermissions[] { };
 
         public override bool Function(string[] args, ICommandSender sender, out string result)
         {

@@ -3,7 +3,7 @@ using InventorySystem.Items.Firearms;
 using PluginAPI.Core;
 using System.Collections.Generic;
 
-namespace SwiftAPI.API
+namespace SwiftAPI.API.CustomItems
 {
     /// <summary>
     /// This class is used to track the custom items.

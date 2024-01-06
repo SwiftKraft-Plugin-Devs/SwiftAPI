@@ -1,7 +1,7 @@
 ﻿using InventorySystem.Items;
 using PluginAPI.Core;
 
-namespace SwiftAPI.API
+namespace SwiftAPI.API.CustomItems
 {
     public abstract class CustomItemConsumable : CustomItemEquippable
     {

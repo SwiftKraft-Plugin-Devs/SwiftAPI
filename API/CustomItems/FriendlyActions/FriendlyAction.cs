@@ -1,6 +1,6 @@
 ﻿using PluginAPI.Core;
 
-namespace SwiftAPI.API
+namespace SwiftAPI.API.CustomItems.FriendlyActions
 {
     public abstract class FriendlyAction
     {

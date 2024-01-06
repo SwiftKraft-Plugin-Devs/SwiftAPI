@@ -7,9 +7,10 @@ using InventorySystem.Items.Firearms.Modules;
 using PlayerRoles;
 using PlayerStatsSystem;
 using PluginAPI.Core;
+using SwiftAPI.API.CustomItems.FriendlyActions;
 using UnityEngine;
 
-namespace SwiftAPI.API
+namespace SwiftAPI.API.CustomItems
 {
     /// <summary>
     /// This class is a base for custom firearms/weapons.

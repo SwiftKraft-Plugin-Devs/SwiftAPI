@@ -1,5 +1,5 @@
-﻿using SwiftAPI.API;
-using SwiftAPI.API.FriendlyActions;
+﻿using SwiftAPI.API.CustomItems;
+using SwiftAPI.API.CustomItems.FriendlyActions;
 using SwiftAPI.Utility.Targeters;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
@@ -34,6 +34,8 @@ namespace SwiftAPI
             EventManager.RegisterEvents<EventHandler>(this);
 
             new AllTargeter();
+            new AliveTargeter();
+            new ArmedTargeter();
             new CITargeter();
             new DClassTargeter();
             new FlamingoTargeter();

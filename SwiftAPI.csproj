@@ -69,12 +69,13 @@
     <Compile Include="API\CustomItems\CustomItemTimeGrenade.cs" />
     <Compile Include="API\CustomItems\CustomItemThrowableProjectile.cs" />
     <Compile Include="API\CustomItems\CustomItemManager.cs" />
-    <Compile Include="API\FriendlyActions\FriendlyAction.cs" />
-    <Compile Include="API\FriendlyActions\FriendlyActionHeal.cs" />
-    <Compile Include="API\FriendlyActions\FriendlyActionShield.cs" />
-    <Compile Include="API\FriendlyActions\FriendlyActionSpeed.cs" />
+    <Compile Include="API\CustomItems\FriendlyActions\FriendlyAction.cs" />
+    <Compile Include="API\CustomItems\FriendlyActions\FriendlyActionHeal.cs" />
+    <Compile Include="API\CustomItems\FriendlyActions\FriendlyActionShield.cs" />
+    <Compile Include="API\CustomItems\FriendlyActions\FriendlyActionSpeed.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\CustomList.cs" />
+    <Compile Include="Commands\TargeterList.cs" />
     <Compile Include="Commands\GiveItem.cs" />
     <Compile Include="Commands\Info.cs" />
     <Compile Include="EventHandler.cs" />
@@ -92,7 +93,7 @@
     <Compile Include="Utility\Targeters\PlayerAttributeTargeter.cs" />
     <Compile Include="Utility\Targeters\ScientistTargeter.cs" />
     <Compile Include="Utility\Targeters\SCPTargeter.cs" />
-    <Compile Include="Utility\Targeters\Targeter.cs" />
+    <Compile Include="Utility\Targeters\TargeterBase.cs" />
     <Compile Include="Utility\Targeters\TargeterManager.cs" />
     <Compile Include="Utility\Targeters\UnarmedTargeter.cs" />
   </ItemGroup>

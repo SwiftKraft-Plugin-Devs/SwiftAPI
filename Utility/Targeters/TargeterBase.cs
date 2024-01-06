@@ -3,15 +3,17 @@ using System.Collections.Generic;
 
 namespace SwiftAPI.Utility.Targeters
 {
-    public abstract class Targeter
+    public abstract class TargeterBase
     {
-        public Targeter()
+        public TargeterBase()
         {
             if (!TargeterManager.RegisteredTargeters.ContainsKey(GetTargeterName().ToUpper()))
                 TargeterManager.RegisteredTargeters.Add(GetTargeterName().ToUpper(), this);
         }
 
         public abstract string GetTargeterName();
+
+        public virtual string GetTargeterDescription() => "No description.";
 
         public abstract List<Player> GetPlayers();
     }

@@ -1,7 +1,7 @@
 ﻿using InventorySystem.Items;
 using PluginAPI.Core;
 
-namespace SwiftAPI.API
+namespace SwiftAPI.API.CustomItems
 {
     /// <summary>
     /// This custom class is for custom coins used for coin flip events.

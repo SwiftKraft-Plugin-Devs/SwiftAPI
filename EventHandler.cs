@@ -1,4 +1,4 @@
-﻿using SwiftAPI.API;
+﻿using SwiftAPI.API.CustomItems;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;

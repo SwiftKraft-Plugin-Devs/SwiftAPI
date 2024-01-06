@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwiftAPI.Utility.Targeters
 {
-    public class AllTargeter : Targeter
+    public class AllTargeter : TargeterBase
     {
         public override List<Player> GetPlayers()
         {

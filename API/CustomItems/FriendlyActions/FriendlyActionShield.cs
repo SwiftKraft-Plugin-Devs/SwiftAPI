@@ -3,7 +3,7 @@ using PlayerStatsSystem;
 using PluginAPI.Core;
 using UnityEngine;
 
-namespace SwiftAPI.API.FriendlyActions
+namespace SwiftAPI.API.CustomItems.FriendlyActions
 {
     public class FriendlyActionShield : FriendlyAction
     {

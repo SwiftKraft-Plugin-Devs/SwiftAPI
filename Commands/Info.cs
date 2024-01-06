@@ -1,5 +1,5 @@
 ﻿using CommandSystem;
-using SwiftAPI.API;
+using SwiftAPI.API.CustomItems;
 using PluginAPI.Core;
 
 namespace SwiftAPI.Commands
