@@ -11,5 +11,7 @@ namespace SwiftAPI.Utility.Targeters
         }
 
         public override string GetTargeterName() => "ALL";
+
+        public override string GetTargeterDescription() => "All players.";
     }
 }

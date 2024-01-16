@@ -15,5 +15,7 @@ namespace SwiftAPI.Utility.Targeters
         }
 
         public override string GetTargeterName() => "ARMED";
+
+        public override string GetTargeterDescription() => "All human players with a weapon in their inventory.";
     }
 }

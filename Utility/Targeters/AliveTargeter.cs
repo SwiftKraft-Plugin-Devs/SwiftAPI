@@ -6,5 +6,7 @@ namespace SwiftAPI.Utility.Targeters
         public override bool GetAttribute(Player p) => p.IsAlive;
 
         public override string GetTargeterName() => "ALIVE";
+
+        public override string GetTargeterDescription() => "All players that are alive.";
     }
 }

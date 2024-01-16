@@ -96,6 +96,7 @@
     <Compile Include="Utility\Targeters\ArmedTargeter.cs" />
     <Compile Include="Utility\Targeters\CITargeter.cs" />
     <Compile Include="Utility\Targeters\DClassTargeter.cs" />
+    <Compile Include="Utility\Targeters\EmptyInventoryTargeter.cs" />
     <Compile Include="Utility\Targeters\FlamingoTargeter.cs" />
     <Compile Include="Utility\Targeters\FullInventoryTargeter.cs" />
     <Compile Include="Utility\Targeters\HumanTargeter.cs" />

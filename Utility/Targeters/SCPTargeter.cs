@@ -8,5 +8,7 @@ namespace SwiftAPI.Utility.Targeters
         public override bool GetAttribute(Player p) => p.IsSCP && p.Role != RoleTypeId.Flamingo && p.Role != RoleTypeId.AlphaFlamingo;
 
         public override string GetTargeterName() => "SCP";
+
+        public override string GetTargeterDescription() => "All SCP players.";
     }
 }

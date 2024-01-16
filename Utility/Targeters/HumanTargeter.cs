@@ -7,5 +7,7 @@ namespace SwiftAPI.Utility.Targeters
         public override bool GetAttribute(Player p) => p.IsHuman;
 
         public override string GetTargeterName() => "HUMAN";
+
+        public override string GetTargeterDescription() => "All human players.";
     }
 }
