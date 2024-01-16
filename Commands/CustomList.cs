@@ -12,7 +12,7 @@ namespace SwiftAPI.Commands
 
         public override string GetDescription() => "Lists all registered custom items.";
 
-        public override PlayerPermissions[] GetPerms() => new PlayerPermissions[] { };
+        public override PlayerPermissions[] GetPerms() => null;
 
         public override bool Function(string[] args, ICommandSender sender, out string result)
         {

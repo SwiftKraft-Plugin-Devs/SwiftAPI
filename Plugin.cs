@@ -5,6 +5,7 @@ using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using PluginAPI.Events;
+using SwiftAPI.Utility.Spawners;
 
 namespace SwiftAPI
 {
@@ -33,18 +34,11 @@ namespace SwiftAPI
 
             EventManager.RegisterEvents<EventHandler>(this);
 
-            new AllTargeter();
-            new AliveTargeter();
-            new ArmedTargeter();
-            new CITargeter();
-            new DClassTargeter();
-            new FlamingoTargeter();
-            new FullInventoryTargeter();
-            new HumanTargeter();
-            new MTFTargeter();
-            new ScientistTargeter();
-            new SCPTargeter();
-            new UnarmedTargeter();
+            TargeterManager.Init();
+
+            StaticUnityMethods.OnFixedUpdate += SpawnerManager.FixedUpdate;
+
+            SpawnerManager.RegisterSpawnerType<ItemSpawner>("item");
 
             if (DebugMode)
             {

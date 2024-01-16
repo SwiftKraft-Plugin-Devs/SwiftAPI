@@ -82,6 +82,9 @@ namespace SwiftAPI.API.CustomItems
 
                 delay = false;
             }
+
+            if (data.OneShot)
+                _gun.Status = new FirearmStatus(0, _gun.Status.Flags, _gun.Status.Attachments);
         }
 
         /// <summary>
@@ -308,6 +311,7 @@ namespace SwiftAPI.API.CustomItems
         public int ChamberSize;
 
         public bool CannotReload;
+        public bool OneShot;
 
         public FriendlyAction FriendlyAction;
 

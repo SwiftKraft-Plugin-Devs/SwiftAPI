@@ -1,7 +1,7 @@
 ﻿using CommandSystem;
+using PluginAPI.Core;
 using SwiftAPI.API.CustomItems;
 using SwiftAPI.Utility.Targeters;
-using PluginAPI.Core;
 using System.Collections.Generic;
 
 namespace SwiftAPI.Commands
@@ -9,30 +9,15 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class GiveItem : CommandBase
     {
-        public override string[] GetAliases()
-        {
-            return new string[] { "cust" };
-        }
+        public override string[] GetAliases() => new string[] { "cust" };
 
-        public override string GetCommandName()
-        {
-            return "customitem";
-        }
+        public override string GetCommandName() => "customitem";
 
-        public override string GetDescription()
-        {
-            return "Gives the executor a custom item. Item IDs are CASE SENSITIVE!";
-        }
+        public override string GetDescription() => "Gives the executor a custom item. Item IDs are CASE SENSITIVE!";
 
-        public override PlayerPermissions[] GetPerms()
-        {
-            return new PlayerPermissions[] { PlayerPermissions.GivingItems };
-        }
+        public override PlayerPermissions[] GetPerms() => new PlayerPermissions[] { PlayerPermissions.GivingItems };
 
-        public override bool GetRequirePlayer()
-        {
-            return true;
-        }
+        public override bool GetRequirePlayer() => true;
 
         public override bool PlayerBasedFunction(Player player, string[] args, out string result)
         {

@@ -1,7 +1,9 @@
 ﻿using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using PluginAPI.Core;
+using PluginAPI.Core.Items;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace SwiftAPI.API.CustomItems
 {
@@ -51,6 +53,28 @@ namespace SwiftAPI.API.CustomItems
         public static bool AddCustomItem(ushort _itemSerial, string _itemId)
         {
             return AddCustomItem(_itemSerial, GetCustomItemWithID(_itemId));
+        }
+
+        /// <summary>
+        /// Drops a custom item in a world position.
+        /// </summary>
+        /// <param name="cust"></param>
+        /// <param name="pos"></param>
+        /// <param name="rot"></param>
+        /// <returns></returns>
+        public static bool DropCustomItem(CustomItemBase cust, Vector3 pos, Quaternion rot)
+        {
+            if (cust == null)
+                return false;
+
+            ItemPickup it = ItemPickup.Create(cust.BaseItem, pos, rot);
+            it.Spawn();
+            return AddCustomItem(it.Serial, cust);
+        }
+
+        public static bool DropCustomItem(CustomItemBase cust, Vector3 pos)
+        {
+            return DropCustomItem(cust, pos, Quaternion.identity);
         }
 
         /// <summary>
@@ -190,7 +214,7 @@ namespace SwiftAPI.API.CustomItems
 
             ItemBase _it = _player.AddItem(_item.BaseItem);
 
-            if (_it is Firearm f) 
+            if (_it is Firearm f)
             {
                 byte mag;
 

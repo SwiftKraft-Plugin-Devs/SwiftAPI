@@ -12,7 +12,7 @@ namespace SwiftAPI.Commands
 
         public override string GetDescription() => "Lists out all the targeters available. ";
 
-        public override PlayerPermissions[] GetPerms() => new PlayerPermissions[] { };
+        public override PlayerPermissions[] GetPerms() => null;
 
         public override bool Function(string[] args, ICommandSender sender, out string result)
         {

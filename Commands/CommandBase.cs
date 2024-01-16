@@ -28,26 +28,21 @@ namespace SwiftAPI.Commands
         /// <returns></returns>
         public virtual bool CanExecute(ICommandSender sender, out string message)
         {
-            foreach (PlayerPermissions perm in GetPerms())
-            {
-                if (!sender.CheckPermission(perm))
+            if (GetPerms() != null)
+                foreach (PlayerPermissions perm in GetPerms())
                 {
-                    message = "You do not have permission to do that! Required: " + perm.ToString();
+                    if (!sender.CheckPermission(perm))
+                    {
+                        message = "You do not have permission to do that! Required: " + perm.ToString();
 
-                    return false;
+                        return false;
+                    }
                 }
-            }
 
             message = "";
 
             return true;
         }
-
-        /// <summary>
-        /// Execution that uses a Player, automatically handles cases where the player is unable to be fetched. Will not execute when GetRequirePlayer() returns false.
-        /// </summary>
-        /// <param name="player"></param>
-        public virtual bool PlayerBasedFunction(Player player, string[] args, out string result) { result = ""; return true; }
 
         public bool HandleCommand(string[] args, ICommandSender sender, out string result)
         {
@@ -79,6 +74,12 @@ namespace SwiftAPI.Commands
 
             return true;
         }
+
+        /// <summary>
+        /// Execution that uses a Player, automatically handles cases where the player is unable to be fetched. Will not execute when GetRequirePlayer() returns false.
+        /// </summary>
+        /// <param name="player"></param>
+        public virtual bool PlayerBasedFunction(Player player, string[] args, out string result) { result = ""; return true; }
 
         public virtual bool GetRequirePlayer() => false;
 

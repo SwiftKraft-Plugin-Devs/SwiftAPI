@@ -1,33 +1,21 @@
 ﻿using CommandSystem;
-using SwiftAPI.API.CustomItems;
 using PluginAPI.Core;
+using SwiftAPI.API.CustomItems;
 
 namespace SwiftAPI.Commands
 {
     [CommandHandler(typeof(ClientCommandHandler))]
     public class Info : CommandBase
     {
-        public override string[] GetAliases()
-        {
-            return new string[] { "inf", "whatdo", "check", "helpitem" };
-        }
+        public override string[] GetAliases() => new string[] { "inf", "whatdo", "check", "helpitem" };
 
-        public override string GetCommandName()
-        {
-            return "info";
-        }
+        public override string GetCommandName() => "info";
 
-        public override string GetDescription()
-        {
-            return "Tells you what the item you are holding does. ";
-        }
+        public override string GetDescription() => "Tells you what the item you are holding does. ";
 
         public override bool GetRequirePlayer() => true;
 
-        public override PlayerPermissions[] GetPerms()
-        {
-            return new PlayerPermissions[] { };
-        }
+        public override PlayerPermissions[] GetPerms() => null;
 
         public override bool PlayerBasedFunction(Player player, string[] args, out string result)
         {
