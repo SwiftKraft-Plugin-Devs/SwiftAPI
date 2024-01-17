@@ -2,6 +2,7 @@
 using PluginAPI.Core;
 using PluginAPI.Core.Items;
 using SwiftAPI.API.CustomItems;
+using SwiftAPI.Commands;
 using System;
 using UnityEngine;
 
@@ -37,7 +38,7 @@ namespace SwiftAPI.Utility.Spawners
                 {
                     Item = (ItemType)result;
 
-                    feedback = "Created Regular Item Spawner: " + ToString();
+                    feedback = "Regular Item Spawner: " + ToString();
 
                     return true;
                 }
@@ -53,7 +54,7 @@ namespace SwiftAPI.Utility.Spawners
                 Item = it.BaseItem;
                 CustomItem = it;
 
-                feedback = "Created Custom Item Spawner: " + ToString();
+                feedback = "Custom Item Spawner: " + ToString();
 
                 return true;
             }
@@ -65,6 +66,6 @@ namespace SwiftAPI.Utility.Spawners
             }
         }
 
-        public override string ToString() => base.ToString() + (CustomItem == null ? "\nItem (Regular): " + Translations.Get(Item) : "\nItem (Custom): " + CustomItem.DisplayName);
+        public override string ToString() => base.ToString() + (CustomItem == null ? "\nItem (Regular): " + Item.ToString() + " (" + (int)Item + ")" : "\nItem (Custom): " + CustomItem.DisplayName + " (" + CustomItem.CustomItemID + ")");
     }
 }

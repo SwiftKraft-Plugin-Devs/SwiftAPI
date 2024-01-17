@@ -13,7 +13,8 @@ namespace SwiftAPI.Utility.Spawners
         public static void FixedUpdate()
         {
             foreach (SpawnerBase sp in Spawners)
-                sp.FixedUpdate();
+                if (sp.Active)
+                    sp.FixedUpdate();
         }
 
         public static bool IsValidType(string id) => SpawnerTypes.ContainsKey(id.ToUpper());

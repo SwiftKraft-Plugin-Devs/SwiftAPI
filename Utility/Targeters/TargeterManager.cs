@@ -1,4 +1,5 @@
 ﻿using PluginAPI.Core;
+using PluginAPI.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +27,27 @@ namespace SwiftAPI.Utility.Targeters
         {
             str = str.ToUpper().Replace("@", "");
 
-            if (RegisteredTargeters.ContainsKey(str))
+            if (TryGetTargeter(str, out TargeterBase targ))
             {
-                players = RegisteredTargeters[str].GetPlayers();
+                players = targ.GetPlayers();
                 return true;
             }
 
             players = new List<Player>();
+            return false;
+        }
+
+        public static bool TryGetTargeter(string str, out TargeterBase targ)
+        {
+            str = str.ToUpper().Replace("@", "");
+
+            if (RegisteredTargeters.ContainsKey(str))
+            {
+                targ = RegisteredTargeters[str];
+                return true;
+            }
+
+            targ = null;
             return false;
         }
     }

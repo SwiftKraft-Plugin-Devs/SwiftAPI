@@ -78,6 +78,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\CustomList.cs" />
     <Compile Include="Commands\DeleteSpawner.cs" />
+    <Compile Include="Commands\EditSpawner.cs" />
     <Compile Include="Commands\InfoSpawner.cs" />
     <Compile Include="Commands\ListSpawners.cs" />
     <Compile Include="Commands\ListSpawnerTypes.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Spawners\ItemSpawner.cs" />
+    <Compile Include="Utility\Spawners\PlayerSpawner.cs" />
     <Compile Include="Utility\Spawners\SpawnerBase.cs" />
     <Compile Include="Utility\Spawners\SpawnerManager.cs" />
     <Compile Include="Utility\Targeters\AliveTargeter.cs" />
