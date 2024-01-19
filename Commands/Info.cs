@@ -1,4 +1,5 @@
 ﻿using CommandSystem;
+using InventorySystem.Items;
 using PluginAPI.Core;
 using SwiftAPI.API.CustomItems;
 
@@ -19,16 +20,26 @@ namespace SwiftAPI.Commands
 
         public override bool PlayerBasedFunction(Player player, string[] args, out string result)
         {
-            if (player.CurrentItem == null)
+            ItemBase item = player.CurrentItem;
+
+            if (item == null)
             {
-                result = "Please hold the item you are trying to look up info of! ";
+                foreach (ushort it in player.ReferenceHub.inventory.UserInventory.Items.Keys)
+                    if (CustomItemManager.TryGetCustomItemWithSerial(player.ReferenceHub.inventory.UserInventory.Items[it].ItemSerial, out CustomItemBase invCust))
+                    {
+                        result = "\n" + invCust.ToString();
+
+                        return true;
+                    }
+
+                result = "No custom items detected.";
 
                 return false;
             }
 
-            if (CustomItemManager.TryGetCustomItemWithSerial(player.CurrentItem.ItemSerial, out CustomItemBase cust))
+            if (CustomItemManager.TryGetCustomItemWithSerial(item.ItemSerial, out CustomItemBase cust))
             {
-                result = $"\n\n<color=#FFFFFF><b>Item Name:</b></color> {cust.DisplayName}\n<color=#FFFFFF><b>Internal ID:</b></color> {cust.CustomItemID}\n\n<color=#FFFFFF><b>Description:</b></color> {cust.Description}";
+                result = "\n" + cust.ToString();
 
                 return true;
             }
@@ -38,6 +49,32 @@ namespace SwiftAPI.Commands
 
                 return false;
             }
+        }
+    }
+
+    [CommandHandler(typeof(RemoteAdminCommandHandler))]
+    public class RAInfo : CommandBase
+    {
+        public override string[] GetAliases() => new string[] { "inf", "whatdo", "check", "helpitem" };
+
+        public override string GetCommandName() => "info";
+
+        public override string GetDescription() => "Tells you what the item you are holding does. ";
+
+        public override PlayerPermissions[] GetPerms() => null;
+
+        public override bool Function(string[] args, ICommandSender sender, out string result)
+        {
+            if (!TryGetArgument(args, 1, out string arg1) || !CustomItemManager.TryGetCustomItemWithID(arg1, out CustomItemBase cust))
+            {
+                result = "Please input a valid custom item ID.";
+
+                return false;
+            }
+
+            result = cust.ToString();
+
+            return true;
         }
     }
 }

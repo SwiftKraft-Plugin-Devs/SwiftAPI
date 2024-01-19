@@ -85,6 +85,7 @@
     <Compile Include="Commands\TargeterList.cs" />
     <Compile Include="Commands\GiveItem.cs" />
     <Compile Include="Commands\Info.cs" />
+    <Compile Include="Commands\ToggleAllSpawners.cs" />
     <Compile Include="Commands\ToggleSpawner.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Plugin.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Utility\Targeters\ArmedTargeter.cs" />
     <Compile Include="Utility\Targeters\CITargeter.cs" />
     <Compile Include="Utility\Targeters\DClassTargeter.cs" />
+    <Compile Include="Utility\Targeters\DeadTargeter.cs" />
     <Compile Include="Utility\Targeters\EmptyInventoryTargeter.cs" />
     <Compile Include="Utility\Targeters\FlamingoTargeter.cs" />
     <Compile Include="Utility\Targeters\FullInventoryTargeter.cs" />

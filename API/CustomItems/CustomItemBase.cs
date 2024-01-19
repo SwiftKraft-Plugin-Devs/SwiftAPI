@@ -148,6 +148,11 @@ namespace SwiftAPI.API.CustomItems
         {
             _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
         }
+
+        public override string ToString()
+        {
+            return $"\n<color=#FFFFFF><b>Item Name:</b></color> {DisplayName}\n<color=#FFFFFF><b>Internal ID:</b></color> {CustomItemID}\n\n<color=#FFFFFF><b>Description:</b></color> {Description}";
+        }
     }
 
     /// <summary>
