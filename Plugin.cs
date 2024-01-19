@@ -39,6 +39,7 @@ namespace SwiftAPI
             StaticUnityMethods.OnFixedUpdate += SpawnerManager.FixedUpdate;
 
             SpawnerManager.RegisterSpawnerType<ItemSpawner>("item");
+            SpawnerManager.RegisterSpawnerType<PlayerSpawner>("role");
 
             if (DebugMode)
             {
