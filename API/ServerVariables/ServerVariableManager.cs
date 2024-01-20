@@ -7,11 +7,11 @@ namespace SwiftAPI.API.ServerVariables
     {
         public readonly static Dictionary<string, ServerVariable> Vars = new Dictionary<string, ServerVariable>();
 
-        public static bool TryGetVar<T>(string id, out ServerVariable<T> variable)
+        public static bool TryGetVar(string id, out ServerVariable variable)
         {
-            if (Vars.ContainsKey(id) && Vars[id] is ServerVariable<T> v)
+            if (Vars.ContainsKey(id))
             {
-                variable = v;
+                variable = Vars[id];
 
                 return true;
             }
@@ -23,24 +23,12 @@ namespace SwiftAPI.API.ServerVariables
             }
         }
 
-        public static void SetVar<T>(string id, T value)
+        public static void SetVar(string id, string value)
         {
-            if (Vars.ContainsKey(id) && Vars[id] is ServerVariable<T> v)
-                v.Value = value;
-            else if (!Vars.ContainsKey(id))
-                Vars.Add(id, new ServerVariable<T>() { Value = value });
+            if (TryGetVar(id, out ServerVariable var))
+                var.Value = value;
             else
-                throw new TypeMismatchException(typeof(T));
-        }
-
-        public class TypeMismatchException : Exception
-        {
-            public Type Type;
-
-            public TypeMismatchException(Type type)
-            {
-                Type = type;
-            }
+                Vars.Add(id, new ServerVariable(id, value));
         }
     }
 }

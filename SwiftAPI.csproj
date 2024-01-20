@@ -82,8 +82,10 @@
     <Compile Include="Commands\DeleteSpawner.cs" />
     <Compile Include="Commands\EditSpawner.cs" />
     <Compile Include="Commands\InfoSpawner.cs" />
+    <Compile Include="Commands\ListServerVariables.cs" />
     <Compile Include="Commands\ListSpawners.cs" />
     <Compile Include="Commands\ListSpawnerTypes.cs" />
+    <Compile Include="Commands\SetServerVariable.cs" />
     <Compile Include="Commands\TargeterList.cs" />
     <Compile Include="Commands\GiveItem.cs" />
     <Compile Include="Commands\Info.cs" />

@@ -81,7 +81,10 @@ namespace SwiftAPI.Utility.Spawners
 
                 players.RemoveAll((p) => p.Role != Pool);
 
-                players.RandomItem().Role = Role;
+                Player chosen = players.RandomItem();
+
+                chosen.Role = Role;
+                chosen.Position = Position;
 
                 return;
             }

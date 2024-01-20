@@ -23,16 +23,23 @@ namespace SwiftAPI.Commands
         {
             if (TryGetArgument(args, 1, out string _arg1) && CustomItemManager.TryGetCustomItemWithID(_arg1, out CustomItemBase _item))
             {
-                if (TryGetArgument(args, 2, out string _arg2) && TargeterManager.TryGetTargeterPlayers(_arg2, out List<Player> players))
+                if (TryGetArgument(args, 2, out string _arg2))
                 {
-                    int accu = 0;
-                    for (int i = 0; i < players.Count; i++)
-                        if (Action(players[i], out _, _item))
-                            accu++;
+                    if (TargeterManager.TryGetTargeterPlayers(_arg2, out List<Player> players))
+                    {
+                        int accu = 0;
+                        for (int i = 0; i < players.Count; i++)
+                            if (Action(players[i], out _, _item))
+                                accu++;
 
-                    result = $"Item \"{_item.DisplayName}\" given to {accu} players.";
+                        result = $"Item \"{_item.DisplayName}\" given to {accu} players.";
 
-                    return true;
+                        return true;
+                    }
+                    else if (int.TryParse(_arg2, out int id) && Player.TryGet(id, out Player p))
+                        return Action(p, out result, _item);
+                    else
+                        return Action(player, out result, _item);
                 }
                 else
                     return Action(player, out result, _item);

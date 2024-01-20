@@ -3,24 +3,12 @@
     public class ServerVariable 
     {
         public string ID;
-    }
+        public string Value;
 
-    public class ServerVariable<T> : ServerVariable
-    {
-        public delegate void OnServerVariableChanged(T value);
-
-        public T Value
+        public ServerVariable(string id, string value)
         {
-            get => value;
-            set
-            {
-                this.value = value;
-                OnChanged?.Invoke(value);
-            }
+            ID = id;
+            Value = value;
         }
-
-        public OnServerVariableChanged OnChanged;
-
-        protected T value;
     }
 }
