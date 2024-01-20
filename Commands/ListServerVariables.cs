@@ -19,7 +19,7 @@ namespace SwiftAPI.Commands
             result = "Server Variables: ";
 
             foreach (string key in ServerVariableManager.Vars.Keys)
-                result += "\n " + key + " - " + ServerVariableManager.Vars[key];
+                result += "\n " + key + " - " + ServerVariableManager.Vars[key].Value;
 
             return true;
         }
