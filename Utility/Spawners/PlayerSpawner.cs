@@ -1,4 +1,6 @@
-﻿using PlayerRoles;
+﻿using AdminToys;
+using CommandSystem.Commands.RemoteAdmin;
+using PlayerRoles;
 using PluginAPI.Core;
 using SwiftAPI.Utility.Targeters;
 using System;
@@ -79,7 +81,7 @@ namespace SwiftAPI.Utility.Spawners
             {
                 players = Player.GetPlayers();
 
-                players.RemoveAll((p) => p.Role != Pool);
+                players.RemoveAll((p) => p.Role != Pool || p.Role == Role);
 
                 Player chosen = players.RandomItem();
 

@@ -31,12 +31,8 @@ namespace SwiftAPI.Commands
             if (GetPerms() != null)
                 foreach (PlayerPermissions perm in GetPerms())
                 {
-                    if (!sender.CheckPermission(perm))
-                    {
-                        message = "You do not have permission to do that! Required: " + perm.ToString();
-
+                    if (!sender.CheckPermission(perm, out message))
                         return false;
-                    }
                 }
 
             message = "";

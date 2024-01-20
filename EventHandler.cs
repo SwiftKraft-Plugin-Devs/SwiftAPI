@@ -1,8 +1,10 @@
-﻿using SwiftAPI.API.CustomItems;
-using PluginAPI.Core;
+﻿using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using PluginAPI.Events;
+using SwiftAPI.API.BreakableToys;
+using SwiftAPI.API.CustomItems;
+using UnityEngine;
 
 namespace SwiftAPI
 {
@@ -152,10 +154,18 @@ namespace SwiftAPI
         [PluginEvent(ServerEventType.GrenadeExploded)]
         public void GrenadeExploded(GrenadeExplodedEvent _event)
         {
+            DamageBreakables(_event.Position, 5f, 100f, false);
+
             if (!CustomItemManager.IsCustomItem(_event.Grenade.Info.Serial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Grenade.Info.Serial) is CustomItemTimeGrenade grenade))
                 return;
 
             grenade.Detonate(_event.Grenade, _event.Position);
+        }
+
+        [PluginEvent(ServerEventType.PlaceBulletHole)]
+        public void PlaceBulletHole(PlaceBulletHoleEvent _event)
+        {
+            DamageBreakables(_event.Position, 0.05f, 10f);
         }
 
         [PluginEvent(ServerEventType.PlayerCoinFlip)]
@@ -165,6 +175,22 @@ namespace SwiftAPI
                 return;
 
             coin.Flip(_event.Player, _event.Player.CurrentItem, _event.IsTails);
+        }
+
+        public void DamageBreakables(Vector3 position, float radius, float damage, bool single = true)
+        {
+            Collider[] colls = Physics.OverlapSphere(position, radius);
+            if (colls.Length > 0)
+                foreach (Collider col in colls)
+                {
+                    BreakableToyBase b = col.transform.root.GetComponentInChildren<BreakableToyBase>();
+                    if (b != null)
+                    {
+                        b.Damage(damage);
+                        if (single)
+                            break;
+                    }
+                }
         }
     }
 }
