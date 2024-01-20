@@ -88,6 +88,7 @@
     <Compile Include="API\CustomItems\CustomItemBase.cs" />
     <Compile Include="API\CustomItems\CustomItemCoin.cs" />
     <Compile Include="API\CustomItems\CustomItemConsumable.cs" />
+    <Compile Include="API\CustomItems\CustomItemConsumableEffect.cs" />
     <Compile Include="API\CustomItems\CustomItemEquippable.cs" />
     <Compile Include="API\CustomItems\CustomItemFirearm.cs" />
     <Compile Include="API\CustomItems\CustomItemTimeGrenade.cs" />
