@@ -4,6 +4,7 @@ using PluginAPI.Enums;
 using PluginAPI.Events;
 using SwiftAPI.API.BreakableToys;
 using SwiftAPI.API.CustomItems;
+using SwiftAPI.Utility.Spawners;
 using UnityEngine;
 
 namespace SwiftAPI
@@ -175,6 +176,13 @@ namespace SwiftAPI
                 return;
 
             coin.Flip(_event.Player, _event.Player.CurrentItem, _event.IsTails);
+        }
+
+        [PluginEvent(ServerEventType.RoundRestart)]
+        public void RoundRestart(RoundRestartEvent _event)
+        {
+            SpawnerManager.ClearSpawners();
+            CustomItemManager.ClearCustomItems();
         }
 
         public void DamageBreakables(Vector3 position, float radius, float damage, bool single = true)
