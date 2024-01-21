@@ -1,4 +1,9 @@
-﻿using PluginAPI.Core;
+﻿using Footprinting;
+using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.Modules;
+using InventorySystem.Items.Jailbird;
+using InventorySystem.Items.ThrowableProjectiles;
+using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using PluginAPI.Events;
@@ -155,18 +160,10 @@ namespace SwiftAPI
         [PluginEvent(ServerEventType.GrenadeExploded)]
         public void GrenadeExploded(GrenadeExplodedEvent _event)
         {
-            DamageBreakables(_event.Position, 5f, 100f, false);
-
             if (!CustomItemManager.IsCustomItem(_event.Grenade.Info.Serial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Grenade.Info.Serial) is CustomItemTimeGrenade grenade))
                 return;
 
             grenade.Detonate(_event.Grenade, _event.Position);
-        }
-
-        [PluginEvent(ServerEventType.PlaceBulletHole)]
-        public void PlaceBulletHole(PlaceBulletHoleEvent _event)
-        {
-            DamageBreakables(_event.Position, 0.05f, 10f);
         }
 
         [PluginEvent(ServerEventType.PlayerCoinFlip)]
@@ -185,7 +182,23 @@ namespace SwiftAPI
             CustomItemManager.ClearCustomItems();
         }
 
-        public void DamageBreakables(Vector3 position, float radius, float damage, bool single = true)
+        public static void PlaceBulletHoleFirearm(Vector3 position, Firearm firearm)
+        {
+            float damage =
+                CustomItemManager.TryGetCustomItemWithSerial(firearm.ItemSerial, out CustomItemBase _item)
+                && _item is CustomItemFirearm f ?
+                (firearm.AdsModule.ServerAds ? f.AimData : f.HipData).BodyDamage
+                : firearm.BaseStats.BaseDamage;
+
+            DamageBreakables(position, 0.05f, damage);
+        }
+
+        public static void GrenadeExplode(Footprint footprint, Vector3 position, ExplosionGrenade grenade)
+        {
+            DamageBreakables(position, grenade._maxRadius, 0f, damageDroppoff: grenade._playerDamageOverDistance);
+        }
+
+        public static void DamageBreakables(Vector3 position, float radius, float damage, bool single = true, AnimationCurve damageDroppoff = null)
         {
             Collider[] colls = Physics.OverlapSphere(position, radius);
             if (colls.Length > 0)
@@ -194,7 +207,7 @@ namespace SwiftAPI
                     BreakableToyBase b = col.transform.root.GetComponentInChildren<BreakableToyBase>();
                     if (b != null)
                     {
-                        b.Damage(damage);
+                        b.Damage(damageDroppoff == null ? damage : damageDroppoff.Evaluate(Vector3.Distance(col.ClosestPoint(position), position)));
                         if (single)
                             break;
                     }

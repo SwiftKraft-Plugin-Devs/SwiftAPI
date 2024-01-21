@@ -1,5 +1,6 @@
 ﻿using AdminToys;
 using Mirror;
+using PlayerStatsSystem;
 using PluginAPI.Core;
 using UnityEngine;
 
@@ -23,6 +24,9 @@ namespace SwiftAPI.API.BreakableToys
 
         public virtual void Damage(float damage)
         {
+            if (MaxHealth < 0f)
+                return;
+
             CurrentHealth -= damage;
 
             if (CurrentHealth <= 0f)

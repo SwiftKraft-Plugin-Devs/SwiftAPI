@@ -6,6 +6,9 @@ using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using PluginAPI.Events;
 using SwiftAPI.Utility.Spawners;
+using SwiftAPI.HarmonyPatches;
+using SwiftAPI.HarmonyPatches.Patches;
+using InventorySystem.Items.ThrowableProjectiles;
 
 namespace SwiftAPI
 {
@@ -17,7 +20,7 @@ namespace SwiftAPI
 
         private const string Description = "A library plugin for easier development of SCP: SL NWAPI plugins.";
 
-        private const string Version = "v0.0.1";
+        private const string Version = "v0.0.2";
 
         /// <summary>
         /// Set this to true when you want to spam logs and stuff.
@@ -26,13 +29,18 @@ namespace SwiftAPI
         /// </summary>
         public static bool DebugMode = false;
 
-        [PluginPriority(LoadPriority.Lowest)]
+        [PluginPriority(LoadPriority.Highest)]
         [PluginEntryPoint(Name, Version, Description, Author)]
         public void Init()
         {
+            HarmonyPatcher.InitHarmony();
+
             Log.Info("SwiftAPI Loaded! Version: " + Version);
 
             EventManager.RegisterEvents<EventHandler>(this);
+
+            FirearmBulletHoleEvent.Event += EventHandler.PlaceBulletHoleFirearm;
+            ExplosionGrenade.OnExploded += EventHandler.GrenadeExplode;
 
             TargeterManager.Init();
 
@@ -146,6 +154,12 @@ namespace SwiftAPI
                     }
                 });
             }
+        }
+
+        [PluginUnload]
+        public void Unload()
+        {
+            HarmonyPatcher.DeinitHarmony();
         }
     }
 }

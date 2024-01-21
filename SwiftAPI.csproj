@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\..\..\..\..\..\..\SCP_DLLS\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\..\SCP_DLLS\Assembly-CSharp-firstpass.dll</HintPath>
@@ -43,9 +46,6 @@
     <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\..\SCP_DLLS\CommandSystem.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(SCPSLREFERENCES)\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="Mirror-Publicized">
       <HintPath>..\..\..\..\..\..\..\..\..\SCP_DLLS\Mirror-Publicized.dll</HintPath>
@@ -118,6 +118,8 @@
     <Compile Include="Commands\ToggleAllSpawners.cs" />
     <Compile Include="Commands\ToggleSpawner.cs" />
     <Compile Include="EventHandler.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatcher.cs" />
+    <Compile Include="HarmonyPatches\Patches\FirearmBulletHoleEvent.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Spawners\ItemSpawner.cs" />
