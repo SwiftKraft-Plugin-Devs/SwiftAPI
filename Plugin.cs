@@ -49,6 +49,25 @@ namespace SwiftAPI
             SpawnerManager.RegisterSpawnerType<ItemSpawner>("item");
             SpawnerManager.RegisterSpawnerType<PlayerSpawner>("role");
 
+            CustomItemManager.RegisterItem("API.DECON", new CustomItemFirearm()
+            {
+                BaseItem = ItemType.GunCOM18,
+                DisplayName = "SwiftAPI Breakable Deconstructor",
+                Description = "Instantly destroys breakable toys regardless of health.",
+                HipData = new CustomFirearmData()
+                {
+                    Spread = 0f,
+                    AirSpread = 0f,
+                    RunSpread = 0f,
+                    HeadDamage = 99999f,
+                    BodyDamage = 99999f,
+                    LimbDamage = 99999f,
+                    SCPDamage = 99999f,
+                    MagazineSize = 230
+                },
+                Tags = new string[] { ConstTags.InstakillBreakables }
+            });
+
             if (DebugMode)
             {
                 CustomItemManager.RegisterItem("debug_item", new CustomItemEquippable() { BaseItem = ItemType.KeycardJanitor, DisplayName = "Debug Item" });

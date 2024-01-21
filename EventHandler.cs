@@ -187,10 +187,10 @@ namespace SwiftAPI
             float damage =
                 CustomItemManager.TryGetCustomItemWithSerial(firearm.ItemSerial, out CustomItemBase _item)
                 && _item is CustomItemFirearm f ?
-                (firearm.AdsModule.ServerAds ? f.AimData : f.HipData).BodyDamage
+                (f.HasTag(ConstTags.InstakillBreakables) ? -1 : (firearm.AdsModule.ServerAds ? f.AimData : f.HipData).BodyDamage)
                 : firearm.BaseStats.BaseDamage;
 
-            DamageBreakables(position, 0.05f, damage);
+            DamageBreakables(position, 0.05f, damage, single: true, instakill: damage < 0f);
         }
 
         public static void GrenadeExplode(Footprint footprint, Vector3 position, ExplosionGrenade grenade)
@@ -198,7 +198,7 @@ namespace SwiftAPI
             DamageBreakables(position, grenade._maxRadius, 0f, damageDroppoff: grenade._playerDamageOverDistance);
         }
 
-        public static void DamageBreakables(Vector3 position, float radius, float damage, bool single = true, AnimationCurve damageDroppoff = null)
+        public static void DamageBreakables(Vector3 position, float radius, float damage, bool single = true, AnimationCurve damageDroppoff = null, bool instakill = false)
         {
             Collider[] colls = Physics.OverlapSphere(position, radius);
             if (colls.Length > 0)
@@ -207,7 +207,11 @@ namespace SwiftAPI
                     BreakableToyBase b = col.transform.root.GetComponentInChildren<BreakableToyBase>();
                     if (b != null)
                     {
-                        b.Damage(damageDroppoff == null ? damage : damageDroppoff.Evaluate(Vector3.Distance(col.ClosestPoint(position), position)));
+                        if (!instakill)
+                            b.Damage(damageDroppoff == null ? damage : damageDroppoff.Evaluate(Vector3.Distance(col.ClosestPoint(position), position)));
+                        else
+                            b.Destroy();
+
                         if (single)
                             break;
                     }

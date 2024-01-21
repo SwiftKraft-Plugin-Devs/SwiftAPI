@@ -144,6 +144,14 @@ namespace SwiftAPI.API.CustomItems
             return false;
         }
 
+        public bool HasTag(string tag)
+        {
+            if (Tags == null)
+                return false;
+
+            return Tags.Contains(tag);
+        }
+
         public virtual void ActionHint(Player _player, string _action)
         {
             _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
