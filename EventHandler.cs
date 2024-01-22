@@ -160,6 +160,9 @@ namespace SwiftAPI
         [PluginEvent(ServerEventType.GrenadeExploded)]
         public void GrenadeExploded(GrenadeExplodedEvent _event)
         {
+            if (_event.Grenade is ExplosionGrenade gre)
+                DamageBreakables(_event.Position, gre._maxRadius, 0f, damageDroppoff: gre._playerDamageOverDistance);
+
             if (!CustomItemManager.IsCustomItem(_event.Grenade.Info.Serial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Grenade.Info.Serial) is CustomItemTimeGrenade grenade))
                 return;
 
@@ -191,11 +194,6 @@ namespace SwiftAPI
                 : firearm.BaseStats.BaseDamage;
 
             DamageBreakables(position, 0.05f, damage, single: true, instakill: damage < 0f);
-        }
-
-        public static void GrenadeExplode(Footprint footprint, Vector3 position, ExplosionGrenade grenade)
-        {
-            DamageBreakables(position, grenade._maxRadius, 0f, damageDroppoff: grenade._playerDamageOverDistance);
         }
 
         public static void DamageBreakables(Vector3 position, float radius, float damage, bool single = true, AnimationCurve damageDroppoff = null, bool instakill = false)
