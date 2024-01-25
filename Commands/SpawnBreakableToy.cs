@@ -1,11 +1,8 @@
 ﻿using CommandSystem;
 using PluginAPI.Core;
 using SwiftAPI.API.BreakableToys;
+using SwiftAPI.API.CustomItems;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SwiftAPI.Commands
@@ -91,8 +88,16 @@ namespace SwiftAPI.Commands
                     break;
             }
 
-            BreakableToyBase toy = player.ReferenceHub.SpawnBreakableToy(type, position, rotation, scale, color);
-            toy.Configure(hp);
+            BreakableToyBase toy = player.ReferenceHub.SpawnBreakableToy<BreakableToyBase>(type, position, rotation, scale, color);
+            toy.SetHealth(hp);
+
+            if (TryGetArgument(args, 8, out string arg8))
+            {
+                if (int.TryParse(arg8, out int itemId) && Enum.GetValues(typeof(ItemType)).ToArray<ItemType>().Contains((ItemType)itemId))
+                    toy.DropItem = (ItemType)itemId;
+                else if (CustomItemManager.TryGetCustomItemWithID(arg8, out CustomItemBase custItem))
+                    toy.DropCustomItem = custItem;
+            }
 
             result = "Spawned breakable primitive with NetID of " + toy.NetworkId + " and health of " + hp;
 

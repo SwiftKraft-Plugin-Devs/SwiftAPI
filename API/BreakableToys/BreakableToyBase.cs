@@ -1,7 +1,7 @@
 ﻿using AdminToys;
 using Mirror;
-using PlayerStatsSystem;
-using PluginAPI.Core;
+using PluginAPI.Core.Items;
+using SwiftAPI.API.CustomItems;
 using UnityEngine;
 
 namespace SwiftAPI.API.BreakableToys
@@ -14,9 +14,12 @@ namespace SwiftAPI.API.BreakableToys
 
         protected float CurrentHealth;
 
+        public ItemType DropItem;
+        public CustomItemBase DropCustomItem;
+
         public uint NetworkId => Toy.netId;
 
-        public void Configure(float max)
+        public virtual void SetHealth(float max)
         {
             MaxHealth = max;
             CurrentHealth = max;
@@ -35,7 +38,20 @@ namespace SwiftAPI.API.BreakableToys
 
         public virtual void Destroy()
         {
+            Drop();
+
             NetworkServer.Destroy(Toy.gameObject);
+        }
+
+        public void Drop()
+        {
+            if (DropCustomItem == null && DropItem != ItemType.None)
+            {
+                ItemPickup ib = ItemPickup.Create(DropItem, Toy.NetworkPosition, Quaternion.identity);
+                ib.Spawn();
+            }
+            else
+                CustomItemManager.DropCustomItem(DropCustomItem, Toy.NetworkPosition);
         }
     }
 }

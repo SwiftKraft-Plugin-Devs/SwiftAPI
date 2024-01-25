@@ -21,7 +21,14 @@ namespace SwiftAPI.Utility.Spawners
 
         public static bool IsValidSpawner(int id) => Spawners.Count > id;
 
-        public static void RegisterSpawnerType<T>(string id) where T : SpawnerBase => SpawnerTypes.Add(id.ToUpper(), typeof(T));
+        public static bool RegisterSpawnerType<T>(string id) where T : SpawnerBase 
+        {
+            if (SpawnerTypes.ContainsKey(id))
+                return false;
+
+            SpawnerTypes.Add(id.ToUpper(), typeof(T));
+            return true;
+        }
 
         public static bool ToggleSpawner(int id, bool status)
         {
