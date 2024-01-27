@@ -8,10 +8,11 @@ namespace SwiftAPI.API.CustomItems
     {
         public float Duration;
         public bool AddDuration;
+        public byte Intensity;
 
         public override void EndConsume(Player _player, ItemBase _item)
         {
-            _player.EffectsManager.EnableEffect<T>(Duration, AddDuration);
+            _player.EffectsManager.EnableEffect<T>(Duration, AddDuration).Intensity = Intensity;
 
             base.EndConsume(_player, _item);
         }

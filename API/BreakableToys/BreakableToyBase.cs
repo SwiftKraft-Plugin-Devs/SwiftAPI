@@ -19,6 +19,8 @@ namespace SwiftAPI.API.BreakableToys
 
         public uint NetworkId => Toy.netId;
 
+        bool dead;
+
         public virtual void SetHealth(float max)
         {
             MaxHealth = max;
@@ -38,7 +40,12 @@ namespace SwiftAPI.API.BreakableToys
 
         public virtual void Destroy()
         {
+            if (dead)
+                return;
+
             Drop();
+
+            dead = true;
 
             NetworkServer.Destroy(Toy.gameObject);
         }

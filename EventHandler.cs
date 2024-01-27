@@ -161,7 +161,7 @@ namespace SwiftAPI
         public void GrenadeExploded(GrenadeExplodedEvent _event)
         {
             if (_event.Grenade is ExplosionGrenade gre)
-                DamageBreakables(_event.Position, gre._maxRadius, 0f, damageDroppoff: gre._playerDamageOverDistance);
+                DamageBreakables(_event.Position, gre._maxRadius, 100f);
 
             if (!CustomItemManager.IsCustomItem(_event.Grenade.Info.Serial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Grenade.Info.Serial) is CustomItemTimeGrenade grenade))
                 return;
@@ -193,10 +193,10 @@ namespace SwiftAPI
                 (f.HasTag(ConstTags.InstakillBreakables) ? -1 : (firearm.AdsModule.ServerAds ? f.AimData : f.HipData).BodyDamage)
                 : firearm.BaseStats.BaseDamage;
 
-            DamageBreakables(position, 0.05f, damage, single: true, instakill: damage < 0f);
+            DamageBreakables(position, 0.01f, damage, single: true, instakill: damage < 0f);
         }
 
-        public static void DamageBreakables(Vector3 position, float radius, float damage, bool single = true, AnimationCurve damageDroppoff = null, bool instakill = false)
+        public static void DamageBreakables(Vector3 position, float radius, float damage, bool single = true, bool instakill = false)
         {
             Collider[] colls = Physics.OverlapSphere(position, radius);
             if (colls.Length > 0)
@@ -206,7 +206,7 @@ namespace SwiftAPI
                     if (b != null)
                     {
                         if (!instakill)
-                            b.Damage(damageDroppoff == null ? damage : damageDroppoff.Evaluate(Vector3.Distance(col.ClosestPoint(position), position)));
+                            b.Damage(damage);
                         else
                             b.Destroy();
 
