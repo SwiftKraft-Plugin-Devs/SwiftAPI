@@ -2,6 +2,7 @@
 using PluginAPI.Core;
 using SwiftAPI.API.BreakableToys;
 using SwiftAPI.API.CustomItems;
+using SwiftAPI.Utility.Misc;
 using System;
 using UnityEngine;
 
@@ -79,7 +80,7 @@ namespace SwiftAPI.Commands
             {
                 case SnappingModes.Grid:
                     rotation = Quaternion.identity;
-                    position = new Vector3(Mathf.Round(position.x) + (scale.x % 2 != 0 ? 0.5f : 0f), Mathf.Round(position.y) + (scale.y % 2 == 0 ? 0.5f : 0f), Mathf.Round(position.z) + (scale.z % 2 == 0 ? 0.5f : 0f));
+                    position = GridSnapper.SnapToGrid(position, scale, Vector3.one);
                     break;
                 case SnappingModes.NoRot:
                     rotation = Quaternion.identity;
