@@ -40,7 +40,6 @@ namespace SwiftAPI
             EventManager.RegisterEvents<EventHandler>(this);
 
             FirearmBulletHoleEvent.Event += EventHandler.PlaceBulletHoleFirearm;
-            ExplosionGrenade.OnExploded += EventHandler.GrenadeExplode;
 
             TargeterManager.Init();
 

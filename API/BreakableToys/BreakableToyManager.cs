@@ -1,5 +1,4 @@
 ﻿using AdminToys;
-using CommandSystem.Commands.RemoteAdmin;
 using Footprinting;
 using Mirror;
 using UnityEngine;
@@ -18,7 +17,7 @@ namespace SwiftAPI.API.BreakableToys
                     Prefab = component;
         }
 
-        public static BreakableToyBase SpawnBreakableToy(this ReferenceHub admin, PrimitiveType type, Vector3 position, Quaternion rotation, Vector3 size, Color color)
+        public static T SpawnBreakableToy<T>(this ReferenceHub admin, PrimitiveType type, Vector3 position, Quaternion rotation, Vector3 size, Color color) where T : BreakableToyBase
         {
             if (Prefab == null)
                 RegisterPrefab();
@@ -30,7 +29,7 @@ namespace SwiftAPI.API.BreakableToys
             spawnee.NetworkScale = size;
             spawnee.NetworkMaterialColor = color;
             spawnee.SpawnerFootprint = new Footprint(admin);
-            BreakableToyBase b = spawnee.gameObject.AddComponent<BreakableToyBase>();
+            T b = spawnee.gameObject.AddComponent<T>();
             b.Toy = spawnee;
             NetworkServer.Spawn(spawnee.gameObject);
 
