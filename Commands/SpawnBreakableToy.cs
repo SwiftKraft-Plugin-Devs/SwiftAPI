@@ -82,7 +82,7 @@ namespace SwiftAPI.Commands
             {
                 case SnappingModes.Grid:
                     rotation = Quaternion.identity;
-                    position = new Vector3(Mathf.Round(position.x) + (scale.x % 2 == 0 ? 0.5f : 0f), Mathf.Round(position.y) + (scale.y % 2 == 0 ? 0.5f : 0f), Mathf.Round(position.z) + (scale.z % 2 == 0 ? 0.5f : 0f));
+                    position = new Vector3(Mathf.Round(position.x) + (scale.x % 2 != 0 ? 0.5f : 0f), Mathf.Round(position.y) + (scale.y % 2 == 0 ? 0.5f : 0f), Mathf.Round(position.z) + (scale.z % 2 == 0 ? 0.5f : 0f));
                     break;
                 case SnappingModes.NoRot:
                     rotation = Quaternion.identity;
