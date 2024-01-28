@@ -1,5 +1,6 @@
 ﻿using InventorySystem.Items.ThrowableProjectiles;
 using PluginAPI.Core;
+using UnityEngine;
 
 namespace SwiftAPI.API.CustomItems
 {
@@ -15,5 +16,11 @@ namespace SwiftAPI.API.CustomItems
         /// <param name="_item"></param>
         /// <param name="_projectileSettings"></param>
         public abstract void Throw(Player _player, ThrowableItem _item, ThrowableItem.ProjectileSettings _projectileSettings);
+
+        /// <summary>
+        /// Called when the projectile collides with something.
+        /// </summary>
+        /// <param name="collision"></param>
+        public virtual void Collide(Collision collision) { }
     }
 }

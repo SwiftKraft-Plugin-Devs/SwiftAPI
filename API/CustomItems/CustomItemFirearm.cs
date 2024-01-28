@@ -33,6 +33,8 @@ namespace SwiftAPI.API.CustomItems
             set => aimData = value;
         }
 
+        public bool InfiniteAmmo;
+
         private CustomFirearmData aimData;
         private CustomFirearmData hipData;
 
@@ -41,7 +43,19 @@ namespace SwiftAPI.API.CustomItems
         public override void Equip(Player _player, ushort _itemSerial)
         {
             if (_player.CurrentItem is Firearm f)
+            {
                 ResetFirearm(f, this);
+
+                f.OnStatusChanged -= OnFirearmStatusChanged;
+                f.OnStatusChanged += OnFirearmStatusChanged;
+
+                void OnFirearmStatusChanged(FirearmStatus arg1, FirearmStatus arg2)
+                {
+                    ResetFirearm(f, this);
+
+                    StatusChanged(_player, f, arg1, arg2);
+                }
+            }
 
             base.Equip(_player, _itemSerial);
         }
@@ -85,6 +99,9 @@ namespace SwiftAPI.API.CustomItems
 
             if (data.OneShot)
                 _gun.Status = new FirearmStatus(0, _gun.Status.Flags, _gun.Status.Attachments);
+
+            if (InfiniteAmmo)
+                _gun.Status = new FirearmStatus(data.MagazineSize, _gun.Status.Flags, _gun.Status.Attachments);
         }
 
         /// <summary>
@@ -160,17 +177,7 @@ namespace SwiftAPI.API.CustomItems
             if (HipData.CannotReload)
                 return false;
 
-            _gun.OnStatusChanged -= OnFirearmStatusChanged;
-            _gun.OnStatusChanged += OnFirearmStatusChanged;
-
             return true;
-
-            void OnFirearmStatusChanged(FirearmStatus arg1, FirearmStatus arg2)
-            {
-                ResetFirearm(_gun, this);
-
-                ActionHint(_player, "Weapon");
-            }
         }
 
         /// <summary>
@@ -194,6 +201,11 @@ namespace SwiftAPI.API.CustomItems
         public virtual void Aim(Player _player, Firearm _gun, bool _isAiming)
         {
             ResetFirearm(_gun, this, _isAiming);
+        }
+
+        public virtual void StatusChanged(Player _player, Firearm firearm, FirearmStatus prevStatus, FirearmStatus currStatus)
+        {
+            ActionHint(_player, "Weapon");
         }
 
         public static void ResetFirearm(Firearm firearm, CustomItemFirearm gun)

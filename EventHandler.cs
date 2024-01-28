@@ -1,8 +1,7 @@
-﻿using Footprinting;
+﻿using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
-using InventorySystem.Items.Firearms.Modules;
-using InventorySystem.Items.Jailbird;
 using InventorySystem.Items.ThrowableProjectiles;
+using MEC;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
@@ -10,6 +9,7 @@ using PluginAPI.Events;
 using SwiftAPI.API.BreakableToys;
 using SwiftAPI.API.CustomItems;
 using SwiftAPI.Utility.Spawners;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SwiftAPI
@@ -151,10 +151,27 @@ namespace SwiftAPI
         [PluginEvent(ServerEventType.PlayerThrowProjectile)]
         public void PlayerThrowProjectile(PlayerThrowProjectileEvent _event)
         {
+            if (_event.Item.Projectile is Scp018Projectile proj)
+            {
+                proj.OnCollided -= OnScp018Collide;
+                proj.OnCollided += OnScp018Collide;
+            }
+
             if (!CustomItemManager.IsCustomItem(_event.Item.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Item.ItemSerial) is CustomItemThrowableProjectile projectile))
                 return;
 
             projectile.Throw(_event.Thrower, _event.Item, _event.ProjectileSettings);
+
+            if (_event.Item.Projectile is ThrownProjectile pr)
+            {
+                pr.OnCollided -= OnProjectileCollide;
+                pr.OnCollided += OnProjectileCollide;
+
+                void OnProjectileCollide(Collision collision)
+                {
+                    projectile.Collide(collision);
+                }
+            }
         }
 
         [PluginEvent(ServerEventType.GrenadeExploded)]
@@ -185,6 +202,27 @@ namespace SwiftAPI
             CustomItemManager.ClearCustomItems();
         }
 
+        [PluginEvent(ServerEventType.Scp096Charging)]
+        public void Scp096Charging(Scp096ChargingEvent _event)
+        {
+            Timing.RunCoroutine(Scp096Break(_event.Player, 2f));
+        }
+
+        public IEnumerator<float> Scp096Break(Player p, float duration)
+        {
+            while (duration > 0f)
+            {
+                DamageBreakables(p.Position, 3f, 90f);
+                duration -= Time.deltaTime;
+                yield return Timing.WaitForOneFrame;
+            }
+        }
+
+        private void OnScp018Collide(Collision collision)
+        {
+            DamageBreakable(collision.collider, 50f);
+        }
+
         public static void PlaceBulletHoleFirearm(Vector3 position, Firearm firearm)
         {
             float damage =
@@ -202,18 +240,24 @@ namespace SwiftAPI
             if (colls.Length > 0)
                 foreach (Collider col in colls)
                 {
-                    BreakableToyBase b = col.transform.root.GetComponentInChildren<BreakableToyBase>();
-                    if (b != null)
-                    {
-                        if (!instakill)
-                            b.Damage(damageDrop == null ? damage : damageDrop.Evaluate(Vector3.Distance(col.ClosestPoint(position), position)));
-                        else
-                            b.Destroy();
+                    DamageBreakable(col, damageDrop == null ? damage : damageDrop.Evaluate(Vector3.Distance(col.ClosestPoint(position), position)), instakill);
 
-                        if (single)
-                            break;
-                    }
+                    if (single)
+                        break;
                 }
+        }
+
+        public static void DamageBreakable(Collider col, float damage, bool instakill = false)
+        {
+            BreakableToyBase b = col.transform.root.GetComponentInChildren<BreakableToyBase>();
+
+            if (b != null)
+            {
+                if (!instakill)
+                    b.Damage(damage);
+                else
+                    b.Destroy();
+            }
         }
     }
 }
