@@ -47,6 +47,8 @@ namespace SwiftAPI.API.BreakableToys
 
             dead = true;
 
+            BreakableToyManager.Breakables.Remove(this);
+
             NetworkServer.Destroy(Toy.gameObject);
         }
 

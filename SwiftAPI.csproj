@@ -101,6 +101,7 @@
     <Compile Include="API\ServerVariables\ServerVariable.cs" />
     <Compile Include="API\ServerVariables\ServerVariableManager.cs" />
     <Compile Include="Commands\AddSpawner.cs" />
+    <Compile Include="Commands\ClearBreakables.cs" />
     <Compile Include="Commands\ClearSpawners.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\CustomList.cs" />
