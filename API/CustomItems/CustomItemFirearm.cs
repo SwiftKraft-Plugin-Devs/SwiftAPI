@@ -8,6 +8,7 @@ using PlayerRoles;
 using PlayerStatsSystem;
 using PluginAPI.Core;
 using SwiftAPI.API.CustomItems.FriendlyActions;
+using SwiftAPI.API.ServerVariables;
 using UnityEngine;
 
 namespace SwiftAPI.API.CustomItems
@@ -17,6 +18,8 @@ namespace SwiftAPI.API.CustomItems
     /// </summary>
     public class CustomItemFirearm : CustomItemEquippable
     {
+        public const string InfiniteAmmoServerVar = "infinite_ammo";
+
         public CustomFirearmData HipData
         {
             get => hipData;
@@ -45,6 +48,13 @@ namespace SwiftAPI.API.CustomItems
             if (_player.CurrentItem is Firearm f)
             {
                 ResetFirearm(f, this);
+
+                int setAmmo = Mathf.Min(HipData.MagazineSize, f.Status.Ammo);
+                int giveAmmo = f.Status.Ammo - setAmmo;
+                f.Status = new FirearmStatus((byte)setAmmo, f.Status.Flags, f.Status.Attachments);
+
+                if (giveAmmo > 0)
+                    _player.AddAmmo(f.AmmoType, (ushort)giveAmmo);
 
                 f.OnStatusChanged -= OnFirearmStatusChanged;
                 f.OnStatusChanged += OnFirearmStatusChanged;
@@ -100,7 +110,7 @@ namespace SwiftAPI.API.CustomItems
             if (data.OneShot)
                 _gun.Status = new FirearmStatus(0, _gun.Status.Flags, _gun.Status.Attachments);
 
-            if (InfiniteAmmo)
+            if (InfiniteAmmo || (ServerVariableManager.TryGetVar(InfiniteAmmoServerVar, out ServerVariable a) && bool.TryParse(a.Value, out bool b) && b))
                 _gun.Status = new FirearmStatus(data.MagazineSize, _gun.Status.Flags, _gun.Status.Attachments);
         }
 

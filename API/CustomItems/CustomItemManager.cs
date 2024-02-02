@@ -1,5 +1,6 @@
 ﻿using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.Attachments;
 using PluginAPI.Core;
 using PluginAPI.Core.Items;
 using System.Collections.Generic;
@@ -209,7 +210,7 @@ namespace SwiftAPI.API.CustomItems
 
         public static void GiveCustomItem(this Player _player, CustomItemBase _item)
         {
-            if (_player.IsInventoryFull)
+            if (_player.IsInventoryFull || _item == null)
                 return;
 
             ItemBase _it = _player.AddItem(_item.BaseItem);
@@ -223,7 +224,7 @@ namespace SwiftAPI.API.CustomItems
                 else
                     mag = f.AmmoManagerModule.MaxAmmo;
 
-                f.Status = new FirearmStatus(mag, FirearmStatusFlags.MagazineInserted, f.Status.Attachments);
+                f.Status = new FirearmStatus(mag, FirearmStatusFlags.MagazineInserted, AttachmentsServerHandler.PlayerPreferences[_player.ReferenceHub][f.ItemTypeId]);
             }
 
             AddCustomItem(_it.ItemSerial, _item);
@@ -231,7 +232,8 @@ namespace SwiftAPI.API.CustomItems
 
         public static void GiveCustomItem(this Player _player, string _itemId)
         {
-            _player.GiveCustomItem(GetCustomItemWithID(_itemId));
+            if (TryGetCustomItemWithID(_itemId, out CustomItemBase _item))
+                _player.GiveCustomItem(_item);
         }
     }
 }
