@@ -67,6 +67,63 @@ namespace SwiftAPI
                 Tags = new string[] { ConstStrings.InstakillBreakablesTag }
             });
 
+            CustomItemManager.RegisterItem("API.MOVER.GRID", new CustomItemFirearm()
+            {
+                BaseItem = ItemType.GunCOM18,
+                DisplayName = "SwiftAPI Breakable Mover (Grid)",
+                Description = "Moves breakables.",
+                HipData = new CustomFirearmData()
+                {
+                    Spread = 0f,
+                    AirSpread = 0f,
+                    RunSpread = 0f,
+                    HeadDamage = 0f,
+                    BodyDamage = 0f,
+                    LimbDamage = 0f,
+                    SCPDamage = 0f,
+                    MagazineSize = 230
+                },
+                Tags = new string[] { ConstStrings.MoveGridBreakablesTag }
+            });
+
+            CustomItemManager.RegisterItem("API.MOVER.NONE", new CustomItemFirearm()
+            {
+                BaseItem = ItemType.GunCOM18,
+                DisplayName = "SwiftAPI Breakable Mover (None)",
+                Description = "Moves breakables.",
+                HipData = new CustomFirearmData()
+                {
+                    Spread = 0f,
+                    AirSpread = 0f,
+                    RunSpread = 0f,
+                    HeadDamage = 0f,
+                    BodyDamage = 0f,
+                    LimbDamage = 0f,
+                    SCPDamage = 0f,
+                    MagazineSize = 230
+                },
+                Tags = new string[] { ConstStrings.MoveNoneBreakablesTag }
+            });
+
+            CustomItemManager.RegisterItem("API.MOVER.NOROT", new CustomItemFirearm()
+            {
+                BaseItem = ItemType.GunCOM18,
+                DisplayName = "SwiftAPI Breakable Mover (NoRot)",
+                Description = "Moves breakables.",
+                HipData = new CustomFirearmData()
+                {
+                    Spread = 0f,
+                    AirSpread = 0f,
+                    RunSpread = 0f,
+                    HeadDamage = 0f,
+                    BodyDamage = 0f,
+                    LimbDamage = 0f,
+                    SCPDamage = 0f,
+                    MagazineSize = 230
+                },
+                Tags = new string[] { ConstStrings.MoveNoRotBreakablesTag }
+            });
+
             if (DebugMode)
             {
                 CustomItemManager.RegisterItem("debug_item", new CustomItemEquippable() { BaseItem = ItemType.KeycardJanitor, DisplayName = "Debug Item" });
