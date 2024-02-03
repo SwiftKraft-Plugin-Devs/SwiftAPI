@@ -104,12 +104,16 @@ namespace SwiftAPI.Commands
 
             return true;
         }
+    }
+}
 
-        public enum SnappingModes : int
-        {
-            None = 0,
-            Grid = 1,
-            NoRot = 2
-        }
+namespace SwiftAPI.API.BreakableToys
+{
+    public enum SnappingModes : int
+    {
+        None = 0,
+        Grid = 1,
+        NoRot = 2,
+        DontMove = 3
     }
 }

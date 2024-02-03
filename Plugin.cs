@@ -64,7 +64,7 @@ namespace SwiftAPI
                     SCPDamage = 99999f,
                     MagazineSize = 230
                 },
-                Tags = new string[] { ConstTags.InstakillBreakables }
+                Tags = new string[] { ConstStrings.InstakillBreakablesTag }
             });
 
             if (DebugMode)

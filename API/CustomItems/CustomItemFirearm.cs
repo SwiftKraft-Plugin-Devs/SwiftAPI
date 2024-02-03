@@ -18,8 +18,6 @@ namespace SwiftAPI.API.CustomItems
     /// </summary>
     public class CustomItemFirearm : CustomItemEquippable
     {
-        public const string InfiniteAmmoServerVar = "infinite_ammo";
-
         public CustomFirearmData HipData
         {
             get => hipData;
@@ -110,7 +108,7 @@ namespace SwiftAPI.API.CustomItems
             if (data.OneShot)
                 _gun.Status = new FirearmStatus(0, _gun.Status.Flags, _gun.Status.Attachments);
 
-            if (InfiniteAmmo || (ServerVariableManager.TryGetVar(InfiniteAmmoServerVar, out ServerVariable a) && bool.TryParse(a.Value, out bool b) && b))
+            if (InfiniteAmmo || (ServerVariableManager.TryGetVar(ConstStrings.InfiniteAmmoServerVar, out ServerVariable a) && bool.TryParse(a.Value, out bool b) && b))
                 _gun.Status = new FirearmStatus(data.MagazineSize, _gun.Status.Flags, _gun.Status.Attachments);
         }
 

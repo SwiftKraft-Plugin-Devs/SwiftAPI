@@ -155,6 +155,11 @@ namespace SwiftAPI
             {
                 proj.OnCollided -= OnScp018Collide;
                 proj.OnCollided += OnScp018Collide;
+
+                void OnScp018Collide(Collision collision)
+                {
+                    this.OnScp018Collide(collision, _event.Thrower);
+                }
             }
 
             if (!CustomItemManager.IsCustomItem(_event.Item.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Item.ItemSerial) is CustomItemThrowableProjectile projectile))
@@ -178,7 +183,7 @@ namespace SwiftAPI
         public void GrenadeExploded(GrenadeExplodedEvent _event)
         {
             if (_event.Grenade is ExplosionGrenade gre)
-                DamageBreakables(_event.Position, gre._maxRadius, 0f, false, damageDrop: gre._playerDamageOverDistance);
+                DamageBreakables(_event.Position, gre._maxRadius, 0f, attacker: Player.Get(_event.Thrower.PlayerId), single: false, damageDrop: gre._playerDamageOverDistance);
 
             if (!CustomItemManager.IsCustomItem(_event.Grenade.Info.Serial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Grenade.Info.Serial) is CustomItemTimeGrenade grenade))
                 return;
@@ -218,46 +223,43 @@ namespace SwiftAPI
             }
         }
 
-        private void OnScp018Collide(Collision collision)
+        private void OnScp018Collide(Collision collision, Player attacker)
         {
-            DamageBreakable(collision.collider, 50f);
+            DamageBreakable(collision.collider, 50f, attacker);
         }
 
         public static void PlaceBulletHoleFirearm(Vector3 position, Firearm firearm)
         {
-            float damage =
-                CustomItemManager.TryGetCustomItemWithSerial(firearm.ItemSerial, out CustomItemBase _item)
-                && _item is CustomItemFirearm f ?
-                (f.HasTag(ConstTags.InstakillBreakables) ? -1 : (firearm.AdsModule.ServerAds ? f.AimData : f.HipData).BodyDamage)
-                : firearm.BaseStats.BaseDamage;
+            float damage = firearm.BaseStats.BaseDamage;
 
-            DamageBreakables(position, 0.01f, damage, single: true, instakill: damage < 0f);
+            string[] tags = null;
+
+            if (CustomItemManager.TryGetCustomItemWithSerial(firearm.ItemSerial, out CustomItemBase _item) && _item is CustomItemFirearm f)
+            {
+                damage = (firearm.AdsModule.ServerAds ? f.AimData : f.HipData).BodyDamage;
+                tags = f.Tags;
+            }
+
+            DamageBreakables(position, 0.01f, damage, attacker: Player.Get(firearm.Footprint.PlayerId), single: true, tags: tags);
         }
 
-        public static void DamageBreakables(Vector3 position, float radius, float damage, bool single = true, bool instakill = false, AnimationCurve damageDrop = null)
+        public static void DamageBreakables(Vector3 position, float radius, float damage, Player attacker = null, bool single = true, AnimationCurve damageDrop = null, params string[] tags)
         {
             Collider[] colls = Physics.OverlapSphere(position, radius);
             if (colls.Length > 0)
                 foreach (Collider col in colls)
                 {
-                    DamageBreakable(col, damageDrop == null ? damage : damageDrop.Evaluate(Vector3.Distance(col.ClosestPoint(position), position)), instakill);
+                    DamageBreakable(col, damageDrop == null ? damage : damageDrop.Evaluate(Vector3.Distance(col.ClosestPoint(position), position)), attacker, tags);
 
                     if (single)
                         break;
                 }
         }
 
-        public static void DamageBreakable(Collider col, float damage, bool instakill = false)
+        public static void DamageBreakable(Collider col, float damage, Player attacker = null, params string[] tags)
         {
             BreakableToyBase b = col.transform.root.GetComponentInChildren<BreakableToyBase>();
-
-            if (b != null)
-            {
-                if (!instakill)
-                    b.Damage(damage);
-                else
-                    b.Destroy();
-            }
+            b?.Damage(damage, attacker, tags);
         }
     }
 }
