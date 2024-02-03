@@ -65,7 +65,7 @@ namespace SwiftAPI
                     MagazineSize = 230
                 },
                 InfiniteAmmo = true,
-                Tags = new string[] { ConstStrings.InstakillBreakablesTag }
+                Tags = new string[] { ConstStrings.InstakillBreakablesTag, ConstStrings.APIWeaponTag }
             });
 
             CustomItemManager.RegisterItem("API.MOVER.GRID", new CustomItemFirearm()
@@ -85,7 +85,7 @@ namespace SwiftAPI
                     MagazineSize = 230
                 },
                 InfiniteAmmo = true,
-                Tags = new string[] { ConstStrings.MoveGridBreakablesTag }
+                Tags = new string[] { ConstStrings.MoveGridBreakablesTag, ConstStrings.APIWeaponTag }
             });
 
             CustomItemManager.RegisterItem("API.MOVER.NONE", new CustomItemFirearm()
@@ -105,7 +105,7 @@ namespace SwiftAPI
                     MagazineSize = 230
                 },
                 InfiniteAmmo = true,
-                Tags = new string[] { ConstStrings.MoveNoneBreakablesTag }
+                Tags = new string[] { ConstStrings.MoveNoneBreakablesTag, ConstStrings.APIWeaponTag }
             });
 
             CustomItemManager.RegisterItem("API.MOVER.NOROT", new CustomItemFirearm()
@@ -125,7 +125,7 @@ namespace SwiftAPI
                     MagazineSize = 230
                 },
                 InfiniteAmmo = true,
-                Tags = new string[] { ConstStrings.MoveNoRotBreakablesTag }
+                Tags = new string[] { ConstStrings.MoveNoRotBreakablesTag, ConstStrings.APIWeaponTag }
             });
 
             if (DebugMode)

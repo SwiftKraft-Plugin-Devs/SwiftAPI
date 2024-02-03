@@ -4,6 +4,7 @@
     {
         public const string InfiniteAmmoServerVar = "infinite_ammo";
 
+        public const string APIWeaponTag = "APIWeapon";
         public const string InstakillBreakablesTag = "InstakillBreakables";
         public const string MoveGridBreakablesTag = "MoveBreakables_Grid";
         public const string MoveNoRotBreakablesTag = "MoveBreakables_NoRot";
