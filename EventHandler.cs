@@ -158,7 +158,7 @@ namespace SwiftAPI
 
                 void OnScp018Collide(Collision collision)
                 {
-                    this.OnScp018Collide(collision, _event.Thrower);
+                    this.OnScp018Collide(collision, _event.Thrower.ReferenceHub);
                 }
             }
 
@@ -183,7 +183,7 @@ namespace SwiftAPI
         public void GrenadeExploded(GrenadeExplodedEvent _event)
         {
             if (_event.Grenade is ExplosionGrenade gre)
-                DamageBreakables(_event.Position, gre._maxRadius, 0f, attacker: Player.Get(_event.Thrower.PlayerId), single: false, damageDrop: gre._playerDamageOverDistance);
+                DamageBreakables(_event.Position, gre._maxRadius, 0f, attacker: _event.Thrower.Hub, single: false, damageDrop: gre._playerDamageOverDistance);
 
             if (!CustomItemManager.IsCustomItem(_event.Grenade.Info.Serial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Grenade.Info.Serial) is CustomItemTimeGrenade grenade))
                 return;
@@ -223,7 +223,7 @@ namespace SwiftAPI
             }
         }
 
-        private void OnScp018Collide(Collision collision, Player attacker)
+        private void OnScp018Collide(Collision collision, ReferenceHub attacker)
         {
             DamageBreakable(collision.collider, 50f, attacker);
         }
@@ -237,13 +237,13 @@ namespace SwiftAPI
             if (CustomItemManager.TryGetCustomItemWithSerial(firearm.ItemSerial, out CustomItemBase _item) && _item is CustomItemFirearm f)
             {
                 damage = (firearm.AdsModule.ServerAds ? f.AimData : f.HipData).BodyDamage;
-                tags = f.Tags;
+                tags = _item.Tags;
             }
 
-            DamageBreakables(position, 0.01f, damage, attacker: Player.Get(firearm.Footprint.PlayerId), single: true, tags: tags);
+            DamageBreakables(position, 0.05f, damage, attacker: firearm.Footprint.Hub, single: true, tags: tags);
         }
 
-        public static void DamageBreakables(Vector3 position, float radius, float damage, Player attacker = null, bool single = true, AnimationCurve damageDrop = null, params string[] tags)
+        public static void DamageBreakables(Vector3 position, float radius, float damage, ReferenceHub attacker = null, bool single = true, AnimationCurve damageDrop = null, params string[] tags)
         {
             Collider[] colls = Physics.OverlapSphere(position, radius);
             if (colls.Length > 0)
@@ -256,7 +256,7 @@ namespace SwiftAPI
                 }
         }
 
-        public static void DamageBreakable(Collider col, float damage, Player attacker = null, params string[] tags)
+        public static void DamageBreakable(Collider col, float damage, ReferenceHub attacker = null, params string[] tags)
         {
             BreakableToyBase b = col.transform.root.GetComponentInChildren<BreakableToyBase>();
             b?.Damage(damage, attacker, tags);

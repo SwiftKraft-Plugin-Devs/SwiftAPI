@@ -16,7 +16,7 @@ namespace SwiftAPI.API.BreakableToys
 
         protected float CurrentHealth;
 
-        public ItemType DropItem;
+        public ItemType DropItem = ItemType.None;
         public CustomItemBase DropCustomItem;
 
         public uint NetworkId => Toy.netId;
@@ -27,32 +27,30 @@ namespace SwiftAPI.API.BreakableToys
 
         SnappingModes MoveMode = SnappingModes.DontMove;
 
-        Player Mover;
+        ReferenceHub Mover;
 
-        private void FixedUpdate()
+        private void Start()
+        {
+            Toy.IsStatic = false;
+        }
+
+        private void Update()
         {
             if (!IsMoving)
-            {
-                Toy.IsStatic = true;
                 return;
-            }
 
-            Toy.IsStatic = false;
-
-            Vector3 targetPos = Mover.ReferenceHub.transform.position + Mover.ReferenceHub.transform.forward * 2f;
+            Vector3 targetPos = Mover.PlayerCameraReference.position + Mover.PlayerCameraReference.forward * 3f;
 
             switch (MoveMode)
             {
                 case SnappingModes.None:
-                    Toy.NetworkPosition = targetPos;
-                    Toy.NetworkRotation = new LowPrecisionQuaternion(Quaternion.Euler(Mover.Rotation));
+                    Toy.transform.SetPositionAndRotation(targetPos, Mover.PlayerCameraReference.rotation);
                     break;
                 case SnappingModes.Grid:
-                    Toy.NetworkPosition = GridSnapper.SnapToGrid(targetPos, Toy.NetworkScale, Vector3.one / 4f);
+                    Toy.transform.position = GridSnapper.SnapToGrid(targetPos, Toy.NetworkScale, Vector3.one / 4f);
                     break;
                 case SnappingModes.NoRot:
-                    Toy.NetworkPosition = targetPos;
-                    Toy.NetworkRotation = new LowPrecisionQuaternion();
+                    Toy.transform.SetPositionAndRotation(targetPos, Quaternion.identity);
                     break;
             }
         }
@@ -63,7 +61,7 @@ namespace SwiftAPI.API.BreakableToys
             CurrentHealth = max;
         }
 
-        public virtual void Damage(float damage, Player attacker = null, params string[] tags)
+        public virtual void Damage(float damage, ReferenceHub attacker = null, params string[] tags)
         {
             if (dead || MaxHealth < 0f || !ProcessTags(attacker, tags))
                 return;
@@ -88,9 +86,9 @@ namespace SwiftAPI.API.BreakableToys
             NetworkServer.Destroy(Toy.gameObject);
         }
 
-        public virtual bool ProcessTags(Player attacker = null, params string[] tags)
+        public virtual bool ProcessTags(ReferenceHub attacker = null, params string[] tags)
         {
-            if (tags == null)
+            if (tags == null || attacker == null)
                 return true;
 
             foreach (string tag in tags)
@@ -101,16 +99,13 @@ namespace SwiftAPI.API.BreakableToys
                         Destroy();
                         return false;
                     case ConstStrings.MoveGridBreakablesTag:
-                        if (attacker != null && Mover.ReferenceHub.PlayerId == attacker.PlayerId)
-                            Move(!IsMoving, attacker, SnappingModes.Grid);
+                        Move(!IsMoving, attacker, SnappingModes.Grid);
                         return false;
                     case ConstStrings.MoveNoneBreakablesTag:
-                        if (attacker != null && Mover.ReferenceHub.PlayerId == attacker.PlayerId)
-                            Move(!IsMoving, attacker, SnappingModes.None);
+                        Move(!IsMoving, attacker, SnappingModes.None);
                         return false;
                     case ConstStrings.MoveNoRotBreakablesTag:
-                        if (attacker != null && Mover.ReferenceHub.PlayerId == attacker.PlayerId)
-                            Move(!IsMoving, attacker, SnappingModes.NoRot);
+                        Move(!IsMoving, attacker, SnappingModes.NoRot);
                         return false;
                 }
             }
@@ -129,7 +124,7 @@ namespace SwiftAPI.API.BreakableToys
                 CustomItemManager.DropCustomItem(DropCustomItem, Toy.NetworkPosition);
         }
 
-        public void Move(bool state, Player mover = null, SnappingModes mode = SnappingModes.DontMove)
+        public void Move(bool state, ReferenceHub mover = null, SnappingModes mode = SnappingModes.DontMove)
         {
             if (!state || mover == null || mode == SnappingModes.DontMove)
             {
