@@ -53,16 +53,6 @@ namespace SwiftAPI.API.CustomItems
 
                 if (giveAmmo > 0)
                     _player.AddAmmo(f.AmmoType, (ushort)giveAmmo);
-
-                f.OnStatusChanged -= OnFirearmStatusChanged;
-                f.OnStatusChanged += OnFirearmStatusChanged;
-
-                void OnFirearmStatusChanged(FirearmStatus arg1, FirearmStatus arg2)
-                {
-                    ResetFirearm(f, this);
-
-                    StatusChanged(_player, f, arg1, arg2);
-                }
             }
 
             base.Equip(_player, _itemSerial);
