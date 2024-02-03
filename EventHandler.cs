@@ -245,7 +245,7 @@ namespace SwiftAPI
 
         public static void DamageBreakables(Vector3 position, float radius, float damage, ReferenceHub attacker = null, bool single = true, AnimationCurve damageDrop = null, params string[] tags)
         {
-            Collider[] colls = Physics.OverlapSphere(position, radius);
+            Collider[] colls = Physics.OverlapSphere(position, radius, Physics.AllLayers, QueryTriggerInteraction.Ignore);
             if (colls.Length > 0)
                 foreach (Collider col in colls)
                 {

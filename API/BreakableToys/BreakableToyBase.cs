@@ -25,6 +25,8 @@ namespace SwiftAPI.API.BreakableToys
 
         bool dead;
 
+        float moveOffset;
+
         SnappingModes MoveMode = SnappingModes.DontMove;
 
         ReferenceHub Mover;
@@ -39,7 +41,7 @@ namespace SwiftAPI.API.BreakableToys
             if (!IsMoving)
                 return;
 
-            Vector3 targetPos = Mover.PlayerCameraReference.position + Mover.PlayerCameraReference.forward * 3f;
+            Vector3 targetPos = Mover.PlayerCameraReference.position + (Mover.PlayerCameraReference.forward * moveOffset);
 
             switch (MoveMode)
             {
@@ -130,11 +132,15 @@ namespace SwiftAPI.API.BreakableToys
             {
                 Mover = null;
                 MoveMode = SnappingModes.DontMove;
+                Toy.IsStatic = true;
+                moveOffset = 0f;
                 return;
             }
 
+            Toy.IsStatic = false;
             Mover = mover;
             MoveMode = mode;
+            moveOffset = Vector3.Distance(Mover.PlayerCameraReference.position, transform.position);
         }
     }
 }

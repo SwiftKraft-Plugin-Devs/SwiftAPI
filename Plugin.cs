@@ -64,6 +64,7 @@ namespace SwiftAPI
                     SCPDamage = 99999f,
                     MagazineSize = 230
                 },
+                InfiniteAmmo = true,
                 Tags = new string[] { ConstStrings.InstakillBreakablesTag }
             });
 
@@ -83,6 +84,7 @@ namespace SwiftAPI
                     SCPDamage = 0f,
                     MagazineSize = 230
                 },
+                InfiniteAmmo = true,
                 Tags = new string[] { ConstStrings.MoveGridBreakablesTag }
             });
 
@@ -102,6 +104,7 @@ namespace SwiftAPI
                     SCPDamage = 0f,
                     MagazineSize = 230
                 },
+                InfiniteAmmo = true,
                 Tags = new string[] { ConstStrings.MoveNoneBreakablesTag }
             });
 
@@ -121,6 +124,7 @@ namespace SwiftAPI
                     SCPDamage = 0f,
                     MagazineSize = 230
                 },
+                InfiniteAmmo = true,
                 Tags = new string[] { ConstStrings.MoveNoRotBreakablesTag }
             });
 

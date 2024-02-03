@@ -298,7 +298,7 @@ namespace SwiftAPI.API.CustomItems
         public override void ActionHint(Player _player, string _action)
         {
             if (_player.CurrentItem != null && _player.CurrentItem is Firearm f)
-                _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>\nAmmo: <b><color=#FFFF00>{f.Status.Ammo}</color>/{(f is ParticleDisruptor ? HipData.MagazineSize : f.AmmoManagerModule.MaxAmmo)}</b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+                _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>\nAmmo: <b><color=#FFFF00>{(InfiniteAmmo ? "∞" : f.Status.Ammo.ToString())}</color>/{(f is ParticleDisruptor ? HipData.MagazineSize : f.AmmoManagerModule.MaxAmmo)}</b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
             else
                 base.ActionHint(_player, _action);
         }
