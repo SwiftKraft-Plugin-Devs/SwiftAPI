@@ -9,6 +9,7 @@ using PlayerStatsSystem;
 using PluginAPI.Core;
 using SwiftAPI.API.CustomItems.FriendlyActions;
 using SwiftAPI.API.ServerVariables;
+using SwiftAPI.Utility.Misc;
 using UnityEngine;
 
 namespace SwiftAPI.API.CustomItems
@@ -328,19 +329,5 @@ namespace SwiftAPI.API.CustomItems
         public GeneralEffect[] FirearmEffects;
 
         public string[] HitMessage;
-    }
-
-    public abstract class GeneralEffect
-    {
-        public byte Intensity; 
-        public float Duration;
-        public bool AddDuration;
-
-        public abstract void ApplyEffect(Player p);
-    }
-
-    public class GeneralEffect<T> : GeneralEffect where T : StatusEffectBase
-    {
-        public override void ApplyEffect(Player p) => p.EffectsManager.EnableEffect<T>(Duration, AddDuration).Intensity = Intensity;
     }
 }

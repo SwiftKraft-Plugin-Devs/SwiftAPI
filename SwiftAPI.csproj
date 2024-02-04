@@ -123,6 +123,7 @@
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConstStrings.cs" />
+    <Compile Include="Utility\Misc\GeneralEffect.cs" />
     <Compile Include="Utility\Misc\GridSnapper.cs" />
     <Compile Include="Utility\Spawners\ItemSpawner.cs" />
     <Compile Include="Utility\Spawners\PlayerSpawner.cs" />
