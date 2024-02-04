@@ -3,8 +3,10 @@ using PluginAPI.Core;
 
 namespace SwiftAPI.API.CustomItems
 {
-    public abstract class CustomItemConsumable : CustomItemEquippable
+    public class CustomItemConsumable : CustomItemEquippable
     {
+        public GeneralEffect[] Effects;
+
         /// <summary>
         /// Called when started consuming the custom item.
         /// </summary>
@@ -33,6 +35,9 @@ namespace SwiftAPI.API.CustomItems
         public virtual void EndConsume(Player _player, ItemBase _item)
         {
             CustomItemManager.RemoveCustomItem(_item.ItemSerial);
+            if (Effects != null && Effects.Length > 0)
+                foreach (GeneralEffect e in Effects)
+                    e.ApplyEffect(_player);
             ActionHint(_player, "Used");
         }
     }

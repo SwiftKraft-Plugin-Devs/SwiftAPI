@@ -151,7 +151,7 @@ namespace SwiftAPI.API.CustomItems
                     _player.Heal(damage * data.LifeSteal);
 
                 if (data.FirearmEffects != null && data.FirearmEffects.Length > 0)
-                    foreach (FirearmEffect eff in data.FirearmEffects)
+                    foreach (GeneralEffect eff in data.FirearmEffects)
                         eff.ApplyEffect(_target);
 
                 if (data.HitMessage != null && data.HitMessage.Length > 0)
@@ -325,21 +325,22 @@ namespace SwiftAPI.API.CustomItems
 
         public FriendlyAction FriendlyAction;
 
-        public FirearmEffect[] FirearmEffects;
+        public GeneralEffect[] FirearmEffects;
 
         public string[] HitMessage;
     }
 
-    public abstract class FirearmEffect
+    public abstract class GeneralEffect
     {
+        public byte Intensity; 
         public float Duration;
         public bool AddDuration;
 
         public abstract void ApplyEffect(Player p);
     }
 
-    public class FirearmEffect<T> : FirearmEffect where T : StatusEffectBase
+    public class GeneralEffect<T> : GeneralEffect where T : StatusEffectBase
     {
-        public override void ApplyEffect(Player p) => p.EffectsManager.EnableEffect<T>(Duration, AddDuration);
+        public override void ApplyEffect(Player p) => p.EffectsManager.EnableEffect<T>(Duration, AddDuration).Intensity = Intensity;
     }
 }
