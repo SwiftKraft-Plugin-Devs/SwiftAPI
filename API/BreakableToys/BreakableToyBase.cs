@@ -65,7 +65,7 @@ namespace SwiftAPI.API.BreakableToys
 
         public virtual void Damage(float damage, ReferenceHub attacker = null, params string[] tags)
         {
-            if (dead || MaxHealth < 0f || !ProcessTags(attacker, tags))
+            if (dead || !ProcessTags(attacker, tags) || MaxHealth < 0f)
                 return;
 
             CurrentHealth -= damage;
