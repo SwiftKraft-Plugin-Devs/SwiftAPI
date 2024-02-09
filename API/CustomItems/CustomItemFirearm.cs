@@ -1,4 +1,4 @@
-﻿using CustomPlayerEffects;
+using CustomPlayerEffects;
 using Hints;
 using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
@@ -51,9 +51,17 @@ namespace SwiftAPI.API.CustomItems
                 int setAmmo = Mathf.Min(HipData.MagazineSize, f.Status.Ammo);
                 int giveAmmo = f.Status.Ammo - setAmmo;
                 f.Status = new FirearmStatus((byte)setAmmo, f.Status.Flags, f.Status.Attachments);
+                
+                f.OnStatusChanged -= OnFirearmStatusChanged;
+                f.OnStatusChanged += OnFirearmStatusChanged;
 
                 if (giveAmmo > 0)
                     _player.AddAmmo(f.AmmoType, (ushort)giveAmmo);
+
+                void OnFirearmStatusChanged(FirearmStatus prev, FirearmStatus curr)
+                {
+                    StatusChanged(_player, f, prev, curr);
+                }
             }
 
             base.Equip(_player, _itemSerial);
@@ -204,7 +212,7 @@ namespace SwiftAPI.API.CustomItems
 
         public virtual void StatusChanged(Player _player, Firearm firearm, FirearmStatus prevStatus, FirearmStatus currStatus)
         {
-            ActionHint(_player, "Weapon");
+            
         }
 
         public static void ResetFirearm(Firearm firearm, CustomItemFirearm gun)
