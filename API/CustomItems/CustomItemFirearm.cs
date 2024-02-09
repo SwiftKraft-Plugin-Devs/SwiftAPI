@@ -60,6 +60,8 @@ namespace SwiftAPI.API.CustomItems
 
                 void OnFirearmStatusChanged(FirearmStatus prev, FirearmStatus curr)
                 {
+                    ResetFirearm(f, this);
+
                     StatusChanged(_player, f, prev, curr);
                 }
             }
