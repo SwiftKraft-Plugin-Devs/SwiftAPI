@@ -7,7 +7,7 @@ namespace SwiftAPI.Utility.Targeters
     {
         public override List<Player> GetPlayers()
         {
-            return Player.GetPlayers();
+            return UtilityFunctions.GetPlayersIgnoreJoin();
         }
 
         public override string GetTargeterName() => "ALL";

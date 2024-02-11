@@ -146,6 +146,7 @@
     <Compile Include="Utility\Targeters\TargeterBase.cs" />
     <Compile Include="Utility\Targeters\TargeterManager.cs" />
     <Compile Include="Utility\Targeters\UnarmedTargeter.cs" />
+    <Compile Include="Utility\UtilityFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

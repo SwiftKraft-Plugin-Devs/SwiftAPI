@@ -79,7 +79,7 @@ namespace SwiftAPI.Utility.Spawners
 
             if (Targeter == null)
             {
-                players = Player.GetPlayers();
+                players = UtilityFunctions.GetPlayersIgnoreJoin();
 
                 players.RemoveAll((p) => p.Role != Pool || p.Role == Role);
 

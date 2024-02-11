@@ -16,6 +16,16 @@ namespace SwiftAPI
 {
     public class EventHandler
     {
+        public static readonly List<Player> JoiningPlayers = new List<Player>();
+
+        [PluginEvent(ServerEventType.PlayerJoined)]
+        public void PlayerJoined(PlayerJoinedEvent _event)
+        {
+            JoiningPlayers.Add(_event.Player);
+
+            Timing.CallDelayed(5f, () => { JoiningPlayers.Remove(_event.Player); });
+        }
+
         [PluginEvent(ServerEventType.PlayerSearchPickup)]
         public bool PlayerSearchPickup(PlayerSearchPickupEvent _event)
         {
