@@ -1,4 +1,5 @@
-﻿using InventorySystem.Items;
+﻿using CommandSystem.Commands.RemoteAdmin.Inventory;
+using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using PluginAPI.Core;
@@ -210,7 +211,7 @@ namespace SwiftAPI.API.CustomItems
 
         public static void GiveCustomItem(this Player _player, CustomItemBase _item)
         {
-            if (_player.IsInventoryFull || _item == null)
+            if (_item == null)
                 return;
 
             ItemBase _it = _player.AddItem(_item.BaseItem);
