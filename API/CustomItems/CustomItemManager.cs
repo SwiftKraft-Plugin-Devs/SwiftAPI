@@ -216,6 +216,8 @@ namespace SwiftAPI.API.CustomItems
 
             ItemBase _it = _player.AddItem(_item.BaseItem);
 
+            AddCustomItem(_it.ItemSerial, _item);
+
             if (_it is Firearm f)
             {
                 byte mag;
@@ -227,8 +229,6 @@ namespace SwiftAPI.API.CustomItems
 
                 f.Status = new FirearmStatus(mag, FirearmStatusFlags.MagazineInserted, AttachmentsServerHandler.PlayerPreferences[_player.ReferenceHub][f.ItemTypeId]);
             }
-
-            AddCustomItem(_it.ItemSerial, _item);
         }
 
         public static void GiveCustomItem(this Player _player, string _itemId)
