@@ -26,7 +26,7 @@ namespace SwiftAPI
         /// Make sure to add a check for this to the spammy logs.
         /// For development only.
         /// </summary>
-        public static bool DebugMode = false;
+        internal const bool DebugMode = false;
 
         [PluginPriority(LoadPriority.Highest)]
         [PluginEntryPoint(Name, Version, Description, Author)]
