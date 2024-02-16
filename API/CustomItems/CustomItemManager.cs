@@ -226,7 +226,8 @@ namespace SwiftAPI.API.CustomItems
                 else
                     mag = f.AmmoManagerModule.MaxAmmo;
 
-                f.Status = new FirearmStatus(mag, FirearmStatusFlags.MagazineInserted, AttachmentsServerHandler.PlayerPreferences[_player.ReferenceHub][f.ItemTypeId]);
+                f.Status = new FirearmStatus(mag, FirearmStatusFlags.MagazineInserted, AttachmentPresetSelector.ResetAttachmentsCode);
+                AttachmentsServerHandler.SetupProvidedWeapon(_player.ReferenceHub, f);
             }
         }
 
