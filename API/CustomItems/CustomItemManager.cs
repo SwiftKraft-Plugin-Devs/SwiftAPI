@@ -219,14 +219,10 @@ namespace SwiftAPI.API.CustomItems
 
             if (_it is Firearm f)
             {
-                byte mag;
+                if (_item is CustomItemFirearm _f)
+                    CustomItemFirearm.ResetFirearm(f, _f);
 
-                if (_item is CustomItemFirearm cf)
-                    mag = cf.HipData.MagazineSize;
-                else
-                    mag = f.AmmoManagerModule.MaxAmmo;
-
-                f.Status = new FirearmStatus(mag, FirearmStatusFlags.MagazineInserted, AttachmentPresetSelector.ResetAttachmentsCode);
+                f.Status = new FirearmStatus(f.AmmoManagerModule.MaxAmmo, FirearmStatusFlags.MagazineInserted, AttachmentPresetSelector.ResetAttachmentsCode);
                 AttachmentsServerHandler.SetupProvidedWeapon(_player.ReferenceHub, f);
             }
         }
