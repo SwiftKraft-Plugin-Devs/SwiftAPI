@@ -11,7 +11,7 @@ namespace SwiftAPI.API.BreakableToys
     {
         public static PrimitiveObjectToy Prefab;
 
-        public static readonly List<BreakableToyBase> Breakables = new List<BreakableToyBase>();
+        public static readonly List<BreakableToyBase> Breakables = new();
 
         private static void RegisterPrefab()
         {

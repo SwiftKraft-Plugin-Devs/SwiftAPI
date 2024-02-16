@@ -74,7 +74,7 @@ namespace SwiftAPI.Commands
 
             Vector3 position = player.Position;
             Quaternion rotation = Quaternion.Euler(player.Rotation);
-            Vector3 scale = new Vector3(x, y, z);
+            Vector3 scale = new(x, y, z);
 
             switch (modes)
             {

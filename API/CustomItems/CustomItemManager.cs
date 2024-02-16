@@ -1,5 +1,4 @@
-﻿using CommandSystem.Commands.RemoteAdmin.Inventory;
-using InventorySystem.Items;
+﻿using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using PluginAPI.Core;
@@ -18,12 +17,12 @@ namespace SwiftAPI.API.CustomItems
         /// Dictionary for tracking custom items using item serials. 
         /// Will be referred as "tracker dictionary" in other summaries.
         /// </summary>
-        public static readonly Dictionary<ushort, CustomItemBase> Items = new Dictionary<ushort, CustomItemBase>();
+        public static readonly Dictionary<ushort, CustomItemBase> Items = new();
         /// <summary>
         /// Dictionary for registering items.
         /// Keeps track of available custom item types.
         /// </summary>
-        public static readonly SortedDictionary<string, CustomItemBase> RegisteredItems = new SortedDictionary<string, CustomItemBase>();
+        public static readonly SortedDictionary<string, CustomItemBase> RegisteredItems = new();
 
         /// <summary>
         /// Adds a custom item to the tracker dictionary.

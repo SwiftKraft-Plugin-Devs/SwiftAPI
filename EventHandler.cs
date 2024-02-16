@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items;
-using InventorySystem.Items.Firearms;
+﻿using InventorySystem.Items.Firearms;
 using InventorySystem.Items.ThrowableProjectiles;
 using MEC;
 using PluginAPI.Core;
@@ -16,7 +15,7 @@ namespace SwiftAPI
 {
     public class EventHandler
     {
-        public static readonly List<Player> JoiningPlayers = new List<Player>();
+        public static readonly List<Player> JoiningPlayers = new();
 
         [PluginEvent(ServerEventType.PlayerJoined)]
         public void PlayerJoined(PlayerJoinedEvent _event)
@@ -113,7 +112,7 @@ namespace SwiftAPI
         [PluginEvent(ServerEventType.PlayerShotWeapon)]
         public void PlayerShotWeapon(PlayerShotWeaponEvent _event)
         {
-            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm firearm))
+            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is not CustomItemFirearm firearm)
                 return;
 
             firearm.Shoot(_event.Player, _event.Firearm);
@@ -122,7 +121,7 @@ namespace SwiftAPI
         [PluginEvent(ServerEventType.PlayerReloadWeapon)]
         public bool PlayerReloadWeapon(PlayerReloadWeaponEvent _event)
         {
-            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm firearm))
+            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is not CustomItemFirearm firearm)
                 return true;
 
             return firearm.Reload(_event.Player, _event.Firearm);
@@ -131,7 +130,7 @@ namespace SwiftAPI
         [PluginEvent(ServerEventType.PlayerUnloadWeapon)]
         public bool PlayerUnloadWeapon(PlayerUnloadWeaponEvent _event)
         {
-            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm firearm))
+            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is not CustomItemFirearm firearm)
                 return true;
 
             return firearm.Unload(_event.Player, _event.Firearm);
@@ -140,7 +139,7 @@ namespace SwiftAPI
         [PluginEvent(ServerEventType.PlayerAimWeapon)]
         public void PlayerAimWeapon(PlayerAimWeaponEvent _event)
         {
-            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is CustomItemFirearm firearm))
+            if (!CustomItemManager.IsCustomItem(_event.Firearm.ItemSerial) || CustomItemManager.GetCustomItemWithSerial(_event.Firearm.ItemSerial) is not CustomItemFirearm firearm)
                 return;
 
             firearm.Aim(_event.Player, _event.Firearm, _event.IsAiming);
@@ -152,7 +151,7 @@ namespace SwiftAPI
             Player player = _event.Player;
             Player target = _event.Target;
 
-            if (player == null || target == null || player.CurrentItem == null || !CustomItemManager.IsCustomItem(player.CurrentItem.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(player.CurrentItem.ItemSerial) is CustomItemFirearm firearm))
+            if (player == null || target == null || player.CurrentItem == null || !CustomItemManager.IsCustomItem(player.CurrentItem.ItemSerial) || CustomItemManager.GetCustomItemWithSerial(player.CurrentItem.ItemSerial) is not CustomItemFirearm firearm)
                 return true;
 
             return firearm.Damage(player, target, _event.DamageHandler);
@@ -172,7 +171,7 @@ namespace SwiftAPI
                 }
             }
 
-            if (!CustomItemManager.IsCustomItem(_event.Item.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Item.ItemSerial) is CustomItemThrowableProjectile projectile))
+            if (!CustomItemManager.IsCustomItem(_event.Item.ItemSerial) || CustomItemManager.GetCustomItemWithSerial(_event.Item.ItemSerial) is not CustomItemThrowableProjectile projectile)
                 return;
 
             projectile.Throw(_event.Thrower, _event.Item, _event.ProjectileSettings);
@@ -195,7 +194,7 @@ namespace SwiftAPI
             if (_event.Grenade is ExplosionGrenade gre)
                 DamageBreakables(_event.Position, gre._maxRadius, 0f, attacker: _event.Thrower.Hub, single: false, damageDrop: gre._playerDamageOverDistance);
 
-            if (!CustomItemManager.IsCustomItem(_event.Grenade.Info.Serial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Grenade.Info.Serial) is CustomItemTimeGrenade grenade))
+            if (!CustomItemManager.IsCustomItem(_event.Grenade.Info.Serial) || CustomItemManager.GetCustomItemWithSerial(_event.Grenade.Info.Serial) is not CustomItemTimeGrenade grenade)
                 return;
 
             grenade.Detonate(_event.Grenade, _event.Position);
@@ -204,7 +203,7 @@ namespace SwiftAPI
         [PluginEvent(ServerEventType.PlayerCoinFlip)]
         public void PlayerCoinFlip(PlayerCoinFlipEvent _event)
         {
-            if (!CustomItemManager.IsCustomItem(_event.Player.CurrentItem.ItemSerial) || !(CustomItemManager.GetCustomItemWithSerial(_event.Player.CurrentItem.ItemSerial) is CustomItemCoin coin))
+            if (!CustomItemManager.IsCustomItem(_event.Player.CurrentItem.ItemSerial) || CustomItemManager.GetCustomItemWithSerial(_event.Player.CurrentItem.ItemSerial) is not CustomItemCoin coin)
                 return;
 
             coin.Flip(_event.Player, _event.Player.CurrentItem, _event.IsTails);

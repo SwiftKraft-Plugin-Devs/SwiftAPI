@@ -1,6 +1,6 @@
 ﻿namespace SwiftAPI.API.ServerVariables
 {
-    public class ServerVariable 
+    public class ServerVariable
     {
         public string ID;
         public string Value;

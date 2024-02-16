@@ -15,7 +15,7 @@ namespace SwiftAPI.API.CustomItems
     /// </summary>
     public abstract class CustomItemBase
     {
-        public readonly Dictionary<ushort, CustomItemStatusBase> ItemStatuses = new Dictionary<ushort, CustomItemStatusBase>();
+        public readonly Dictionary<ushort, CustomItemStatusBase> ItemStatuses = new();
 
         public string CustomItemID;
         public string DisplayName;

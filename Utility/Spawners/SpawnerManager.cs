@@ -6,9 +6,9 @@ namespace SwiftAPI.Utility.Spawners
 {
     public static class SpawnerManager
     {
-        public static readonly List<SpawnerBase> Spawners = new List<SpawnerBase>();
+        public static readonly List<SpawnerBase> Spawners = new();
 
-        public static readonly Dictionary<string, Type> SpawnerTypes = new Dictionary<string, Type>();
+        public static readonly Dictionary<string, Type> SpawnerTypes = new();
 
         public static void FixedUpdate()
         {
@@ -21,7 +21,7 @@ namespace SwiftAPI.Utility.Spawners
 
         public static bool IsValidSpawner(int id) => Spawners.Count > id;
 
-        public static bool RegisterSpawnerType<T>(string id) where T : SpawnerBase 
+        public static bool RegisterSpawnerType<T>(string id) where T : SpawnerBase
         {
             if (SpawnerTypes.ContainsKey(id))
                 return false;

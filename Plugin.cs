@@ -1,14 +1,13 @@
-﻿using SwiftAPI.API.CustomItems;
-using SwiftAPI.API.CustomItems.FriendlyActions;
-using SwiftAPI.Utility.Targeters;
-using PluginAPI.Core;
+﻿using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using PluginAPI.Events;
-using SwiftAPI.Utility.Spawners;
+using SwiftAPI.API.CustomItems;
+using SwiftAPI.API.CustomItems.FriendlyActions;
 using SwiftAPI.HarmonyPatches;
 using SwiftAPI.HarmonyPatches.Patches;
-using InventorySystem.Items.ThrowableProjectiles;
+using SwiftAPI.Utility.Spawners;
+using SwiftAPI.Utility.Targeters;
 
 namespace SwiftAPI
 {

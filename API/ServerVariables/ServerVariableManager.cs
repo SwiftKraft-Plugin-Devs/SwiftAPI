@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SwiftAPI.API.ServerVariables
 {
     public static class ServerVariableManager
     {
-        public readonly static Dictionary<string, ServerVariable> Vars = new Dictionary<string, ServerVariable>();
+        public readonly static Dictionary<string, ServerVariable> Vars = new();
 
         public static bool TryGetVar(string id, out ServerVariable variable)
         {

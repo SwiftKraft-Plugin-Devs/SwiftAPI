@@ -1,5 +1,4 @@
 ﻿using PluginAPI.Core;
-using PluginAPI.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace SwiftAPI.Utility.Targeters
 {
     public static class TargeterManager
     {
-        public static readonly Dictionary<string, TargeterBase> RegisteredTargeters = new Dictionary<string, TargeterBase>();
+        public static readonly Dictionary<string, TargeterBase> RegisteredTargeters = new();
 
         public static void Init()
         {

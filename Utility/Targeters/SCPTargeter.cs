@@ -1,5 +1,4 @@
-﻿using PlayerRoles;
-using PluginAPI.Core;
+﻿using PluginAPI.Core;
 
 namespace SwiftAPI.Utility.Targeters
 {

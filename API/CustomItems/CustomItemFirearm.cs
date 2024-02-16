@@ -1,4 +1,3 @@
-using CustomPlayerEffects;
 using Hints;
 using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
@@ -50,8 +49,8 @@ namespace SwiftAPI.API.CustomItems
 
                 int setAmmo = Mathf.Min(HipData.MagazineSize, f.Status.Ammo);
                 int giveAmmo = f.Status.Ammo - setAmmo;
-                f.Status = new FirearmStatus((byte)setAmmo, f.Status.Flags, f.Status.Attachments);
-                
+                f.Status = new((byte)setAmmo, f.Status.Flags, f.Status.Attachments);
+
                 f.OnStatusChanged -= OnFirearmStatusChanged;
                 f.OnStatusChanged += OnFirearmStatusChanged;
 
@@ -107,10 +106,10 @@ namespace SwiftAPI.API.CustomItems
             }
 
             if (data.OneShot)
-                _gun.Status = new FirearmStatus(0, _gun.Status.Flags, _gun.Status.Attachments);
+                _gun.Status = new(0, _gun.Status.Flags, _gun.Status.Attachments);
 
             if (InfiniteAmmo || (ServerVariableManager.TryGetVar(ConstStrings.InfiniteAmmoServerVar, out ServerVariable a) && bool.TryParse(a.Value, out bool b) && b))
-                _gun.Status = new FirearmStatus(data.MagazineSize, _gun.Status.Flags, _gun.Status.Attachments);
+                _gun.Status = new(data.MagazineSize, _gun.Status.Flags, _gun.Status.Attachments);
         }
 
         /// <summary>
@@ -214,7 +213,7 @@ namespace SwiftAPI.API.CustomItems
 
         public virtual void StatusChanged(Player _player, Firearm firearm, FirearmStatus prevStatus, FirearmStatus currStatus)
         {
-            
+
         }
 
         public static void ResetFirearm(Firearm firearm, CustomItemFirearm gun)
