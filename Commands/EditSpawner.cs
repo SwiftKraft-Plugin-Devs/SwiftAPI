@@ -6,13 +6,13 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class EditSpawner : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "esp" };
+        public override string[] GetAliases() => ["esp"];
 
         public override string GetCommandName() => "editsp";
 
         public override string GetDescription() => "Edits the custom data of a spawner.";
 
-        public override PlayerPermissions[] GetPerms() => new PlayerPermissions[] { PlayerPermissions.GivingItems };
+        public override PlayerPermissions[] GetPerms() => [PlayerPermissions.GivingItems];
 
         public override bool Function(string[] args, ICommandSender sender, out string result)
         {

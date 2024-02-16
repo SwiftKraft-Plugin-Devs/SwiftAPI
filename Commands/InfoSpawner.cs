@@ -6,7 +6,7 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class InfoSpawner : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "isp" };
+        public override string[] GetAliases() => ["isp"];
 
         public override string GetCommandName() => "infosp";
 

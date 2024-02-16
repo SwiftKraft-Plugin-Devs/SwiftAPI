@@ -15,7 +15,7 @@ namespace SwiftAPI.API.CustomItems
     /// </summary>
     public abstract class CustomItemBase
     {
-        public readonly Dictionary<ushort, CustomItemStatusBase> ItemStatuses = new();
+        public readonly Dictionary<ushort, CustomItemStatusBase> ItemStatuses = [];
 
         public string CustomItemID;
         public string DisplayName;
@@ -154,7 +154,7 @@ namespace SwiftAPI.API.CustomItems
 
         public virtual void ActionHint(Player _player, string _action)
         {
-            _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>", new HintEffect[] { HintEffectPresets.FadeOut() }, 3f);
+            _player.ReceiveHint($"{_action}: <b><color=#00FFFF>{DisplayName}</color></b>", [HintEffectPresets.FadeOut()], 3f);
         }
 
         public override string ToString()

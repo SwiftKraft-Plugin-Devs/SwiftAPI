@@ -8,7 +8,7 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(ClientCommandHandler))]
     public class Info : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "inf", "whatdo", "check", "helpitem" };
+        public override string[] GetAliases() => ["inf", "whatdo", "check", "helpitem"];
 
         public override string GetCommandName() => "info";
 

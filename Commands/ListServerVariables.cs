@@ -6,7 +6,7 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class ListServerVariables : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "lsvar" };
+        public override string[] GetAliases() => ["lsvar"];
 
         public override string GetCommandName() => "listservervars";
 

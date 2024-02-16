@@ -31,8 +31,8 @@ namespace SwiftAPI.API.CustomItems.FriendlyActions
                     ahp._activeProcesses[processIndex] = new AhpStat.AhpProcess(Mathf.Clamp(prev.CurrentAmount + Amount, 0f, Limit), Limit, Decay, Efficacy, Sustain, Persistent);
                 }
 
-                _player.ReceiveHint("Shielded " + _target.DisplayNickname + ": <color=#00FF00>+" + (int)Amount + " AHP</color>\nTheir AHP: <color=#00FF00>" + (int)_target.ArtificialHealth + "</color>", new HintEffect[] { HintEffectPresets.FadeOut() }, 1f);
-                _target.ReceiveHint("Shield From " + _player.DisplayNickname + ": <color=#00FF00>+" + (int)Amount + " AHP</color>", new HintEffect[] { HintEffectPresets.FadeOut() }, 1f);
+                _player.ReceiveHint("Shielded " + _target.DisplayNickname + ": <color=#00FF00>+" + (int)Amount + " AHP</color>\nTheir AHP: <color=#00FF00>" + (int)_target.ArtificialHealth + "</color>", [HintEffectPresets.FadeOut()], 1f);
+                _target.ReceiveHint("Shield From " + _player.DisplayNickname + ": <color=#00FF00>+" + (int)Amount + " AHP</color>", [HintEffectPresets.FadeOut()], 1f);
             }
         }
     }

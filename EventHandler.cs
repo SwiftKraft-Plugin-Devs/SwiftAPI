@@ -15,7 +15,7 @@ namespace SwiftAPI
 {
     public class EventHandler
     {
-        public static readonly List<Player> JoiningPlayers = new();
+        public static readonly List<Player> JoiningPlayers = [];
 
         [PluginEvent(ServerEventType.PlayerJoined)]
         public void PlayerJoined(PlayerJoinedEvent _event)

@@ -12,8 +12,8 @@ namespace SwiftAPI.API.CustomItems.FriendlyActions
             if (_target.Health < _target.MaxHealth)
                 _target.Heal(Amount);
 
-            _player.ReceiveHint("Healed " + _target.DisplayNickname + ": <color=#00FF00>+" + (int)Amount + " HP</color>\nTheir Health: <color=#00FF00>" + (int)_target.Health + "/" + (int)_target.MaxHealth + "</color>", new HintEffect[] { HintEffectPresets.FadeOut() }, 1f);
-            _target.ReceiveHint("Healing From " + _player.DisplayNickname + ": <color=#00FF00>+" + (int)Amount + " HP</color>", new HintEffect[] { HintEffectPresets.FadeOut() }, 1f);
+            _player.ReceiveHint("Healed " + _target.DisplayNickname + ": <color=#00FF00>+" + (int)Amount + " HP</color>\nTheir Health: <color=#00FF00>" + (int)_target.Health + "/" + (int)_target.MaxHealth + "</color>", [HintEffectPresets.FadeOut()], 1f);
+            _target.ReceiveHint("Healing From " + _player.DisplayNickname + ": <color=#00FF00>+" + (int)Amount + " HP</color>", [HintEffectPresets.FadeOut()], 1f);
         }
     }
 }

@@ -6,13 +6,13 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class DeleteSpawner : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "dsp" };
+        public override string[] GetAliases() => ["dsp"];
 
         public override string GetCommandName() => "delsp";
 
         public override string GetDescription() => "Deletes a spawner. ";
 
-        public override PlayerPermissions[] GetPerms() => new PlayerPermissions[] { PlayerPermissions.GivingItems };
+        public override PlayerPermissions[] GetPerms() => [PlayerPermissions.GivingItems];
 
         public override bool Function(string[] args, ICommandSender sender, out string result)
         {

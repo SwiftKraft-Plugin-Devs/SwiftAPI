@@ -6,7 +6,7 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class TargeterList : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "tlist" };
+        public override string[] GetAliases() => ["tlist"];
 
         public override string GetCommandName() => "targeterlist";
 

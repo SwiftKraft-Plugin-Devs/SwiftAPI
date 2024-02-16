@@ -17,12 +17,12 @@ namespace SwiftAPI.API.CustomItems
         /// Dictionary for tracking custom items using item serials. 
         /// Will be referred as "tracker dictionary" in other summaries.
         /// </summary>
-        public static readonly Dictionary<ushort, CustomItemBase> Items = new();
+        public static readonly Dictionary<ushort, CustomItemBase> Items = [];
         /// <summary>
         /// Dictionary for registering items.
         /// Keeps track of available custom item types.
         /// </summary>
-        public static readonly SortedDictionary<string, CustomItemBase> RegisteredItems = new();
+        public static readonly SortedDictionary<string, CustomItemBase> RegisteredItems = [];
 
         /// <summary>
         /// Adds a custom item to the tracker dictionary.

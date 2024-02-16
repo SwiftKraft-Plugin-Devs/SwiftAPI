@@ -6,7 +6,7 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class CustomList : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "clist" };
+        public override string[] GetAliases() => ["clist"];
 
         public override string GetCommandName() => "customitemlist";
 

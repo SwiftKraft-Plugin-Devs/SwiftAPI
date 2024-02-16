@@ -10,8 +10,7 @@ namespace SwiftAPI.HarmonyPatches
 
         public static void InitHarmony()
         {
-            if (Instance == null)
-                Instance = new Harmony("com.SwiftKraft.SwiftAPI");
+            Instance ??= new Harmony("com.SwiftKraft.SwiftAPI");
 
             try { Instance.PatchAll(); Log.Info("Harmony Patch Successful! "); }
             catch (Exception e) { Log.Error("Harmony Patching Failed! \n" + e?.ToString()); }

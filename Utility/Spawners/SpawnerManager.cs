@@ -6,9 +6,9 @@ namespace SwiftAPI.Utility.Spawners
 {
     public static class SpawnerManager
     {
-        public static readonly List<SpawnerBase> Spawners = new();
+        public static readonly List<SpawnerBase> Spawners = [];
 
-        public static readonly Dictionary<string, Type> SpawnerTypes = new();
+        public static readonly Dictionary<string, Type> SpawnerTypes = [];
 
         public static void FixedUpdate()
         {

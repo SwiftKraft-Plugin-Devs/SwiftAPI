@@ -11,13 +11,13 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class SpawnBreakableToy : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "spnbrkt", "brkble", "breakable", "toyb" };
+        public override string[] GetAliases() => ["spnbrkt", "brkble", "breakable", "toyb"];
 
         public override string GetCommandName() => "spawnbreakable";
 
         public override string GetDescription() => "Spawns a breakable primitive object at your position.";
 
-        public override PlayerPermissions[] GetPerms() => new PlayerPermissions[] { PlayerPermissions.FacilityManagement };
+        public override PlayerPermissions[] GetPerms() => [PlayerPermissions.FacilityManagement];
 
         public override bool GetRequirePlayer() => true;
 

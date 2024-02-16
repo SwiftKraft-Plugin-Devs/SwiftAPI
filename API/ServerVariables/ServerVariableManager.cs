@@ -4,7 +4,7 @@ namespace SwiftAPI.API.ServerVariables
 {
     public static class ServerVariableManager
     {
-        public readonly static Dictionary<string, ServerVariable> Vars = new();
+        public readonly static Dictionary<string, ServerVariable> Vars = [];
 
         public static bool TryGetVar(string id, out ServerVariable variable)
         {

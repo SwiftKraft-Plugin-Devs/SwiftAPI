@@ -6,13 +6,13 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class ToggleAllSpawners : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "tasp" };
+        public override string[] GetAliases() => ["tasp"];
 
         public override string GetCommandName() => "toggleallsp";
 
         public override string GetDescription() => "Pauses or unpauses all spawners.";
 
-        public override PlayerPermissions[] GetPerms() => new PlayerPermissions[] { PlayerPermissions.GivingItems };
+        public override PlayerPermissions[] GetPerms() => [PlayerPermissions.GivingItems];
 
         public override bool Function(string[] args, ICommandSender sender, out string result)
         {

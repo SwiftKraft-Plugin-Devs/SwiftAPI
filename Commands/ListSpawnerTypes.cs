@@ -6,7 +6,7 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class ListSpawnerTypes : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "lspt" };
+        public override string[] GetAliases() => ["lspt"];
 
         public override string GetCommandName() => "listsptypes";
 

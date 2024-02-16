@@ -7,7 +7,7 @@ namespace SwiftAPI.Utility.Targeters
 {
     public static class TargeterManager
     {
-        public static readonly Dictionary<string, TargeterBase> RegisteredTargeters = new();
+        public static readonly Dictionary<string, TargeterBase> RegisteredTargeters = [];
 
         public static void Init()
         {
@@ -32,7 +32,7 @@ namespace SwiftAPI.Utility.Targeters
                 return true;
             }
 
-            players = new List<Player>();
+            players = [];
             return false;
         }
 

@@ -7,13 +7,13 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class AddSpawner : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "asp" };
+        public override string[] GetAliases() => ["asp"];
 
         public override string GetCommandName() => "addsp";
 
         public override string GetDescription() => "Adds a spawner of any implemented type.";
 
-        public override PlayerPermissions[] GetPerms() => new PlayerPermissions[] { PlayerPermissions.GivingItems };
+        public override PlayerPermissions[] GetPerms() => [PlayerPermissions.GivingItems];
 
         public override bool GetRequirePlayer() => true;
 

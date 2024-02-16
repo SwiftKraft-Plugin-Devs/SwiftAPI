@@ -6,13 +6,13 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class ToggleSpawner : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "tsp" };
+        public override string[] GetAliases() => ["tsp"];
 
         public override string GetCommandName() => "togglesp";
 
         public override string GetDescription() => "Disables or enables spawners. ";
 
-        public override PlayerPermissions[] GetPerms() => new PlayerPermissions[] { PlayerPermissions.GivingItems };
+        public override PlayerPermissions[] GetPerms() => [PlayerPermissions.GivingItems];
 
         public override bool Function(string[] args, ICommandSender sender, out string result)
         {

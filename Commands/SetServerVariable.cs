@@ -6,13 +6,13 @@ namespace SwiftAPI.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class SetServerVariable : CommandBase
     {
-        public override string[] GetAliases() => new string[] { "svar", "var" };
+        public override string[] GetAliases() => ["svar", "var"];
 
         public override string GetCommandName() => "servervar";
 
         public override string GetDescription() => "Sets a server variable.";
 
-        public override PlayerPermissions[] GetPerms() => new PlayerPermissions[] { PlayerPermissions.RoundEvents };
+        public override PlayerPermissions[] GetPerms() => [PlayerPermissions.RoundEvents];
 
         public override bool Function(string[] args, ICommandSender sender, out string result)
         {

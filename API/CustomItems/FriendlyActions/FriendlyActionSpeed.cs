@@ -15,8 +15,8 @@ namespace SwiftAPI.API.CustomItems.FriendlyActions
         {
             _player.EffectsManager.EnableEffect<MovementBoost>(Duration, false).Intensity = Intensity;
             _target.EffectsManager.EnableEffect<MovementBoost>(Duration, false).Intensity = Intensity;
-            _player.ReceiveHint("Speed Boosted " + _target.DisplayNickname, new HintEffect[] { HintEffectPresets.FadeOut() }, Mathf.Min(Duration, 4f));
-            _target.ReceiveHint("Speed Boost From " + _player.DisplayNickname, new HintEffect[] { HintEffectPresets.FadeOut() }, Mathf.Min(Duration, 4f));
+            _player.ReceiveHint("Speed Boosted " + _target.DisplayNickname, [HintEffectPresets.FadeOut()], Mathf.Min(Duration, 4f));
+            _target.ReceiveHint("Speed Boost From " + _player.DisplayNickname, [HintEffectPresets.FadeOut()], Mathf.Min(Duration, 4f));
         }
     }
 }
