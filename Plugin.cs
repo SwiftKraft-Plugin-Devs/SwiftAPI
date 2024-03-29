@@ -3,7 +3,6 @@ using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using PluginAPI.Events;
 using SwiftAPI.API.CustomItems;
-using SwiftAPI.API.CustomItems.FriendlyActions;
 using SwiftAPI.HarmonyPatches;
 using SwiftAPI.HarmonyPatches.Patches;
 using SwiftAPI.Utility.Spawners;
@@ -19,7 +18,7 @@ namespace SwiftAPI
 
         private const string Description = "A library plugin for easier development of SCP: SL NWAPI plugins.";
 
-        private const string Version = "v0.0.2";
+        private const string Version = "v1.0";
 
         [PluginPriority(LoadPriority.Highest)]
         [PluginEntryPoint(Name, Version, Description, Author)]
