@@ -14,7 +14,7 @@ namespace SwiftAPI.Utility
         public static List<Player> GetPlayersIgnoreJoin()
         {
             List<Player> players = Player.GetPlayers();
-            players.RemoveAll((p) => EventHandler.JoiningPlayers.Contains(p));
+            players.RemoveAll(EventHandler.JoiningPlayers.Contains);
             return players;
         }
 
