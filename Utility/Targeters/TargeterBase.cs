@@ -5,10 +5,13 @@ namespace SwiftAPI.Utility.Targeters
 {
     public abstract class TargeterBase
     {
-        public TargeterBase()
+        public void Register()
         {
             if (!TargeterManager.RegisteredTargeters.ContainsKey(GetTargeterName().ToUpper()))
+            {
                 TargeterManager.RegisteredTargeters.Add(GetTargeterName().ToUpper(), this);
+                Log.Info("Registered Targeter: " + GetTargeterName());
+            }
         }
 
         public abstract string GetTargeterName();

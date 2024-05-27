@@ -4,20 +4,12 @@ using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
 using Mirror;
 using PluginAPI.Core;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SwiftAPI.Utility
 {
     public static class UtilityFunctions
     {
-        public static List<Player> GetPlayersIgnoreJoin()
-        {
-            List<Player> players = Player.GetPlayers();
-            players.RemoveAll(EventHandler.JoiningPlayers.Contains);
-            return players;
-        }
-
         public static void SpawnActive(this ThrowableItem item, Vector3 position, float fuseTime = -1f, Player owner = null)
         {
             if (item.Projectile is not TimeGrenade)

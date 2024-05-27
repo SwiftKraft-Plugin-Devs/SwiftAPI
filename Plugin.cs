@@ -32,7 +32,19 @@ namespace SwiftAPI
 
             FirearmBulletHoleEvent.Event += EventHandler.PlaceBulletHoleFirearm;
 
-            TargeterManager.Init();
+            new AliveTargeter().Register();
+            new AllTargeter().Register();
+            new ArmedTargeter().Register();
+            new CITargeter().Register();
+            new DClassTargeter().Register();
+            new DeadTargeter().Register();
+            new EmptyInventoryTargeter().Register();
+            new FullInventoryTargeter().Register();
+            new HumanTargeter().Register();
+            new MTFTargeter().Register();
+            new ScientistTargeter().Register();
+            new SCPTargeter().Register();
+            new UnarmedTargeter().Register();
 
             StaticUnityMethods.OnFixedUpdate += SpawnerManager.FixedUpdate;
 

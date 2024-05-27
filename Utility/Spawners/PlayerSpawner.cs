@@ -77,9 +77,9 @@ namespace SwiftAPI.Utility.Spawners
 
             if (Targeter == null)
             {
-                players = UtilityFunctions.GetPlayersIgnoreJoin();
+                players = Player.GetPlayers();
 
-                players.RemoveAll((p) => p.Role != Pool || p.Role == Role);
+                players.RemoveAll((p) => p == null || p.Role != Pool || p.Role == Role);
 
                 Player chosen = players.RandomItem();
 
