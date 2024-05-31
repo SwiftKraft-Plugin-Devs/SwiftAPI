@@ -18,7 +18,7 @@ namespace SwiftAPI
 
         private const string Description = "A library plugin for easier development of SCP: SL NWAPI plugins.";
 
-        private const string Version = "v1.0";
+        private const string Version = "v1.1";
 
         [PluginPriority(LoadPriority.Highest)]
         [PluginEntryPoint(Name, Version, Description, Author)]
