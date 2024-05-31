@@ -13,22 +13,10 @@ namespace SwiftAPI.Utility.Spawners
 
         public RoleTypeId Role;
 
-        public override bool SetSpawnee(string value, out string feedback)
+        public override bool SetSpawnee(string[] value, out string feedback)
         {
-            string arg1, arg2;
-
-            int index = value.IndexOf("/");
-
-            if (index < 0 || index + 1 >= value.Length)
-            {
-                arg1 = value.Replace("/", "");
-                arg2 = null;
-            }
-            else
-            {
-                arg1 = value.Substring(0, index);
-                arg2 = value.Substring(index + 1);
-            }
+            value.TryGet(0, out string arg1);
+            value.TryGet(1, out string arg2);
 
             if (TryGetRole(arg1, out Role) && Role != RoleTypeId.None)
             {

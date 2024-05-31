@@ -27,9 +27,9 @@ namespace SwiftAPI.Utility.Spawners
                 CustomItemManager.DropCustomItem(CustomItem, Position);
         }
 
-        public override bool SetSpawnee(string value, out string feedback)
+        public override bool SetSpawnee(string[] value, out string feedback)
         {
-            if (int.TryParse(value, out int result))
+            if (int.TryParse(value[0], out int result))
             {
                 if (Enum.GetValues(typeof(ItemType)).ToArray<ItemType>().Contains((ItemType)result))
                 {
@@ -46,7 +46,7 @@ namespace SwiftAPI.Utility.Spawners
                     return false;
                 }
             }
-            else if (CustomItemManager.TryGetCustomItemWithID(value, out CustomItemBase it))
+            else if (CustomItemManager.TryGetCustomItemWithID(value[0], out CustomItemBase it))
             {
                 Item = it.BaseItem;
                 CustomItem = it;

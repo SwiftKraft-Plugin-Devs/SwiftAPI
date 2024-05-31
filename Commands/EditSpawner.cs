@@ -1,5 +1,6 @@
 ﻿using CommandSystem;
 using SwiftAPI.Utility.Spawners;
+using System.Collections.Generic;
 
 namespace SwiftAPI.Commands
 {
@@ -23,14 +24,17 @@ namespace SwiftAPI.Commands
                 return false;
             }
 
-            if (!TryGetArgument(args, 2, out string arg2))
+            if (args.Length < 3)
             {
                 result = "Please input the new custom data for spawner ID " + id + "!";
 
                 return false;
             }
 
-            return SpawnerManager.Spawners[id].SetSpawnee(arg2, out result);
+            List<string> customData = [.. args];
+            customData.RemoveRange(0, 2);
+
+            return SpawnerManager.Spawners[id].SetSpawnee([.. customData], out result);
         }
     }
 }

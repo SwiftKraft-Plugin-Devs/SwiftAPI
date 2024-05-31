@@ -1,6 +1,7 @@
 ﻿using CommandSystem;
 using PluginAPI.Core;
 using SwiftAPI.Utility.Spawners;
+using System.Collections.Generic;
 
 namespace SwiftAPI.Commands
 {
@@ -33,7 +34,7 @@ namespace SwiftAPI.Commands
                 return false;
             }
 
-            if (!TryGetArgument(args, 3, out string arg3))
+            if (args.Length < 4)
             {
                 result = "Please input the custom data (such as item ID) the spawner needs! ";
 
@@ -42,7 +43,10 @@ namespace SwiftAPI.Commands
 
             SpawnerBase sp = SpawnerManager.AddSpawner(player.Position, time, arg1);
 
-            if (!sp.SetSpawnee(arg3, out result))
+            List<string> customData = [.. args];
+            customData.RemoveRange(0, 3);
+
+            if (!sp.SetSpawnee([.. customData], out result))
             {
                 SpawnerManager.RemoveSpawner(sp.ID);
 

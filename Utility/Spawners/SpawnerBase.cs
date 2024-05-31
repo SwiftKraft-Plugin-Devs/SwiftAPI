@@ -35,7 +35,7 @@ namespace SwiftAPI.Utility.Spawners
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public abstract bool SetSpawnee(string value, out string feedback);
+        public abstract bool SetSpawnee(string[] value, out string feedback);
 
         public virtual void FixedUpdate()
         {
