@@ -1,11 +1,12 @@
-﻿using PlayerStatsSystem;
+﻿using PlayerRoles.PlayableScps.Scp049.Zombies;
+using PlayerStatsSystem;
 using UnityEngine;
 
 namespace SwiftAPI.API.BreakableToys
 {
     public class BreakableToyHitbox : MonoBehaviour, IDestructible
     {
-        public const int Layer = 3;
+        public int Layer = LayerMask.NameToLayer("Hitbox");
 
         public BreakableToyBase Parent;
 

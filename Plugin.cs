@@ -30,8 +30,6 @@ namespace SwiftAPI
 
             EventManager.RegisterEvents<EventHandler>(this);
 
-            FirearmBulletHoleEvent.Event += EventHandler.PlaceBulletHoleFirearm;
-
             new AliveTargeter().Register();
             new AllTargeter().Register();
             new ArmedTargeter().Register();
