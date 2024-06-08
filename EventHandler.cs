@@ -248,7 +248,7 @@ namespace SwiftAPI
             if (colls.Length > 0)
                 foreach (Collider col in colls)
                 {
-                    DamageBreakable(col, damageDrop == null ? damage : damageDrop.Evaluate(Vector3.Distance(col.ClosestPoint(position), position)), attacker, tags);
+                    //DamageBreakable(col, damageDrop == null ? damage : damageDrop.Evaluate(Vector3.Distance(col.ClosestPoint(position), position)), attacker, tags);
 
                     if (single)
                         break;

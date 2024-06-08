@@ -1,5 +1,6 @@
 ﻿using AdminToys;
 using Mirror;
+using PlayerStatsSystem;
 using PluginAPI.Core.Items;
 using SwiftAPI.API.CustomItems;
 using SwiftAPI.Utility.Misc;
@@ -29,6 +30,14 @@ namespace SwiftAPI.API.BreakableToys
         SnappingModes MoveMode = SnappingModes.DontMove;
 
         ReferenceHub Mover;
+
+        private void Awake()
+        {
+            Collider[] cols = GetComponentsInChildren<Collider>();
+
+            foreach (Collider col in cols)
+                col.gameObject.AddComponent<BreakableToyHitbox>().Parent = this;
+        }
 
         private void Start()
         {

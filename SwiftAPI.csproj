@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\BreakableToys\BreakableToyBase.cs" />
+    <Compile Include="API\BreakableToys\BreakableToyHitbox.cs" />
     <Compile Include="API\BreakableToys\BreakableToyManager.cs" />
     <Compile Include="API\CustomItems\CustomItemBase.cs" />
     <Compile Include="API\CustomItems\CustomItemCoin.cs" />
