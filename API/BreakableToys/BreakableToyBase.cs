@@ -20,7 +20,7 @@ namespace SwiftAPI.API.BreakableToys
         public ItemType DropItem = ItemType.None;
         public CustomItemBase DropCustomItem;
 
-        public Faction Faction { get; private set; } = Faction.Unclassified;
+        public Faction Faction { get; set; } = Faction.Unclassified;
 
         public uint NetworkId => Toy.netId;
 
