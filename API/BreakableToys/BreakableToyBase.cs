@@ -1,5 +1,6 @@
 ﻿using AdminToys;
 using Mirror;
+using PlayerRoles;
 using PlayerStatsSystem;
 using PluginAPI.Core.Items;
 using SwiftAPI.API.CustomItems;
@@ -18,6 +19,8 @@ namespace SwiftAPI.API.BreakableToys
 
         public ItemType DropItem = ItemType.None;
         public CustomItemBase DropCustomItem;
+
+        public Faction Faction { get; private set; }
 
         public uint NetworkId => Toy.netId;
 

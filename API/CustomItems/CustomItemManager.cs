@@ -30,7 +30,7 @@ namespace SwiftAPI.API.CustomItems
         /// <param name="_itemSerial"></param>
         /// <param name="_item"></param>
         /// <returns></returns>
-        public static bool AddCustomItem(ushort _itemSerial, CustomItemBase _item)
+        public static bool AddCustomItem(this ushort _itemSerial, CustomItemBase _item)
         {
             if (_item != null && RegisteredItems.ContainsValue(_item))
             {
@@ -51,7 +51,7 @@ namespace SwiftAPI.API.CustomItems
         /// <param name="_itemSerial"></param>
         /// <param name="_itemId"></param>
         /// <returns></returns>
-        public static bool AddCustomItem(ushort _itemSerial, string _itemId)
+        public static bool AddCustomItem(this ushort _itemSerial, string _itemId)
         {
             return AddCustomItem(_itemSerial, GetCustomItemWithID(_itemId));
         }
@@ -63,7 +63,7 @@ namespace SwiftAPI.API.CustomItems
         /// <param name="pos"></param>
         /// <param name="rot"></param>
         /// <returns></returns>
-        public static bool DropCustomItem(CustomItemBase cust, Vector3 pos, Quaternion rot)
+        public static bool DropCustomItem(this CustomItemBase cust, Vector3 pos, Quaternion rot)
         {
             if (cust == null)
                 return false;
@@ -73,7 +73,7 @@ namespace SwiftAPI.API.CustomItems
             return AddCustomItem(it.Serial, cust);
         }
 
-        public static bool DropCustomItem(CustomItemBase cust, Vector3 pos)
+        public static bool DropCustomItem(this CustomItemBase cust, Vector3 pos)
         {
             return DropCustomItem(cust, pos, Quaternion.identity);
         }
@@ -83,7 +83,7 @@ namespace SwiftAPI.API.CustomItems
         /// </summary>
         /// <param name="_itemSerial"></param>
         /// <returns></returns>
-        public static bool RemoveCustomItem(ushort _itemSerial)
+        public static bool RemoveCustomItem(this ushort _itemSerial)
         {
             if (Items.ContainsKey(_itemSerial))
             {
@@ -109,7 +109,7 @@ namespace SwiftAPI.API.CustomItems
         /// <param name="_id"></param>
         /// <param name="_item"></param>
         /// <returns></returns>
-        public static bool RegisterItem(string _id, CustomItemBase _item)
+        public static bool RegisterItem(this string _id, CustomItemBase _item)
         {
             if (!RegisteredItems.ContainsKey(_id))
             {
@@ -127,7 +127,7 @@ namespace SwiftAPI.API.CustomItems
         /// </summary>
         /// <param name="_id"></param>
         /// <returns></returns>
-        public static CustomItemBase GetCustomItemWithID(string _id)
+        public static CustomItemBase GetCustomItemWithID(this string _id)
         {
             if (IsRegistered(_id))
                 return RegisteredItems[_id];
@@ -141,7 +141,7 @@ namespace SwiftAPI.API.CustomItems
         /// <param name="_id"></param>
         /// <param name="_item"></param>
         /// <returns></returns>
-        public static bool TryGetCustomItemWithID(string _id, out CustomItemBase _item)
+        public static bool TryGetCustomItemWithID(this string _id, out CustomItemBase _item)
         {
             if (IsRegistered(_id))
             {
@@ -160,7 +160,7 @@ namespace SwiftAPI.API.CustomItems
         /// </summary>
         /// <param name="_itemSerial"></param>
         /// <returns></returns>
-        public static CustomItemBase GetCustomItemWithSerial(ushort _itemSerial)
+        public static CustomItemBase GetCustomItemWithSerial(this ushort _itemSerial)
         {
             if (IsCustomItem(_itemSerial))
                 return Items[_itemSerial];
@@ -174,7 +174,7 @@ namespace SwiftAPI.API.CustomItems
         /// <param name="_itemSerial"></param>
         /// <param name="_item"></param>
         /// <returns></returns>
-        public static bool TryGetCustomItemWithSerial(ushort _itemSerial, out CustomItemBase _item)
+        public static bool TryGetCustomItemWithSerial(this ushort _itemSerial, out CustomItemBase _item)
         {
             if (IsCustomItem(_itemSerial))
             {
@@ -193,7 +193,7 @@ namespace SwiftAPI.API.CustomItems
         /// </summary>
         /// <param name="_itemSerial"></param>
         /// <returns></returns>
-        public static bool IsCustomItem(ushort _itemSerial)
+        public static bool IsCustomItem(this ushort _itemSerial)
         {
             return Items.ContainsKey(_itemSerial);
         }
@@ -203,7 +203,7 @@ namespace SwiftAPI.API.CustomItems
         /// </summary>
         /// <param name="_id"></param>
         /// <returns></returns>
-        public static bool IsRegistered(string _id)
+        public static bool IsRegistered(this string _id)
         {
             return RegisteredItems.ContainsKey(_id);
         }

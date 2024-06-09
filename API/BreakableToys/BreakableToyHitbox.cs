@@ -1,5 +1,8 @@
-﻿using PlayerRoles.PlayableScps.Scp049.Zombies;
+﻿using PlayerRoles;
+using PlayerRoles.PlayableScps.Scp049.Zombies;
 using PlayerStatsSystem;
+using PluginAPI.Core;
+using SwiftAPI.API.CustomItems;
 using UnityEngine;
 
 namespace SwiftAPI.API.BreakableToys
@@ -21,7 +24,20 @@ namespace SwiftAPI.API.BreakableToys
 
         public bool Damage(float damage, DamageHandlerBase handler, Vector3 exactHitPos)
         {
-            Parent.Damage(damage);
+            ReferenceHub attacker = null;
+            string[] tags = [];
+
+            if (handler is AttackerDamageHandler atk)
+            {
+                attacker = atk.Attacker.Hub;
+                if (attacker.GetFaction() == Parent.Faction && !Server.FriendlyFire)
+                    return false;
+            }
+
+            if (attacker != null && attacker.inventory.CurInstance != null && attacker.inventory.CurInstance.ItemSerial.TryGetCustomItemWithSerial(out CustomItemBase cust))
+                tags = cust.Tags;
+
+            Parent.Damage(damage, attacker, tags);
             return true;
         }
     }

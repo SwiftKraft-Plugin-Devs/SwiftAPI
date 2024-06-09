@@ -4,7 +4,6 @@ using PluginAPI.Enums;
 using PluginAPI.Events;
 using SwiftAPI.API.CustomItems;
 using SwiftAPI.HarmonyPatches;
-using SwiftAPI.HarmonyPatches.Patches;
 using SwiftAPI.Utility.Spawners;
 using SwiftAPI.Utility.Targeters;
 
