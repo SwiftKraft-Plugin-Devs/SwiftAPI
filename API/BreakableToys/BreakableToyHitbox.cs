@@ -1,5 +1,4 @@
 ﻿using PlayerRoles;
-using PlayerRoles.PlayableScps.Scp049.Zombies;
 using PlayerStatsSystem;
 using PluginAPI.Core;
 using SwiftAPI.API.CustomItems;
@@ -9,7 +8,7 @@ namespace SwiftAPI.API.BreakableToys
 {
     public class BreakableToyHitbox : MonoBehaviour, IDestructible
     {
-        public int Layer = LayerMask.NameToLayer("Hitbox");
+        public int Layer = LayerMask.NameToLayer("Glass");
 
         public BreakableToyBase Parent;
 
