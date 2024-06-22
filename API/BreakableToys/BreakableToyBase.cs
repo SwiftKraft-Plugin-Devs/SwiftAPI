@@ -5,6 +5,7 @@ using PlayerStatsSystem;
 using PluginAPI.Core.Items;
 using SwiftAPI.API.CustomItems;
 using SwiftAPI.Utility.Misc;
+using System;
 using UnityEngine;
 
 namespace SwiftAPI.API.BreakableToys
@@ -22,6 +23,8 @@ namespace SwiftAPI.API.BreakableToys
 
         public Faction Faction { get; set; } = Faction.Unclassified;
 
+        public event Action OnBreak;
+
         public uint NetworkId => Toy.netId;
 
         public bool IsMoving => Mover != null && MoveMode != SnappingModes.DontMove;
@@ -34,7 +37,7 @@ namespace SwiftAPI.API.BreakableToys
 
         ReferenceHub Mover;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             Collider[] cols = GetComponentsInChildren<Collider>();
 
@@ -42,12 +45,12 @@ namespace SwiftAPI.API.BreakableToys
                 col.gameObject.AddComponent<BreakableToyHitbox>().Parent = this;
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             Toy.IsStatic = false;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (!IsMoving)
                 return;
@@ -94,6 +97,8 @@ namespace SwiftAPI.API.BreakableToys
 
             dead = true;
 
+            OnBreak?.Invoke();
+
             BreakableToyManager.Breakables.Remove(this);
 
             NetworkServer.Destroy(Toy.gameObject);
@@ -126,7 +131,7 @@ namespace SwiftAPI.API.BreakableToys
             return true;
         }
 
-        public void Drop()
+        public virtual void Drop()
         {
             if (DropCustomItem == null && DropItem != ItemType.None)
             {
@@ -137,7 +142,7 @@ namespace SwiftAPI.API.BreakableToys
                 CustomItemManager.DropCustomItem(DropCustomItem, Toy.NetworkPosition);
         }
 
-        public void Move(bool state, ReferenceHub mover = null, SnappingModes mode = SnappingModes.DontMove)
+        public virtual void Move(bool state, ReferenceHub mover = null, SnappingModes mode = SnappingModes.DontMove)
         {
             if (!state || mover == null || mode == SnappingModes.DontMove)
             {

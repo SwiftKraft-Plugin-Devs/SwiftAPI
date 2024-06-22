@@ -19,7 +19,7 @@ namespace SwiftAPI.Utility.Spawners
 
         public static bool IsValidType(string id) => SpawnerTypes.ContainsKey(id.ToUpper());
 
-        public static bool IsValidSpawner(int id) => Spawners.Count > id;
+        public static bool IsValidSpawner(int id) => Spawners.Count > id && id >= 0;
 
         public static bool RegisterSpawnerType<T>(string id) where T : SpawnerBase
         {
@@ -55,6 +55,8 @@ namespace SwiftAPI.Utility.Spawners
             Spawners.RemoveAt(spawnerId);
             return true;
         }
+
+        public static bool RemoveSpawner(SpawnerBase spawner) => Spawners.Remove(spawner);
 
         public static void ClearSpawners() => Spawners.Clear();
 
