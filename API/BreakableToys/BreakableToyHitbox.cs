@@ -11,6 +11,7 @@ namespace SwiftAPI.API.BreakableToys
         public int Layer = LayerMask.NameToLayer("Glass");
 
         public BreakableToyBase Parent;
+        public Collider Collider;
 
         public uint NetworkId => Parent.NetworkId;
 

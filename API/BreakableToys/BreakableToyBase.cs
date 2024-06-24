@@ -6,6 +6,7 @@ using PluginAPI.Core.Items;
 using SwiftAPI.API.CustomItems;
 using SwiftAPI.Utility.Misc;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SwiftAPI.API.BreakableToys
@@ -13,6 +14,8 @@ namespace SwiftAPI.API.BreakableToys
     public class BreakableToyBase : MonoBehaviour
     {
         public PrimitiveObjectToy Toy;
+
+        public BreakableToyHitbox Hitbox;
 
         public float MaxHealth;
 
@@ -39,10 +42,11 @@ namespace SwiftAPI.API.BreakableToys
 
         protected virtual void Awake()
         {
-            Collider[] cols = GetComponentsInChildren<Collider>();
-
-            foreach (Collider col in cols)
-                col.gameObject.AddComponent<BreakableToyHitbox>().Parent = this;
+            Collider col = GetComponentInChildren<Collider>();
+            BreakableToyHitbox hitbox = col.gameObject.AddComponent<BreakableToyHitbox>();
+            hitbox.Parent = this;
+            hitbox.Collider = col;
+            Hitbox = hitbox;
         }
 
         protected virtual void Start()

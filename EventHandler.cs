@@ -176,7 +176,7 @@ namespace SwiftAPI
         [PluginEvent(ServerEventType.PlayerCoinFlip)]
         public void PlayerCoinFlip(PlayerCoinFlipEvent _event)
         {
-            if (!CustomItemManager.IsCustomItem(_event.Player.CurrentItem.ItemSerial) || CustomItemManager.GetCustomItemWithSerial(_event.Player.CurrentItem.ItemSerial) is not CustomItemCoin coin)
+            if (_event.Player == null || _event.Player.CurrentItem == null || !CustomItemManager.IsCustomItem(_event.Player.CurrentItem.ItemSerial) || CustomItemManager.GetCustomItemWithSerial(_event.Player.CurrentItem.ItemSerial) is not CustomItemCoin coin)
                 return;
 
             coin.Flip(_event.Player, _event.Player.CurrentItem, _event.IsTails);
