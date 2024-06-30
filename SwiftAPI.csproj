@@ -100,6 +100,8 @@
     <Compile Include="API\CustomItems\FriendlyActions\FriendlyActionHeal.cs" />
     <Compile Include="API\CustomItems\FriendlyActions\FriendlyActionShield.cs" />
     <Compile Include="API\CustomItems\FriendlyActions\FriendlyActionSpeed.cs" />
+    <Compile Include="API\CustomRoles\CustomRoleBase.cs" />
+    <Compile Include="API\CustomRoles\CustomRoleManager.cs" />
     <Compile Include="API\ServerVariables\ServerVariable.cs" />
     <Compile Include="API\ServerVariables\ServerVariableManager.cs" />
     <Compile Include="Commands\AddSpawner.cs" />
