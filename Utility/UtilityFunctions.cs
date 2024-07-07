@@ -6,6 +6,7 @@ using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
 using Mirror;
 using PluginAPI.Core;
+using System.Linq;
 using UnityEngine;
 
 namespace SwiftAPI.Utility
@@ -37,5 +38,9 @@ namespace SwiftAPI.Utility
         }
 
         public static ThrowableItem CreateThrowable(this ItemType type, Player player = null) => (player != null ? player.ReferenceHub : ReferenceHub.HostHub).inventory.CreateItemInstance(new ItemIdentifier(type, ItemSerialGenerator.GenerateNext()), false) as ThrowableItem;
+
+        public static T[] GetColumn<T>(this T[,] matrix, int columnNumber) => Enumerable.Range(0, matrix.GetLength(0)).Select(x => matrix[x, columnNumber]).ToArray();
+
+        public static T[] GetRow<T>(this T[,] matrix, int rowNumber) => Enumerable.Range(0, matrix.GetLength(1)).Select(x => matrix[rowNumber, x]).ToArray();
     }
 }
