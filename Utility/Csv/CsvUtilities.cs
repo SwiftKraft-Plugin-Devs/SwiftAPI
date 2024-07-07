@@ -13,17 +13,17 @@ namespace SwiftAPI.Utility.Csv
             return builder.ToString();
         }
 
-        public static bool WriteCsvFile(string path, string csvString)
+        public static bool WriteCsvFile(string path, string name, string csvString)
         {
-            if (File.Exists(path))
+            if (Directory.Exists(path))
             {
-                File.WriteAllText(path, csvString);
+                File.WriteAllText(path + name + ".csv", csvString);
                 return true;
             }
             return false;
         }
 
-        public static bool WriteCsvFile(string path, string[,] csv) => WriteCsvFile(path, csv.ToCsvString());
+        public static bool WriteCsvFile(string path, string name, string[,] csv) => WriteCsvFile(path, name, csv.ToCsvString());
 
         public static string ReadCsvFile(string path) => File.Exists(path) ? File.ReadAllText(path) : null;
 
