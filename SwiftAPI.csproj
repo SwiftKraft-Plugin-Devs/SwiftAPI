@@ -104,6 +104,7 @@
     <Compile Include="API\CustomRoles\CustomRoleManager.cs" />
     <Compile Include="API\Localization\LocalizationManager.cs" />
     <Compile Include="API\Localization\LocalizationProfile.cs" />
+    <Compile Include="API\Localization\LocalizedString.cs" />
     <Compile Include="API\ServerVariables\ServerVariable.cs" />
     <Compile Include="API\ServerVariables\ServerVariableManager.cs" />
     <Compile Include="Commands\AddSpawner.cs" />
